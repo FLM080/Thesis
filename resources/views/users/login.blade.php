@@ -1,3 +1,4 @@
+
 <x-registerLayout>
     <div class="container-fluid p-5" style="height: 80vh;">
         <div class="row gx-5" style="height: 100%;">
@@ -10,7 +11,7 @@
                 <div class="mb-4">
                     <h1 class="display-3 text-uppercase mb-0">Login</h1>
                 </div>
-                <form>
+                <form method="POST" action="/users/authenticate">
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -21,7 +22,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password" value="{{old('password')}}">
                         @error('password')
                         <p class="text-danger">{{$message}}</p>
                         @enderror

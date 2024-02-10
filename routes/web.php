@@ -30,3 +30,9 @@ Route::get('/register', [UserController::class, 'create']);
 //show login form
 Route::get('/login', [UserController::class, 'login']);
 
+//create new user
+Route::post('/users', [UserController::class, 'store']);
+
+//login user
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+

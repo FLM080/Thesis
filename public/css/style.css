@@ -219,3 +219,6 @@ h6,
         background: var(--primary);
     }
 }
+#footer {
+    background-color: #111111;
+}
