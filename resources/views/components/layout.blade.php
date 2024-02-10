@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-     
+
 
     <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap"
+        rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
@@ -18,12 +19,12 @@
     @notifyCss
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    
+
     <title>Document</title>
-    
+
     <!-- JavaScript Libraries -->
-     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -35,6 +36,7 @@
                     <h1 class="m-0 display-4 text-primary text-uppercase">WPM</h1>
                 </a>
             </div>
+            @auth
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 px-lg-5">
                     <a href="/" class="navbar-brand d-block d-lg-none">
@@ -50,12 +52,51 @@
                             <a href="about.html" class="nav-item nav-link">plan your workout</a>
                             <a href="class.html" class="nav-item nav-link">Famous workouts</a>
                             <a href="trainer.html" class="nav-item nav-link">Give us feedback</a>
-                            <a href="/register" class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none">Sign up</a>
+                            <a href="/register" class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none">Sign
+                                up</a>
+                        </div>
+                        <div class="dropdown">
+                            <a class="btn btn-primary dropdown-toggle py-md-3 px-md-5 d-none d-lg-block font-bold" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ auth()->user()->name }}
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item fa-solid fa-gear" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><form class=" inline" method="POST" action="/logout">
+                                    @csrf
+                                    <input type="submit" class="dropdown-item" value="Logout">
+                                </form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            @else
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 px-lg-5">
+                    <a href="/" class="navbar-brand d-block d-lg-none">
+                        <h1 class="m-0 display-4 text-primary text-uppercase">WPM</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="about.html" class="nav-item nav-link">plan your workout</a>
+                            <a href="class.html" class="nav-item nav-link">Famous workouts</a>
+                            <a href="trainer.html" class="nav-item nav-link">Give us feedback</a>
+                            <a href="/register" class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none">Sign
+                                up</a>
                         </div>
                         <a href="/register" class="btn btn-primary py-md-3 px-md-5 d-none d-lg-block">Sign up</a>
                     </div>
                 </nav>
             </div>
+            @endauth
         </div>
     </div>
     <!-- Header End -->
@@ -69,9 +110,12 @@
             <h4 class="text-uppercase text-light mb-4 text-center pt-3">Quick Links</h4>
             <div class="d-flex flex-row justify-content-center">
                 <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Plan your workout</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Famous workouts</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Give us feedback</a>
+                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Plan
+                    your workout</a>
+                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Famous
+                    workouts</a>
+                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Give us
+                    feedback</a>
             </div>
         </div>
     </div>
@@ -85,6 +129,7 @@
     <!-- Footer End -->
 
     <!-- Back to Top -->
+
     <a href="#" class="btn btn-dark py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
     <x-notify::notify />
     @notifyJs
