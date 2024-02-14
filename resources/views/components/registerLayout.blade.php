@@ -11,11 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap"
         rel="stylesheet">
     
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
-
     @notifyCss
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -62,7 +57,7 @@
     {{ $slot }}
 
     <!-- Footer Start -->
-    <div class="container-fluid py-4 py-lg-0 px-5 fixed-bottom" id="footer">
+    <div class="container-fluid py-4 py-lg-0 px-5" id="footer" >
         <div class="row gx-5">
             <div class="py-lg-4 text-center">
                 <p class="text-secondary mb-0">&copy; All Rights Reserved.</p>

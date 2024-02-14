@@ -1,5 +1,5 @@
 <div class="container-fluid p-0 mb-5">
-    <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="header-carousel" class="carousel slide" id="carousel" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="w-100" src="images/hero-1.jpg" alt="Image">

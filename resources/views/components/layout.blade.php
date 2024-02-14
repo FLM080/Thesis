@@ -6,15 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-
-
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap"
         rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     @notifyCss
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -25,6 +20,7 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    
 </head>
 
 <body>
@@ -52,22 +48,42 @@
                             <a href="about.html" class="nav-item nav-link">plan your workout</a>
                             <a href="class.html" class="nav-item nav-link">Famous workouts</a>
                             <a href="trainer.html" class="nav-item nav-link">Give us feedback</a>
-                            <a href="/register" class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none">Sign
-                                up</a>
+                            <a class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none" role="button"
+                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">{{
+                                auth()->user()->name }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item fa-solid fa-gear" href="#">Settings</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form class=" inline" method="POST" action="/logout">
+                                        @csrf
+                                        <input type="submit" class="dropdown-item" value="Logout">
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                         <div class="dropdown">
-                            <a class="btn btn-primary dropdown-toggle py-md-3 px-md-5 d-none d-lg-block font-bold" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="btn btn-primary dropdown-toggle py-md-3 px-md-5 d-none d-lg-block font-bold"
+                                role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ auth()->user()->name }}
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 <li><a class="dropdown-item fa-solid fa-gear" href="#">Settings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><form class=" inline" method="POST" action="/logout">
-                                    @csrf
-                                    <input type="submit" class="dropdown-item" value="Logout">
-                                </form></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form class=" inline" method="POST" action="/logout">
+                                        @csrf
+                                        <input type="submit" class="dropdown-item" value="Logout">
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>

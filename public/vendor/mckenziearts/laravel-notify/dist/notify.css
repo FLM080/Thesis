@@ -299,6 +299,7 @@ video {
 }
 .fixed {
   position: fixed;
+  z-index: 2;
 }
 .absolute {
   position: absolute;
