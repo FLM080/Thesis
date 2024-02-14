@@ -71,4 +71,10 @@ class UserController extends Controller
         notify()->success('Successfully logged out');
         return redirect('/');
     }
+
+    //show user profile
+    public function show()
+    {
+        return view('users.profile');
+    }
 }

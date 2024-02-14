@@ -41,10 +41,10 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link">plan your workout</a>
-                            <a href="class.html" class="nav-item nav-link">Famous workouts</a>
-                            <a href="trainer.html" class="nav-item nav-link">Give us feedback</a>
+                            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
+                            <a href="about.html" class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">Plan Your Workout</a>
+                            <a href="class.html" class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">Famous Workouts</a>
+                            <a href="trainer.html" class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">Give Us Feedback</a>
                         </div>
 
                 </nav>
