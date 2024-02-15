@@ -15,12 +15,13 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-    <title>Document</title>
+    <title>FitForge: Your ultimate Workout Creator</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 </head>
 
 <body>
@@ -29,14 +30,14 @@
         <div class="row gx-0">
             <div class="col-lg-3 bg-dark d-none d-lg-block">
                 <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <h1 class="m-0 display-4 text-primary text-uppercase">WPM</h1>
+                    <h1 class="m-0 display-4 text-primary text-uppercase">FitForge</h1>
                 </a>
             </div>
             @auth
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 px-lg-5">
                     <a href="/" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 display-4 text-primary text-uppercase">WPM</h1>
+                        <h1 class="m-0 display-4 text-primary text-uppercase">FitForge</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse">
@@ -44,47 +45,68 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home') }}</a>
-                            <a href="about.html" class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">Plan Your Workout</a>
-                            <a href="class.html" class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">Famous Workouts</a>
-                            <a href="trainer.html" class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">Give Us Feedback</a>
+                            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home')
+                                }}</a>
+                            <a href="about.html"
+                                class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">{{ __('Plan Your Workout') }}</a>
+                            <a href="class.html"
+                                class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
+                            <a href="trainer.html"
+                                class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us Feedback') }}</a>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
                             <a class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none" role="button"
                                 id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">{{
                                 auth()->user()->name }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="/profile">{{ __('Profile') }}</a></li>
+                                <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
                                     <form class=" inline" method="POST" action="/logout">
                                         @csrf
-                                        <input type="submit" class="dropdown-item" value="Logout">
+                                        <input type="submit" class="dropdown-item" value="{{ __('Logout') }}">
                                     </form>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="dropdown">
-                            <a class="btn btn-primary dropdown-toggle py-md-3 px-md-5 d-none d-lg-block font-bold"
-                                role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ auth()->user()->name }}
-                            </a>
+                            <div class=" px-md-5 nav-item nav-link dropdown d-flex">
+                                <a class="dropdown-toggle  font-bold align-self-center" role="button"
+                                    id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ __('Languages') }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    @foreach (config('localization.locales') as $locale)
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('localization', $locale) }}">{{
+                                            __($locale) }}</a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
 
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <form class=" inline" method="POST" action="/logout">
-                                        @csrf
-                                        <input type="submit" class="dropdown-item" value="Logout">
-                                    </form>
-                                </li>
-                            </ul>
+                            <div class="dropdown">
+                                <a class="btn btn-primary dropdown-toggle py-md-3 px-md-5 d-none d-lg-block font-bold"
+                                    role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ auth()->user()->name }}
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="/profile">{{ __('Profile') }}</a></li>
+                                    <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <form class=" inline" method="POST" action="/logout">
+                                            @csrf
+                                            <input type="submit" class="dropdown-item" value="{{ __('Logout') }}">
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </nav>
@@ -93,7 +115,7 @@
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 px-lg-5">
                     <a href="/" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 display-4 text-primary text-uppercase">WPM</h1>
+                        <h1 class="m-0 display-4 text-primary text-uppercase">FitForge</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse">
@@ -101,29 +123,42 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home') }}</a>
-                            <a href="about.html" class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">Plan Your Workout</a>
-                            <a href="class.html" class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">Famous Workouts</a>
-                            <a href="trainer.html" class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">Give Us Feedback</a>                                        
-                            <a href="/register" class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none" style="margin-bottom: 10px;">Sign up</a>
-                            <a href="/login" class="nav-item nav-link btn btn-outline-primary py-md-3 px-md-5 d-lg-block d-lg-none">Login</a>
+                            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home')
+                                }}</a>
+                            <a href="about.html"
+                                class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">{{ __('Plan Your Workout') }}</a>
+                            <a href="class.html"
+                                class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
+                            <a href="trainer.html"
+                                class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us Feedback') }}</a>
+                            <a href="/login"
+                                class="nav-item nav-link btn btn-outline-primary py-md-3 px-md-5 d-lg-block d-lg-none" k
+                                id="Login">{{ __('Login') }}</a>
+                            <a href="/register" class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none">{{
+                                __('Sign Up') }}</a>
+
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <div class="py-md-3 px-md-5 nav-item nav-link dropdown">
-                                <a class="dropdown-toggle  font-bold"
-                                    role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class=" px-md-5 nav-item nav-link dropdown d-flex">
+                                <a class="dropdown-toggle  font-bold align-self-center" role="button"
+                                    id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ __('Languages') }}
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     @foreach (config('localization.locales') as $locale)
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('localization', $locale) }}">{{ __($locale) }}</a>
-                                        </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('localization', $locale) }}">{{
+                                            __($locale) }}</a>
+                                    </li>
                                     @endforeach
                                 </ul>
                             </div>
-                            <a href="/register" class="nav-item nav-link btn btn-primary py-md-3 px-md-5 m-2 d-none d-lg-block">Sign up</a>
-                            <a href="/login" class="nav-item nav-link btn btn-outline-primary py-md-3 px-md-5 m-2 d-none d-lg-block">Login</a>
+                            <a href="/login"
+                                class="nav-item nav-link btn btn-outline-primary py-md-3 px-md-5 m-2 d-none d-lg-block">{{
+                                __('Login') }}</a>
+                            <a href="/register"
+                                class="nav-item nav-link btn btn-primary py-md-3 px-md-5 m-2 d-none d-lg-block">{{
+                                __('Sign Up') }}</a>
                         </div>
                     </div>
                 </nav>
@@ -137,17 +172,20 @@
     {{ $slot }}
 
     <!-- Footer Start -->
+    <z-footer>
+    @if (request()->is('/'))
     <div class="container-fluid bg-dark text-secondary px-5 mt-5">
         <div class="row gx-5">
-            <h4 class="text-uppercase text-light mb-4 text-center pt-3">Quick Links</h4>
+            <h4 class="text-uppercase text-light mb-4 text-center pt-3">{{ __('Quick Links') }}</h4>
             <div class="d-flex flex-row justify-content-center">
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Plan
-                    your workout</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Famous
-                    workouts</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Give us
-                    feedback</a>
+                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
+                    __('Home') }}</a>
+                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
+                    __('Plan Your Workout') }}</a>
+                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
+                    __('Famous Workouts') }}</a>
+                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
+                    __('Give Us Feedback') }}</a>
             </div>
         </div>
     </div>
@@ -165,6 +203,17 @@
     <a href="#" class="btn btn-dark py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
     <x-notify::notify />
     @notifyJs
+    @else
+    <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
+        <div class="row gx-5">
+            <div class="py-lg-4 text-center">
+                <p class="text-secondary mb-0">&copy;All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+    @endif
+
 </body>
 
 </html>
+</z-footer>

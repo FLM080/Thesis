@@ -128,93 +128,6 @@ h6,
   position: relative;
   z-index: 1;
 }
-
-.programe::after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: calc(100% - 45px);
-  top: 135px;
-  left: 0;
-  background: var(--dark);
-  z-index: -1;
-}
-
-.team-item img {
-  transition: 0.5s;
-}
-
-.team-item:hover img {
-  transform: scale(1.2);
-}
-
-.team-item .team-overlay {
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  bottom: 50%;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(34, 36, 41, 0.9);
-  transition: 0.5s;
-  opacity: 0;
-}
-
-.team-item:hover .team-overlay {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 1;
-}
-
-.testimonial-carousel {
-  margin-top: 30px;
-  display: flex;
-  justify-content: start;
-}
-
-.testimonial-carousel,
-.testimonial-carousel {
-  position: relative;
-  margin: 0 5px;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  background: var(--primary);
-  font-size: 22px;
-  border-radius: 45px;
-  transition: 0.5s;
-}
-
-.testimonial-carousel,
-.testimonial-carousel {
-  color: var(--dark);
-}
-
-.testimonial-carousel {
-  width: 90px;
-  height: 90px;
-}
-
-.blog-item img {
-  transition: 0.5s;
-}
-
-.blog-item:hover img {
-  transform: scale(1.2);
-}
-
-@media (min-width: 991.98px) {
-  .credit {
-    background: var(--primary);
-  }
-}
 /*saját kezdés*/
 
 body {
@@ -250,4 +163,28 @@ body {
   body {
     overflow-x: hidden;
   }
+}
+img{
+  background-size: cover;
+  background-position: center;
+}
+#Login{
+  margin-bottom: 10px;
+}
+#profile-main{
+
+  display: flex;
+  flex-direction: column;
+  background: rgba(34, 36, 41, 0.8);
+  height: 81.2vh;
+  align-self: center;
+  justify-content: center;
+  width: 100%;
+}
+#profile-wall{
+  border-right : 1px solid white;
+}
+img.h-100.w-75.rounded-circle:hover{
+  transition: 1s;
+  filter: grayscale(100%);
 }

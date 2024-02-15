@@ -9,7 +9,7 @@
             </div>
             <div class="col-lg-7">
                 <div class="mb-4">
-                    <h1 class="display-3 text-uppercase mb-0">Login</h1>
+                    <h1 class="display-3 text-uppercase mb-0">{{ __('Login') }}</h1>
                 </div>
                 <form method="POST" action="/users/authenticate">
                     @csrf
@@ -21,17 +21,17 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">{{ __('Password') }}</label>
                         <input type="password" class="form-control" id="password" name="password"
                             value="{{old('password')}}">
                         @error('password')
                         <p class="text-danger">{{$message}}</p>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
                     <div class="">
-                        <label for="new_member" class="mt-3">New member?</label>
-                        <a class="" href="/register">Register</a>
+                        <label for="new_member" class="mt-3">{{ __('New on site') }}?</label>
+                        <a class="" href="/register">{{ __('Sign Up') }}</a>
                     </div>
                 </form>
             </div>

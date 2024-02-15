@@ -14,7 +14,9 @@
     @notifyCss
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <title>Document</title>
+    <title>FitForge: Your ultimate Workout Creator</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -27,13 +29,13 @@
         <div class="row gx-0">
             <div class="col-lg-3 bg-dark d-none d-lg-block">
                 <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <h1 class="m-0 display-4 text-primary text-uppercase">WPM</h1>
+                    <h1 class="m-0 display-4 text-primary text-uppercase">FitForge</h1>
                 </a>
             </div>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 px-lg-5">
                     <a href="/" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 display-4 text-primary text-uppercase">WPM</h1>
+                        <h1 class="m-0 display-4 text-primary text-uppercase">FitForge</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse">
@@ -41,10 +43,23 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
-                            <a href="about.html" class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">Plan Your Workout</a>
-                            <a href="class.html" class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">Famous Workouts</a>
-                            <a href="trainer.html" class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">Give Us Feedback</a>
+                            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home') }}</a>
+                            <a href="about.html" class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">{{ __('Plan Your Workout') }}</a>
+                            <a href="class.html" class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
+                            <a href="trainer.html" class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us Feedback') }}</a>
+                            <div class=" px-md-5 nav-item nav-link dropdown d-flex">
+                                <a class="dropdown-toggle  font-bold align-self-center"
+                                    role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ __('Languages') }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    @foreach (config('localization.locales') as $locale)
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('localization', $locale) }}">{{ __($locale) }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
 
                 </nav>
@@ -57,17 +72,18 @@
     {{ $slot }}
 
     <!-- Footer Start -->
-    <div class="container-fluid py-4 py-lg-0 px-5" id="footer" >
-        <div class="row gx-5">
-            <div class="py-lg-4 text-center">
-                <p class="text-secondary mb-0">&copy; All Rights Reserved.</p>
+        
+        <div class="container-fluid py-4 py-lg-0 px-5" id="footer" >
+            <div class="row gx-5">
+                <div class="py-lg-4 text-center">
+                    <p class="text-secondary mb-0">&copy; All Rights Reserved.</p>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Footer End -->
+        <!-- Footer End -->
 
-    <x-notify::notify />
-    @notifyJs
-</body>
+        <x-notify::notify />
+        @notifyJs
+    </body>
 
-</html>
+    </html>

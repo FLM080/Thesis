@@ -32,7 +32,7 @@ class UserController extends Controller
         //auth()->login($user);
 
         //Redirect to logion page with success message'
-        notify()->success('Account created successfully');
+        notify()->success(__('Account created successfully'));
         return redirect('/login');
     }
 
@@ -52,12 +52,12 @@ class UserController extends Controller
 
         if(auth()->attempt($credentials)){
             $request->session()->regenerate();
-            notify()->success('Successfully logged in');
+            notify()->success(__('Successfully logged in'));
             return redirect()->intended('/');
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => __('The provided credentials do not match our records.'),
         ])->onlyInput();
     }
 
@@ -68,7 +68,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        notify()->success('Successfully logged out');
+        notify()->success(__('Successfully logged out'));
         return redirect('/');
     }
 
@@ -76,5 +76,18 @@ class UserController extends Controller
     public function show()
     {
         return view('users.profile');
+    }
+
+    //edit preferences
+    public function setPreference(Request $request)
+    {
+        $formFields = $request->validate([
+            
+        ]);
+
+
+
+        notify()->success('Preference updated successfully');
+        return back();
     }
 }

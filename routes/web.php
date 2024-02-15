@@ -51,6 +51,8 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', [UserController::class, 'show']);
 
+    //edit preferences
+    Route::get('/profile/preference', [UserController::class, 'setPreference']);
 });
 
 });
