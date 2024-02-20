@@ -28,5 +28,13 @@
     "The email has already been taken.": "Az e-mail cím már foglalt.",
     "The password field must be at least 6 characters.": "A jelszó mezőnek legalább 6 karakter hosszúnak kell lennie.",
     "The password field format is invalid.": "A jelszó mező formátuma érvénytelen.",
-    "The password field confirmation does not match.": "A jelszó megerősítése nem egyezik."
+    "The password field confirmation does not match.": "A jelszó megerősítése nem egyezik.",
+    "Profile Page": "Profil oldal",
+    "Gender": "Nem",
+    "Preferences": "Preferenciák",
+    "Edit profile": "Profil szerkesztése",
+    "Details": "Részletek",
+    "Credentials": "Hitelesítők",
+    "Save": "Mentés"
+
 }
