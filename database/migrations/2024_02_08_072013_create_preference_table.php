@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('preference', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id');
-            $table->enum('goal', ['lose weight', 'build muscle', 'maintain weight']);
-            $table->enum('workout_type', ['bodyweight', 'weight training', 'cardio', 'no equipment']);
-            $table->enum('strength_level', ['beginner', 'intermediate', 'advanced']);
+            $table->enum('goal', ['None','lose weight', 'build muscle', 'maintain weight']);
+            $table->enum('workout_type', ['None','bodyweight', 'weight training', 'cardio', 'no equipment']);
+            $table->enum('strength_level', ['None','beginner', 'intermediate', 'advanced']);
             
     });
     }

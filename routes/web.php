@@ -54,8 +54,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', [UserController::class, 'show']);
 
     //show user preference
-    Route::get('/profile', [PreferenceController::class, 'show']);
+    //Route::get('/profile', [PreferenceController::class, 'show']);
 
+    //update user preference
+    Route::post('/profile/updatePreference/{id}', [PreferenceController::class, 'update']);
+
+    Route::post('/profile/updateGender/{id}', [UserController::class, 'updateGender']);
 
 });
 

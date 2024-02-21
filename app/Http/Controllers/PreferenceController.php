@@ -10,37 +10,36 @@ class PreferenceController extends Controller
 {
     public function show()
     {
-        $user = Auth::user(); 
-        $preference = Preference::where('user_id', $user->id)->first(); 
+        $user = Auth::user();
+        $preference = Preference::where('user_id', $user->id)->first();
 
-            $columns = Preference::getSelectedColumns();
-            $options = [];
-            $selected = [];
-    
-            foreach ($columns as $column => $label) {
-                $options[$column] =Preference::getEnumValues($column);
-                $selected[$column] = $preference ? $preference->$column : null;}
+        $columns = Preference::getSelectedColumns();
+        $options = [];
+        $selected = [];
 
+        
 
-
-    return view('users.profile' , compact('columns', 'options', 'selected'));
+        foreach ($columns as $column => $label) {
+            $options[$column] = Preference::getEnumValues($column);
+            $selected[$column] = $preference ? $preference->$column : null;
+        }
+        
+        return compact('columns', 'options', 'selected');
     }
 
+    //update user preference
     public function update(Request $request, $id)
     {
-        $preference = Preference::find($id);
-
-        $formFields = $request->validate([
-            'goal' => ['required', 'in:lose_weight,get_fit,build_muscle'],
-            'workout_type' => ['required', 'in:cardio,strength,flexibility'],
-            'strength_level' => ['required', 'in:beginner,intermediate,advanced'],
-        ]);
-
-        $preference->update($formFields);
-
-        notify()->success(__('Preference updated successfully'));
+        $user = Auth::user();
+        $preference = Preference::where('user_id', $user->id)->first();
+        if (!$preference) {
+            $preference = new Preference();
+            $preference->user_id = $user->id;
+        }
+        $preference->goal = $request->goal;
+        $preference->workout_type = $request->workout_type;
+        $preference->strength_level = $request->strength_level;
+        $preference->save();
         return redirect('/profile');
     }
-
-
 }

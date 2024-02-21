@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use App\Models\Users;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PreferenceController;
 
 class UserController extends Controller
 {
@@ -75,19 +78,34 @@ class UserController extends Controller
     //show user profile
     public function show()
     {
-        return view('users.profile');
+        $user = Auth::user(); 
+        $gender = Users::where('id', $user->id)->first(); 
+
+        $genderColumn = Users::getGenderColumn();
+        $genders = Users::getColumnEnums($genderColumn);
+        $selectedGender = $user->gender;
+
+        $preferenceController = new PreferenceController();
+        $preferenceData = $preferenceController->show();
+
+        $columns = $preferenceData['columns'];
+        $options = $preferenceData['options'];
+        $selected = $preferenceData['selected'];
+
+        return view('users.profile', compact('genderColumn', 'genders', 'selectedGender', 'columns', 'options', 'selected'));
     }
 
-    //edit preferences
-    public function setPreference(Request $request)
+    //update gender
+    public function updateGender(Request $request)
     {
-        $formFields = $request->validate([
-            
-        ]);
-
-
-
-        notify()->success('Preference updated successfully');
-        return back();
+        $user = Auth::user();
+        $users = users::where('id', $user->id)->first();
+        if (!$users) {
+            $users = new users();
+            $users->user_id = $user->id;
+        }
+        $users->gender = $request->gender;
+        $users->save();
+        return redirect('/profile');
     }
 }

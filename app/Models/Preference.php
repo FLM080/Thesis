@@ -10,7 +10,7 @@ class Preference extends Model
 {
     use HasFactory;
     protected $table = 'preference';
-    protected $fillable = ['goal', 'workout_type', 'strength_level'];
+    public $timestamps = false;
 
     public static function getSelectedColumns()
     {
@@ -23,6 +23,7 @@ class Preference extends Model
 
     public static function getEnumValues($column)
     {
+
         $query = "SHOW COLUMNS FROM preference WHERE Field = '{$column}'";
         $type = DB::select($query)[0]->Type;
         $enumValues = [];
@@ -30,5 +31,12 @@ class Preference extends Model
         $enumValues = $matches[1];
         return $enumValues;
     }
+
+    public static function getUserPreferences($userId)
+{
+    return Preference::where('user_id', $userId)->first();
+}
+
+
     
 }

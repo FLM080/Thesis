@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable //implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -44,5 +45,5 @@ class User extends Authenticatable //implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public $timestamps = false;
+
 }

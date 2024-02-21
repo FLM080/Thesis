@@ -10,7 +10,11 @@
                             class="rounded-circle" id="profile-image">
                         <h1 class="display-3 text-uppercase mb-0 text-white">{{ auth()->user()->name }}</h1>
                         <p class="text-gray">{{ auth()->user()->email }}</p>
-                        <a href="" class="btn btn-danger profile-button">{{ __('Logout') }}</a>
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <button type="submit" class="btn btn-danger profile-button" type="button">
+                                {{ __('Logout') }}
+                        </form>
                     </div>
                 </div>
                 <div class="col-md-4 my-5 mx-auto">
@@ -18,28 +22,35 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right text-white">{{ __('Gender') }}</h4>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <label class="labels">Goal</label>
-                            <select class="form-control">
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                                <option value="option3">Option 3</option>
-                            </select>
-                        </div>
-                        <div class="my-5 text-center">
-                            <button class="btn btn-primary profile-button" type="button">
-                                {{ __('Save') }}
-                            </button>
-                        </div>
+                        <form action="/profile/updateGender/{id}" method="POST">
+                            @csrf
+                            <div class="col-md-12">
+                                <label for="{{ $genderColumn }}" class="labels">{{ $genderColumn }}</label>
+                                <select class="form-control" name="{{ $genderColumn }}">
+                                    @foreach ($genders as $option)
+                                        <option name="{{ $genderColumn }}" value="{{ $option }}" {{ $option == $selectedGender ? 'selected' : '' }}>
+                                            {{ __($option) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="my-5 text-center">
+                                <button type="submit" class="btn btn-primary profile-button" type="button">
+                                    {{ __('Save') }}
+                                </button>
+                            </div>
+                        </form>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right text-white">{{ __('Preferences') }}</h4>
                         </div>
+                        <form action="/profile/updatePreference/{id}" method="POST">
+                            @csrf
                         <div class="col-md-12">
                             @foreach ($columns as $column => $label)
                                 <label for="{{ $column }}" class="labels">{{ __($label) }}</label>
                                 <select class="form-control" name="{{ $column }}">
                                     @foreach ($options[$column] as $option)
-                                        <option value="{{ $option }}" {{ $option == $selected[$column] ? 'selected' : '' }}>
+                                        <option name="$column" value="{{ $option }}" {{ $option == $selected[$column] ? 'selected' : '' }}>
                                             {{ __($option) }}
                                         </option>
                                     @endforeach
@@ -48,10 +59,11 @@
                         </div>
                     </div>
                     <div class="my-5 text-center">
-                        <button class="btn btn-primary profile-button" type="button">
+                        <button type="submit" class="btn btn-primary profile-button" type="button">
                             {{ __('Save') }}
                         </button>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
