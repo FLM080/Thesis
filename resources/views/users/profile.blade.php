@@ -35,24 +35,16 @@
                             <h4 class="text-right text-white">{{ __('Preferences') }}</h4>
                         </div>
                         <div class="col-md-12">
-                            <label class="labels">Goal</label>
-                            <select class="form-control">
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                                <option value="option3">Option 3</option>
-                            </select>
-                            <label class="labels">Goal</label>
-                            <select class="form-control">
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                                <option value="option3">Option 3</option>
-                            </select>
-                            <label class="labels">Goal</label>
-                            <select class="form-control">
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                                <option value="option3">Option 3</option>
-                            </select>
+                            @foreach ($columns as $column => $label)
+                                <label for="{{ $column }}" class="labels">{{ __($label) }}</label>
+                                <select class="form-control" name="{{ $column }}">
+                                    @foreach ($options[$column] as $option)
+                                        <option value="{{ $option }}" {{ $option == $selected[$column] ? 'selected' : '' }}>
+                                            {{ __($option) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @endforeach
                         </div>
                     </div>
                     <div class="my-5 text-center">
@@ -77,7 +69,15 @@
 
                     <!-- edit_det form -->
                     <div class="edit_det-box">
-                        <input type="text" class="edit_field" placeholder="{{ auth()->user()->name }}">
+                        <input type="text" class="edit_field" value="{{ auth()->user()->name }}">
+                        <div id="dropzone">
+                            <form action="" class="dropzone" id="file-upload" enctype="multipart/form-data">
+                                @csrf
+                                <div class="dz-message">
+                                    Drag and Drop Single/Multiple Files Here<br>
+                                </div>
+                            </form>
+                        </div>
 
                         <button class="edit_clkbtn btn btn-primary">{{ __('Save') }}</button>
                     </div>
@@ -94,5 +94,6 @@
         </div>
     </div>
     <script src="{{ asset('js/profile_edit.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
 </x-layout>
 @endauth

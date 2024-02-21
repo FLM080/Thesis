@@ -432,3 +432,13 @@ div.col-md-4.my-5{
         font-size: 19px;
     }
 }
+
+        .dropzone {
+            background: #e3e6ff;
+            border-radius: 13px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px dotted #1833FF;
+            margin-top: 50px;
+        }

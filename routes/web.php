@@ -5,7 +5,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Localization;
+use App\Models\Preference;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\PreferenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,12 +49,14 @@ Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 //logout user
 Route::post('/logout', [UserController::class, 'logout']);
 
-//show user profile
 Route::group(['middleware' => 'auth'], function () {
+    //show user profile
     Route::get('/profile', [UserController::class, 'show']);
 
-    //edit preferences
-    Route::get('/profile/preference', [UserController::class, 'setPreference']);
+    //show user preference
+    Route::get('/profile', [PreferenceController::class, 'show']);
+
+
 });
 
 });
