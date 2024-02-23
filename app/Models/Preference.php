@@ -32,11 +32,21 @@ class Preference extends Model
         return $enumValues;
     }
 
-    public static function getUserPreferences($userId)
-{
-    return Preference::where('user_id', $userId)->first();
-}
+    public function getUserPreference($user)
+    {
+        $preferences = Preference::where('user_id', $user->id)->first();
 
+        $columns = Preference::getSelectedColumns();
+        $options = [];
+        $selected = [];
 
-    
+        
+
+        foreach ($columns as $column => $label) {
+            $options[$column] = Preference::getEnumValues($column);
+            $selected[$column] = $preferences ? $preferences->$column : null;
+        }
+        
+        return compact('columns', 'options', 'selected');
+    }
 }

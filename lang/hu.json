@@ -36,6 +36,12 @@
     "Details": "Részletek",
     "Credentials": "Hitelesítők",
     "Save": "Mentés",
-    "build muscle": "izomépítés"
-
+    "build muscle": "izomépítés",
+    "The password field must not be greater than 255 characters." : "A jelszó mező nem lehet hosszabb, mint 255 karakter.",
+    "The name field must not be greater than 255 characters." : "A név mező nem lehet hosszabb, mint 255 karakter.",
+    "validation.min.string": "Nem megfelelő karakterhossz.",
+    "validation.unique": "Az e-mail cím már foglalt.",
+    "validation.confirmed": "A jelszó megerősítése nem egyezik.",
+    "validation.regex": "A mező formátuma érvénytelen.",
+    "validation.max.string": "A mező nem lehet hosszabb, mint 255 karakter."
 }

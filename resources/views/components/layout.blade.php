@@ -14,7 +14,6 @@
     @notifyCss
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
     <title>FitForge: Your ultimate Workout Creator</title>
     <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 
@@ -201,8 +200,6 @@
     <!-- Back to Top -->
 
     <a href="#" class="btn btn-dark py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
-    <x-notify::notify />
-    @notifyJs
     @else
     <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
         <div class="row gx-5">
@@ -212,7 +209,8 @@
         </div>
     </div>
     @endif
-
+    <x-notify::notify />
+    @notifyJs
 </body>
 
 </html>

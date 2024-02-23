@@ -53,13 +53,16 @@ Route::group(['middleware' => 'auth'], function () {
     //show user profile
     Route::get('/profile', [UserController::class, 'show']);
 
-    //show user preference
-    //Route::get('/profile', [PreferenceController::class, 'show']);
-
     //update user preference
     Route::post('/profile/updatePreference/{id}', [PreferenceController::class, 'update']);
 
     Route::post('/profile/updateGender/{id}', [UserController::class, 'updateGender']);
+
+    //update user details
+    Route::post('/profile/updateDetails/{id}', [UserController::class, 'updateDetails']);
+
+    //update user credentials
+    Route::post('/profile/updateCredentials/{id}', [UserController::class, 'updateCredentials']);
 
 });
 

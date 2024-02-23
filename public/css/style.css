@@ -147,19 +147,23 @@ body {
 }
 
 #registerImg {
-  background-size: cover;
+  background-size:cover;
   background-position: center;
   min-height: 500px;
 }
+#registerOuter {
+  height: 770px;
+}
 @media (max-width: 990px) {
+  #registerOuter {
+    height: 1200px;
+  }
   #registerImg {
     display: block;
     background-size: cover;
     background-position: center;
   }
-  #registerOuter {
-    min-height: 150vh;
-  }
+
   body {
     overflow-x: hidden;
   }
@@ -183,7 +187,7 @@ img{
 #profile-wall{
   border-right : 1px solid white;
 }
-@media (max-width: 765px) {
+@media (max-width: 650px) {
   #profile-wall{
     border-right : none;
     border-bottom : 1px solid white;
@@ -192,6 +196,7 @@ img{
     min-height: 200vh;
   }
 }
+
 #profile-image{
   max-height: 320px;
   min-height: 320px;
@@ -312,9 +317,8 @@ div.col-md-4.my-5{
 .edit_clkbtn {
     height: 60px;
     width: 150px;
-
     font-size: 22px;
-    border: none;
+    border-color: #fb5b21;
     cursor: pointer;
 }
  

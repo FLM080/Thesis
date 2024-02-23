@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('excercise-workout connect', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('workout_id');
-            $table->unsignedInteger('excercise_id');
+        Schema::create('exercise_workout_connect', function (Blueprint $table) {
+            $table->increments('id');
+            $table->Integer('workout_id')->unsigned();
+            $table->foreign('workout_id')->references('id')->on('workout')->onDelete('cascade');
+            $table->Integer('exercise_id')->unsigned();
+            $table->foreign('exercise_id')->references('id')->on('exercise')->onDelete('cascade');
             $table->unsignedInteger('sets');
             $table->unsignedInteger('reps');
             $table->integer('day');

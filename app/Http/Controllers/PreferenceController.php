@@ -8,27 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class PreferenceController extends Controller
 {
-    public function show()
-    {
-        $user = Auth::user();
-        $preference = Preference::where('user_id', $user->id)->first();
-
-        $columns = Preference::getSelectedColumns();
-        $options = [];
-        $selected = [];
-
-        
-
-        foreach ($columns as $column => $label) {
-            $options[$column] = Preference::getEnumValues($column);
-            $selected[$column] = $preference ? $preference->$column : null;
-        }
-        
-        return compact('columns', 'options', 'selected');
-    }
-
     //update user preference
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $user = Auth::user();
         $preference = Preference::where('user_id', $user->id)->first();
@@ -39,7 +20,14 @@ class PreferenceController extends Controller
         $preference->goal = $request->goal;
         $preference->workout_type = $request->workout_type;
         $preference->strength_level = $request->strength_level;
+
+        
         $preference->save();
+        if ($preference->wasChanged()) {
+            notify()->success(__('Successfully saved preference'));
+        } else {
+            notify()->error(__('Failed to save preference'));
+        }
         return redirect('/profile');
     }
 }

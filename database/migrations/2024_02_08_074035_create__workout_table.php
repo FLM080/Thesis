@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('workout', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('user_id');
+            $table->increments('id');
+            $table->Integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('workout_name');
-            $table->string('workout_description');
+            $table->text('workout_description');
             $table->tinyInteger('workout_days');
             $table->enum('strength_level', ['beginner', 'intermediate', 'advanced']);
             $table->enum('workout_goal', ['lose weight', 'build muscle', 'maintain weight']);

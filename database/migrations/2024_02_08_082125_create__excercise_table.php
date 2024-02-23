@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('excercise', function (Blueprint $table) {
-            $table->id();
-            $table->string('excercise_name');
-            $table->string('excercise_description');
-            $table->enum('excercise_type', ['bodyweight', 'weight training', 'cardio', 'no equipment']);
+        Schema::create('exercise', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('exercise_name');
+            $table->text('exercise_description');
+            $table->enum('exercise_type', ['bodyweight', 'weight training', 'cardio', 'no equipment']);
             $table->enum('strength_level', ['beginner', 'intermediate', 'advanced']);
-            $table->enum('excercise_goal', ['lose weight', 'build muscle', 'maintain weight']);
+            $table->enum('exercise_goal', ['lose weight', 'build muscle', 'maintain weight']);
             
         });
     }

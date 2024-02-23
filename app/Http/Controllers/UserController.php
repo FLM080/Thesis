@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\User;
-use App\Models\Users;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\PreferenceController;
+use App\Models\Preference;
+use App\Services\DatabaseSchemaService;
 
 class UserController extends Controller
 {
@@ -22,19 +22,14 @@ class UserController extends Controller
         $formFields = $request->validate([
             'name' => ['required', 'min:3', 'max:255','regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:6', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
+            'password' => ['required', 'min:6', 'max:255', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
         ]);
 
         //Hash Password
         $formFields['password'] = bcrypt($formFields['password']);
 
-        //Create User
         $user = User::create($formFields);
 
-        //Sign User In
-        //auth()->login($user);
-
-        //Redirect to logion page with success message'
         notify()->success(__('Account created successfully'));
         return redirect('/login');
     }
@@ -64,7 +59,6 @@ class UserController extends Controller
         ])->onlyInput();
     }
 
-    //logout user
     public function logout(Request $request)
     {
         auth()->logout();
@@ -75,18 +69,18 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    //show user profile
     public function show()
     {
         $user = Auth::user(); 
-        $gender = Users::where('id', $user->id)->first(); 
+        $gender = User::where('id', $user->id)->first(); 
 
-        $genderColumn = Users::getGenderColumn();
-        $genders = Users::getColumnEnums($genderColumn);
+        $genderColumn = 'gender';
+        $genders = DatabaseSchemaService::getColumnEnums('users', $genderColumn);
         $selectedGender = $user->gender;
 
-        $preferenceController = new PreferenceController();
-        $preferenceData = $preferenceController->show();
+
+        $preference = new Preference();
+        $preferenceData = $preference->getUserPreference($user);
 
         $columns = $preferenceData['columns'];
         $options = $preferenceData['options'];
@@ -95,17 +89,75 @@ class UserController extends Controller
         return view('users.profile', compact('genderColumn', 'genders', 'selectedGender', 'columns', 'options', 'selected'));
     }
 
-    //update gender
     public function updateGender(Request $request)
     {
         $user = Auth::user();
-        $users = users::where('id', $user->id)->first();
+        $users = user::where('id', $user->id)->first();
         if (!$users) {
-            $users = new users();
+            $users = new user();
             $users->user_id = $user->id;
         }
         $users->gender = $request->gender;
         $users->save();
+
+        if ($users->save()) {
+            notify()->success(__('Successfully saved gender'));
+        } else {
+            notify()->error(__('Failed to save gender'));
+        }
+        return redirect('/profile');
+    }
+
+    public function updateDetails(Request $request)
+    {
+        $user = Auth::user();
+        $users = user::where('id', $user->id)->first();
+        if (!$users) {
+            $users = new user();
+            $users->user_id = $user->id;
+        }
+        $formFields = $request->validate([
+            'name' => ['nullable', 'min:3', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
+        ]);
+        $users->name = $formFields['name'];
+        $users->save();
+
+        if ($users->wasChanged()) {
+            notify()->success(__('Successfully saved details'));
+        } else {
+            notify()->error(__('Failed to save details'));
+        }
+
+        return redirect('/profile');
+    }
+
+    public function updateCredentials(Request $request)
+    {
+        $user = Auth::user();
+        $user = User::find(Auth::id());
+
+        $formFields = $request->validate([
+            'email' => ['nullable', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+            'password' => ['nullable', 'min:6', 'max:255', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
+        ]);
+
+        if (!empty($formFields['password']) || !empty($formFields['email'])) {
+            if (!empty($formFields['password'])) {
+                $formFields['password'] = bcrypt($formFields['password']);
+                $user->password = $formFields['password'];
+            }
+            if (!empty($formFields['email'])) {
+                $user->email = $formFields['email'];
+            }
+            $user->save();
+        }
+
+        if ($user->wasChanged()) {
+            notify()->success(__('Successfully updated credentials'));
+        } else {
+            notify()->error(__('Failed to update credentials'));
+        }
+
         return redirect('/profile');
     }
 }
