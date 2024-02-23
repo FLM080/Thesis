@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('exercise_name');
             $table->text('exercise_description');
-            $table->enum('exercise_type', ['bodyweight', 'weight training', 'cardio', 'no equipment']);
+            $table->enum('exercise_type', ['bodyweight', 'weight training', 'with cardio', 'no equipment']);
             $table->enum('strength_level', ['beginner', 'intermediate', 'advanced']);
             $table->enum('exercise_goal', ['lose weight', 'build muscle', 'maintain weight']);
             

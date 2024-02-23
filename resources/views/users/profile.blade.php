@@ -24,8 +24,7 @@
                         </div>
                         <form action="/profile/updateGender/{id}" method="POST">
                             @csrf
-                            <div class="col-md-12">
-                                <label for="{{ $genderColumn }}" class="labels">{{ $genderColumn }}</label>
+                            <div class="col-md-12">  
                                 <select class="form-control" name="{{ $genderColumn }}">
                                     @foreach ($genders as $option)
                                     <option name="{{ $genderColumn }}" value="{{ $option }}" {{ $option==$selectedGender

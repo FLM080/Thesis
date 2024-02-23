@@ -16,7 +16,7 @@ return new class extends Migration
             $table->Integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('goal', ['None','lose weight', 'build muscle', 'maintain weight']);
-            $table->enum('workout_type', ['None','bodyweight', 'weight training', 'cardio', 'no equipment']);
+            $table->enum('workout_type', ['None','bodyweight', 'weight training', 'with cardio', 'no equipment']);
             $table->enum('strength_level', ['None','beginner', 'intermediate', 'advanced']);
         });
     }
