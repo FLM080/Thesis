@@ -144,15 +144,13 @@ body {
   height: 81.2vh;
   align-self: center;
   justify-content: center;
+ height: 770px;
 }
 
 #registerImg {
   background-size:cover;
   background-position: center;
   min-height: 500px;
-}
-#registerOuter {
-  height: 770px;
 }
 @media (max-width: 990px) {
   #registerOuter {
@@ -192,9 +190,7 @@ img{
     border-right : none;
     border-bottom : 1px solid white;
   }
-  #profile-main{
-    min-height: 200vh;
-  }
+
 }
 
 #profile-image{
@@ -254,19 +250,18 @@ div.col-md-4.my-5{
  
 .edit_slider {
     height: 60px;
-    width: 150px;
+    width: 140px;
     border-radius: 50px;
     background-color: #fb5b21;
     position: absolute;
-    left: 440px;
+    left: 445px;
     transition: all 0.5s ease-in-out;
     border-radius: 50px;
 }
  
 .edit_moveslider {
-    left: 590px;
+    left: 595px;
 }
- 
 .edit_form-section {
     height: 500px;
     width: 500px;
@@ -342,12 +337,12 @@ div.col-md-4.my-5{
  
     .edit_slider {
         height: 50px;
-        width: 120px;
-        left: 20px;
+        width: 110px;
+        left: 25px;
     }
  
     .edit_moveslider {
-        left: 142px;
+        left: 150px;
     }
  
     .edit_form-section {
@@ -400,12 +395,13 @@ div.col-md-4.my-5{
  
     .edit_slider {
         height: 50px;
-        width: 105px;
-        left: 5px;
+        width: 90px;
+        left: 15px;
     }
  
     .edit_moveslider {
-        left: 105px;
+        left: 108px;
+        width: 105px;
     }
  
     .edit_form-section {
@@ -437,12 +433,33 @@ div.col-md-4.my-5{
     }
 }
 
-        .dropzone {
-            background: #e3e6ff;
-            border-radius: 13px;
-            max-width: 550px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 2px dotted #1833FF;
-            margin-top: 50px;
-        }
+
+
+#profile-img + label {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #444;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#profile-img + label:hover {
+  background-color: #f9f9f9;
+  border-color: #ddd;
+}
+
+#profile-img + label:active {
+  background-color: #eee;
+  border-color: #ccc;
+}
+
+#profile-img:valid + label {
+  border-color: #0c0;
+}
+
+#profile-img:invalid + label {
+  border-color: #c00;
+}

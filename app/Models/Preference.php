@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Services\DatabaseSchemaService;
 
 class Preference extends Model
 {
@@ -21,16 +22,6 @@ class Preference extends Model
         ];
     }
 
-    public static function getEnumValues($column)
-    {
-
-        $query = "SHOW COLUMNS FROM preference WHERE Field = '{$column}'";
-        $type = DB::select($query)[0]->Type;
-        $enumValues = [];
-        preg_match_all("/'([^']+)'/", $type, $matches);
-        $enumValues = $matches[1];
-        return $enumValues;
-    }
 
     public function getUserPreference($user)
     {
@@ -43,7 +34,7 @@ class Preference extends Model
         
 
         foreach ($columns as $column => $label) {
-            $options[$column] = Preference::getEnumValues($column);
+            $options[$column] = DatabaseSchemaService::getColumnEnums('preference', $column);
             $selected[$column] = $preferences ? $preferences->$column : null;
         }
         

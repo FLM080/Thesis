@@ -6,8 +6,23 @@
                 <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Profile Page') }}</h1>
                 <div class="col-md-7 my-5 mx-auto align-items-center d-flex justify-content-center" id="profile-wall">
                     <div class="d-flex flex-column align-items-center p-3 py-5">
-                        <img src="{{ asset(file_exists(public_path('images/profile/' . auth()->user()->id . '.jpg')) ? 'images/profile/' . auth()->user()->id . '.jpg' : 'images/profile/Default.jpg') }}"
-                            class="rounded-circle" id="profile-image">
+                        @php
+                        $userId = auth()->user()->id;
+                        $extensions = config('images.profile.extension');
+                        $filePath = 'images/profile/' . $userId;
+                        $defaultPath = config('images.profile.default');
+                    
+                        $userImagePath = $defaultPath;
+                    
+                        foreach ($extensions as $extension) {
+                            $tempPath = $filePath . '.' . $extension;
+                            if (file_exists(public_path($tempPath))) {
+                                $userImagePath = $tempPath;
+                            }
+                        }
+                    @endphp
+                    
+                    <img src="{{ asset($userImagePath) }}" class="rounded-circle" id="profile-image">
                         <h1 class="display-3 text-uppercase mb-0 text-white">{{ auth()->user()->name }}</h1>
                         <p class="text-gray">{{ auth()->user()->email }}</p>
                         <form method="POST" action="/logout">
@@ -81,13 +96,19 @@
                 <div class="edit_form-section">
 
                     <!-- edit_det form -->
-                    <form method="POST" action="/profile/updateDetails/{id}">
+                    <form method="POST" action="/profile/updateDetails/{id}" enctype="multipart/form-data">
                         @csrf
                         <div class="edit_det-box">
                             <input name="name" type="text" class="edit_field" placeholder="{{ __('new Username') }}">
                             @error('name')
                             <?php notify()->error(__($message)) ?>
                             @enderror
+
+                            <input name="image" type="file" id="profile-img" placeholder="{{ __('Upload Image') }}">
+                            @error('image')
+                                <?php notify()->error(__($message)) ?>
+                            @enderror
+                            
                             <button type="submit" class="edit_clkbtn btn btn-primary">{{ __('Save') }}</button>
                     </form>
                 </div>

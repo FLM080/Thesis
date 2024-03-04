@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Preference;
 use App\Services\DatabaseSchemaService;
+use Intervention\Image\ImageManagerStatic as Image;
+
+
 
 class UserController extends Controller
 {
@@ -30,6 +33,7 @@ class UserController extends Controller
 
         $user = User::create($formFields);
 
+
         notify()->success(__('Account created successfully'));
         return redirect('/login');
     }
@@ -47,6 +51,7 @@ class UserController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+
 
         if(auth()->attempt($credentials)){
             $request->session()->regenerate();
@@ -111,25 +116,55 @@ class UserController extends Controller
     public function updateDetails(Request $request)
     {
         $user = Auth::user();
-        $users = user::where('id', $user->id)->first();
+        $users = User::where('id', $user->id)->first();
         if (!$users) {
-            $users = new user();
+            $users = new User();
             $users->user_id = $user->id;
         }
-        $formFields = $request->validate([
-            'name' => ['nullable', 'min:3', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
+    
+        if ($request->has('name') && !empty($request->name)) {
+            $formFields = $request->validate([
+                'name' => ['nullable', 'min:3', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
+            ]);
+            $users->name = $formFields['name'];
+        }
+    
+    if ($request->hasFile('image')) {
+        $extensions = config('images.profile.extension');
+        $request->validate([
+            'image' => 'required|image|mimes:' . implode(',', $extensions) . '',
         ]);
-        $users->name = $formFields['name'];
-        $users->save();
 
-        if ($users->wasChanged()) {
+        $image = $request->file('image');
+        $name = $user->id . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('/images/profile');
+
+        $existingFiles = glob($destinationPath . '/' . $user->id . '.*');
+        foreach ($existingFiles as $existingFile) {
+            if ($existingFile !== $destinationPath . '/' . $name) {
+                unlink($existingFile);
+            }
+        }
+
+        $resizedImage = Image::make($image)->resize(320, 320, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+
+        $resizedImage->save($destinationPath . '/' . $name);
+        $user->profile_picture = $destinationPath . '/' . $name;
+        $imageUploaded = true;
+    }
+        $users->save();
+    
+        if ($users->wasChanged() || $imageUploaded) {
             notify()->success(__('Successfully saved details'));
         } else {
             notify()->error(__('Failed to save details'));
         }
-
         return redirect('/profile');
     }
+
 
     public function updateCredentials(Request $request)
     {

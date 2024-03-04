@@ -11,11 +11,14 @@ class PreferenceController extends Controller
     //update user preference
     public function update(Request $request)
     {
+        
         $user = Auth::user();
         $preference = Preference::where('user_id', $user->id)->first();
+
         if (!$preference) {
             $preference = new Preference();
             $preference->user_id = $user->id;
+            $preference->save();
         }
         $preference->goal = $request->goal;
         $preference->workout_type = $request->workout_type;

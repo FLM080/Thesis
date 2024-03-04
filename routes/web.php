@@ -29,16 +29,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-//login page
-Route::get('/login', function () {
-    return view('login');
-});
-
-//show registerform
+//show register form
 Route::get('/register', [UserController::class, 'create']);
 
 //show login form
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/login', [UserController::class, 'login'])->name('login');
 
 //create new user
 Route::post('/users', [UserController::class, 'store']);
@@ -46,10 +41,11 @@ Route::post('/users', [UserController::class, 'store']);
 //login user
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
-//logout user
-Route::post('/logout', [UserController::class, 'logout']);
-
 Route::group(['middleware' => 'auth'], function () {
+
+    //logout user
+    Route::post('/logout', [UserController::class, 'logout']);
+
     //show user profile
     Route::get('/profile', [UserController::class, 'show']);
 
