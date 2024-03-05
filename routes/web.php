@@ -8,6 +8,7 @@ use App\Http\Middleware\Localization;
 use App\Models\Preference;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\PreferenceController;
+use App\Http\Controllers\WorkoutPlannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ Route::get('/register', [UserController::class, 'create']);
 
 //show login form
 Route::get('/login', [UserController::class, 'login'])->name('login');
+
+//show workout planner
+Route::get('/WorkoutPlanner', [WorkoutPlannerController::class, 'show']);
 
 //create new user
 Route::post('/users', [UserController::class, 'store']);

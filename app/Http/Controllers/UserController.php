@@ -23,9 +23,9 @@ class UserController extends Controller
     //create new user
     public function store(Request $request){
         $formFields = $request->validate([
-            'name' => ['required', 'min:3', 'max:255','regex:/^[a-zA-Z\s]+$/'],
+            'name' => ['required', 'min:3', 'max:30','regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:6', 'max:255', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
+            'password' => ['required', 'min:6', 'max:64', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
         ]);
 
         //Hash Password
@@ -79,9 +79,9 @@ class UserController extends Controller
         $user = Auth::user(); 
         $gender = User::where('id', $user->id)->first(); 
 
-        $genderColumn = 'gender';
+        $genderColumn = 'user_gender';
         $genders = DatabaseSchemaService::getColumnEnums('users', $genderColumn);
-        $selectedGender = $user->gender;
+        $selectedGender = $user->user_gender;
 
 
         $preference = new Preference();
@@ -102,7 +102,7 @@ class UserController extends Controller
             $users = new user();
             $users->user_id = $user->id;
         }
-        $users->gender = $request->gender;
+        $users->user_gender = $request->user_gender;
         $users->save();
 
         if ($users->save()) {
@@ -124,7 +124,7 @@ class UserController extends Controller
     
         if ($request->has('name') && !empty($request->name)) {
             $formFields = $request->validate([
-                'name' => ['nullable', 'min:3', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
+                'name' => ['nullable', 'min:3', 'max:30', 'regex:/^[a-zA-Z\s]+$/'],
             ]);
             $users->name = $formFields['name'];
         }
@@ -173,7 +173,7 @@ class UserController extends Controller
 
         $formFields = $request->validate([
             'email' => ['nullable', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'password' => ['nullable', 'min:6', 'max:255', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
+            'password' => ['nullable', 'min:6', 'max:64', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
         ]);
 
         if (!empty($formFields['password']) || !empty($formFields['email'])) {

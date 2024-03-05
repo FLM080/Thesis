@@ -46,8 +46,8 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home')
                                 }}</a>
-                            <a href="about.html"
-                                class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">{{ __('Plan Your Workout') }}</a>
+                            <a href="/WorkoutPlanner"
+                                class="nav-item nav-link {{ request()->is('WorkoutPlanner') ? 'active' : '' }}">{{ __('Manage Your Workout') }}</a>
                             <a href="class.html"
                                 class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
                             <a href="trainer.html"
@@ -124,8 +124,8 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home')
                                 }}</a>
-                            <a href="about.html"
-                                class="nav-item nav-link {{ request()->is('planning') ? 'active' : '' }}">{{ __('Plan Your Workout') }}</a>
+                            <a href="/workoutPlanner"
+                                class="nav-item nav-link {{ request()->is('workoutPlanner') ? 'active' : '' }}">{{ __('Plan Your Workout') }}</a>
                             <a href="class.html"
                                 class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
                             <a href="trainer.html"

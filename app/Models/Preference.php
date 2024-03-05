@@ -11,20 +11,22 @@ class Preference extends Model
 {
     use HasFactory;
     protected $table = 'preference';
+    protected $primaryKey = 'preference_id';
     public $timestamps = false;
 
     public static function getSelectedColumns()
     {
         return [
-            'goal' => 'Goal',
-            'workout_type' => 'Workout Type',
-            'strength_level' => 'Strength Level',
+            'preference_goal' => 'Goal',
+            'preference_workout_type' => 'Workout Type',
+            'preference_strength_level' => 'Strength Level',
         ];
     }
 
 
     public function getUserPreference($user)
     {
+        $table = 'preference';
         $preferences = Preference::where('user_id', $user->id)->first();
 
         $columns = Preference::getSelectedColumns();
@@ -34,7 +36,7 @@ class Preference extends Model
         
 
         foreach ($columns as $column => $label) {
-            $options[$column] = DatabaseSchemaService::getColumnEnums('preference', $column);
+            $options[$column] = DatabaseSchemaService::getColumnEnums($table, $column);
             $selected[$column] = $preferences ? $preferences->$column : null;
         }
         

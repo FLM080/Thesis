@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('exercise_workout_connect', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('exercise_workout_connect_id')->unsigned();
             $table->Integer('workout_id')->unsigned();
-            $table->foreign('workout_id')->references('id')->on('workout')->onDelete('cascade');
+            $table->foreign('workout_id')->references('workout_id')->on('workout')->onDelete('cascade');
             $table->Integer('exercise_id')->unsigned();
-            $table->foreign('exercise_id')->references('id')->on('exercise')->onDelete('cascade');
-            $table->unsignedInteger('sets');
-            $table->unsignedInteger('reps');
-            $table->integer('day');
-            $table->tinyInteger('order');
+            $table->foreign('exercise_id')->references('exercise_id')->on('exercise')->onDelete('cascade');
+            $table->unsignedTinyInteger('exercise_workout_sets');
+            $table->unsignedTinyInteger('exercise_workout_reps');
+            $table->unsignedTinyInteger('exercise_workout_day');
+            $table->unsignedTinyInteger('exercise_workout_order');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('_excercise__workout_connect');
+        Schema::dropIfExists('_exercise__workout_connect');
     }
 };

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('preference', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('preference_id')->unsigned();
             $table->Integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->enum('goal', ['None','lose weight', 'build muscle', 'maintain weight']);
-            $table->enum('workout_type', ['None','bodyweight', 'weight training', 'with cardio', 'no equipment']);
-            $table->enum('strength_level', ['None','beginner', 'intermediate', 'advanced']);
+            $table->enum('preference_goal', ['None','lose weight', 'build muscle', 'maintain weight']);
+            $table->enum('preference_workout_type', ['None','bodyweight', 'weight training', 'with cardio', 'no equipment']);
+            $table->enum('preference_strength_level', ['None','beginner', 'intermediate', 'advanced']);
         });
     }
 

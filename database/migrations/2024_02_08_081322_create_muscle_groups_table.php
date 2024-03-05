@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('muscle_groups', function (Blueprint $table) {
-            $table->id();
-            $table->Integer('exercise_id')->unsigned();
-            $table->foreign('exercise_id')->references('id')->on('exercise')->onDelete('cascade');
-            $table->string('muscle_group_name');
+            $table->smallIncrements("muscle_group_id")->unsigned();
+            $table->string('muscle_group_name',30);
         });
     }
 

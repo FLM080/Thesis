@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('exercise', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('exercise_name');
-            $table->text('exercise_description');
+            $table->increments('exercise_id');
+            $table->smallInteger('muscle_group_id')->unsigned();
+            $table->foreign('muscle_group_id')->references('muscle_group_id')->on('muscle_groups')->onDelete('cascade');
+            $table->string('exercise_name', 20);
+            $table->text('exercise_description',50);
             $table->enum('exercise_type', ['bodyweight', 'weight training', 'with cardio', 'no equipment']);
-            $table->enum('strength_level', ['beginner', 'intermediate', 'advanced']);
+            $table->enum('exercise_strength_level', ['beginner', 'intermediate', 'advanced']);
             $table->enum('exercise_goal', ['lose weight', 'build muscle', 'maintain weight']);
             
         });
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('_excercise');
+        Schema::dropIfExists('_exercise');
     }
 };

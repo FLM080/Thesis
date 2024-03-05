@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name', 30);
             $table->string('email')->unique();
-            $table->string('password');
-            $table->enum('gender', ['None','Male', 'Female']);
-            $table->boolean('admin')->default(false);
+            $table->string('password',64);
+            $table->enum('user_gender', ['None','Male', 'Female']);
+            $table->boolean('user_admin_privilege')->default(false);
         });
     }
 

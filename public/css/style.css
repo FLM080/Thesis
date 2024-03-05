@@ -130,10 +130,11 @@ h6,
 }
 /*saját kezdés*/
 
+
 body {
   overflow-x: hidden;
 }
-
+/*register, login*/
 #footer {
   background-color: #111111;
   width: 100%;
@@ -141,17 +142,27 @@ body {
 #registerOuter {
   display: flex;
   flex-direction: column;
-  height: 81.2vh;
   align-self: center;
   justify-content: center;
- height: 770px;
+  height: 770px;
 }
 
 #registerImg {
   background-size:cover;
-  background-position: center;
-  min-height: 500px;
+
+
 }
+@media (min-height: 950px) and (min-width: 991px) {
+  #footer {
+  position: fixed;
+  bottom: 0;
+  }
+  #registerOuter {
+    min-height: 1200px;
+   
+  }
+}
+
 @media (max-width: 990px) {
   #registerOuter {
     height: 1200px;
@@ -161,10 +172,6 @@ body {
     background-size: cover;
     background-position: center;
   }
-
-  body {
-    overflow-x: hidden;
-  }
 }
 img{
   background-size: cover;
@@ -173,6 +180,8 @@ img{
 #Login{
   margin-bottom: 10px;
 }
+
+/*profile*/
 #profile-main{
 
   display: flex;
@@ -237,7 +246,7 @@ div.col-md-4.my-5{
     justify-content: space-around;
     align-items: center;
 }
- 
+
 .edit_det,
 .edit_cred {
     font-size: 22px;
@@ -247,7 +256,7 @@ div.col-md-4.my-5{
     position: relative;
     cursor: pointer;
 }
- 
+
 .edit_slider {
     height: 60px;
     width: 140px;
@@ -258,7 +267,7 @@ div.col-md-4.my-5{
     transition: all 0.5s ease-in-out;
     border-radius: 50px;
 }
- 
+
 .edit_moveslider {
     left: 595px;
 }
@@ -272,11 +281,9 @@ div.col-md-4.my-5{
     left: 0px;
 
 }
- 
 .edit_form-section-move {
     left: -1200px;
 }
- 
 .edit_det-box,
 .edit_cred-box {
     height: 100%;
@@ -288,15 +295,15 @@ div.col-md-4.my-5{
     padding: 0px 600px;
 
 }
- 
+
 .edit_det-box {
     gap: 50px;
 }
- 
+
 .edit_cred-box {
     gap: 30px;
 }
- 
+
 .edit_field {
     height: 60px;
     width: 400px;
@@ -308,7 +315,7 @@ div.col-md-4.my-5{
     padding-left: 30px;
     font-size: 18px;
 }
- 
+
 .edit_clkbtn {
     height: 60px;
     width: 150px;
@@ -316,9 +323,6 @@ div.col-md-4.my-5{
     border-color: #fb5b21;
     cursor: pointer;
 }
- 
-/* For Responsiveness of the page */
- 
 @media screen and (max-width: 650px) {
     .edit_container {
         height: 600px;
@@ -329,22 +333,22 @@ div.col-md-4.my-5{
         width: 250px;
         margin: 20px auto;
     }
- 
+
     .edit_det,
     .edit_cred {
         font-size: 19px;
     }
- 
+
     .edit_slider {
         height: 50px;
         width: 110px;
         left: 25px;
     }
- 
+
     .edit_moveslider {
         left: 150px;
     }
- 
+
     .edit_form-section {
         height: 500px;
         width: 300px;
@@ -352,17 +356,17 @@ div.col-md-4.my-5{
       left: -450px;
 
     }
- 
+
     .edit_form-section-move {
         left: -1650px;
     }
- 
+
     .edit_det-box,
     .edit_cred-box {
         height: 100%;
         width: 300px;
     }
- 
+
     .edit_field {
         height: 50px;
         width: 250px;
@@ -433,33 +437,127 @@ div.col-md-4.my-5{
     }
 }
 
+/*workout planner*/
 
-
-#profile-img + label {
-  display: inline-block;
-  padding: 10px 20px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #444;
-  cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+.row.container-fluid{
+  background-color: rgba(34, 36, 41, 0.8);
+}
+.exercise-name {
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-#profile-img + label:hover {
-  background-color: #f9f9f9;
-  border-color: #ddd;
+.card:hover .exercise-name {
+  opacity: 1;
 }
 
-#profile-img + label:active {
-  background-color: #eee;
-  border-color: #ccc;
+.card:hover img {
+  filter: brightness(0.2);
 }
 
-#profile-img:valid + label {
-  border-color: #0c0;
+.wrapper {
+  display: flex;
+  width: 90%;
+  justify-content: space-around;
 }
 
-#profile-img:invalid + label {
-  border-color: #c00;
+.card {
+  width: calc(50% - 20px); /* Adjusted width to occupy 50% of the container */
+  height: 320px;
+  border-radius: 15px;
+  border: 2px solid black;
+  padding: 1.5rem;
+
+  position: relative;
+  margin-bottom: 20px; /* Added margin-bottom to create space between rows */
+  box-shadow: 0px 7px 10px rgba(black, 0.5);
+  transition: 0.4s ease-out;
+  box-shadow: 0px 7px 10px rgba(black, 0.5);
+  &:hover {
+    transform: translateY(20px);
+    &:before {
+      opacity: 1;
+    }
+    .info {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background: rgba(black, 0.6);
+    z-index: 2;
+    transition: 0.5s;
+    opacity: 0;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 15px;
+    transition: opacity 0.4s ease;
+  }
+
+  .info {
+    position: relative;
+    z-index: 3;
+    color: white;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.5s;
+    h1 {
+      margin: 0px;
+    }
+    p {
+      letter-spacing: 1px;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .card {
+    width: 100%;
+    height: auto;
+    max-width: 280px;
+    margin-bottom: 20px;
+  }
+  p {
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-top: 8px;
+  }
+}
+.wrapper-right {
+  display: flex;
+  flex-wrap: wrap; /* Added flex-wrap property to allow cards to wrap to the next line */
+  justify-content: space-between; /* Added justify-content property to evenly distribute cards */
+  width: 100%;
+  overflow-y: scroll;
+  height: 400px;
+  margin-left: auto;
+  margin-right: 5px;
+  float: right; /* Added float property to move the container to the right */
+}
+.wrapper-left {
+  display: flex;
+  flex-wrap: wrap; /* Added flex-wrap property to allow cards to wrap to the next line */
+  justify-content: space-between; /* Added justify-content property to evenly distribute cards */
+  width: 100%;
+  overflow-y: scroll;
+  height: 400px;
+  margin-left: 5px;
+  margin-right: auto;
+  float: left; /* Added float property to move the container to the left */
 }

@@ -20,9 +20,9 @@ class PreferenceController extends Controller
             $preference->user_id = $user->id;
             $preference->save();
         }
-        $preference->goal = $request->goal;
-        $preference->workout_type = $request->workout_type;
-        $preference->strength_level = $request->strength_level;
+        $preference->preference_goal = $request->preference_goal;
+        $preference->preference_workout_type = $request->preference_workout_type;
+        $preference->preference_strength_level = $request->preference_strength_level;
 
         
         $preference->save();

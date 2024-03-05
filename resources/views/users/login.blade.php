@@ -1,5 +1,5 @@
 <x-registerLayout>
-    <div id="registerOuter" class="container-fluid ">
+    <div id="registerOuter" class="container">
         <div class="row gx-5">
             <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                 <div class="position-relative h-100">
