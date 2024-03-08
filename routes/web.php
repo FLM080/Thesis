@@ -9,6 +9,9 @@ use App\Models\Preference;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\WorkoutPlannerController;
+use App\Http\Controllers\AdminController;
+use App\Models\MuscleGroup;
+use App\Http\Controllers\MuscleGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,45 +28,50 @@ Route::get('/localization/{locale}', LocalizationController::class)->name('local
 
 Route::middleware('localization')->group(function () {
     //home page
+    Route::get('/', function () {
+        return view('index');
+    });
 
-Route::get('/', function () {
-    return view('index');
-});
+    //show register form
+    Route::get('/register', [UserController::class, 'create']);
 
-//show register form
-Route::get('/register', [UserController::class, 'create']);
+    //show login form
+    Route::get('/login', [UserController::class, 'login'])->name('login');
 
-//show login form
-Route::get('/login', [UserController::class, 'login'])->name('login');
+    //show workout planner
+    Route::get('/WorkoutPlanner', [WorkoutPlannerController::class, 'show']);
 
-//show workout planner
-Route::get('/WorkoutPlanner', [WorkoutPlannerController::class, 'show']);
+    //create new user
+    Route::post('/users', [UserController::class, 'store']);
 
-//create new user
-Route::post('/users', [UserController::class, 'store']);
+    //login user
+    Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
-//login user
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+    Route::group(['middleware' => 'auth'], function () {
+        //logout user
+        Route::post('/logout', [UserController::class, 'logout']);
 
-Route::group(['middleware' => 'auth'], function () {
+        //show user profile
+        Route::get('/profile', [UserController::class, 'show']);
 
-    //logout user
-    Route::post('/logout', [UserController::class, 'logout']);
+        //update user preference
+        Route::post('/profile/updatePreference/{id}', [PreferenceController::class, 'update']);
 
-    //show user profile
-    Route::get('/profile', [UserController::class, 'show']);
+        Route::post('/profile/updateGender/{id}', [UserController::class, 'updateGender']);
 
-    //update user preference
-    Route::post('/profile/updatePreference/{id}', [PreferenceController::class, 'update']);
+        //update user details
+        Route::post('/profile/updateDetails/{id}', [UserController::class, 'updateDetails']);
 
-    Route::post('/profile/updateGender/{id}', [UserController::class, 'updateGender']);
+        //update user credentials
+        Route::post('/profile/updateCredentials/{id}', [UserController::class, 'updateCredentials']);
+    });
 
-    //update user details
-    Route::post('/profile/updateDetails/{id}', [UserController::class, 'updateDetails']);
-
-    //update user credentials
-    Route::post('/profile/updateCredentials/{id}', [UserController::class, 'updateCredentials']);
-
-});
-
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/exercise', [AdminController::class, 'exercise']);
+        Route::get('/workout', [AdminController::class, 'workout']);
+        Route::get('/muscleGroup', [MuscleGroupController::class, 'index']);
+        Route::post('/admin/editMuscleGroup/{id}', [MuscleGroupController::class, 'update']);
+        Route::post('/admin/addMuscleGroup', [MuscleGroupController::class, 'store']);
+        Route::delete('/admin/deleteMuscleGroup/{id}', [MuscleGroupController::class, 'destroy']);
+    });
 });

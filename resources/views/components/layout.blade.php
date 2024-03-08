@@ -47,11 +47,14 @@
                             <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home')
                                 }}</a>
                             <a href="/WorkoutPlanner"
-                                class="nav-item nav-link {{ request()->is('WorkoutPlanner') ? 'active' : '' }}">{{ __('Manage Your Workout') }}</a>
+                                class="nav-item nav-link {{ request()->is('WorkoutPlanner') ? 'active' : '' }}">{{
+                                __('Manage Your Workout') }}</a>
                             <a href="class.html"
-                                class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
+                                class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous
+                                Workouts') }}</a>
                             <a href="trainer.html"
-                                class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us Feedback') }}</a>
+                                class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us
+                                Feedback') }}</a>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
                             <a class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none" role="button"
@@ -60,7 +63,9 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="/profile">{{ __('Profile') }}</a></li>
-                                <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
+                                @if(auth()->user()->user_admin_privilege)
+                                <li><a class="dropdown-item" href="/exercise">{{ __('Admin Panel') }}</a></li>
+                                @endif
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -94,7 +99,10 @@
 
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li><a class="dropdown-item" href="/profile">{{ __('Profile') }}</a></li>
-                                    <li><a class="dropdown-item" href="#">{{ __('Settings') }}</a></li>
+                                    @if(auth()->user()->user_admin_privilege)
+                                    <li><a class="dropdown-item" href="/exercise">{{ __('Admin Panel') }}</a></li>
+                                    @endif
+
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -124,12 +132,15 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home')
                                 }}</a>
-                            <a href="/workoutPlanner"
-                                class="nav-item nav-link {{ request()->is('workoutPlanner') ? 'active' : '' }}">{{ __('Plan Your Workout') }}</a>
+                            <a href="/WorkoutPlanner"
+                                class="nav-item nav-link {{ request()->is('WorkoutPlanner') ? 'active' : '' }}">{{
+                                __('Plan Your Workout') }}</a>
                             <a href="class.html"
-                                class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
+                                class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous
+                                Workouts') }}</a>
                             <a href="trainer.html"
-                                class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us Feedback') }}</a>
+                                class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us
+                                Feedback') }}</a>
                             <a href="/login"
                                 class="nav-item nav-link btn btn-outline-primary py-md-3 px-md-5 d-lg-block d-lg-none" k
                                 id="Login">{{ __('Login') }}</a>
@@ -172,45 +183,44 @@
 
     <!-- Footer Start -->
     <z-footer>
-    @if (request()->is('/'))
-    <div class="container-fluid bg-dark text-secondary px-5 mt-5">
-        <div class="row gx-5">
-            <h4 class="text-uppercase text-light mb-4 text-center pt-3">{{ __('Quick Links') }}</h4>
-            <div class="d-flex flex-row justify-content-center">
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
-                    __('Home') }}</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
-                    __('Plan Your Workout') }}</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
-                    __('Famous Workouts') }}</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
-                    __('Give Us Feedback') }}</a>
+        @if (request()->is('/'))
+        <div class="container-fluid bg-dark text-secondary px-5 mt-5">
+            <div class="row gx-5">
+                <h4 class="text-uppercase text-light mb-4 text-center pt-3">{{ __('Quick Links') }}</h4>
+                <div class="d-flex flex-row justify-content-center">
+                    <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
+                        __('Home') }}</a>
+                    <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
+                        __('Plan Your Workout') }}</a>
+                    <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
+                        __('Famous Workouts') }}</a>
+                    <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
+                        __('Give Us Feedback') }}</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
-        <div class="row gx-5">
-            <div class="py-lg-4 text-center">
-                <p class="text-secondary mb-0">&copy;All Rights Reserved.</p>
+        <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
+            <div class="row gx-5">
+                <div class="py-lg-4 text-center">
+                    <p class="text-secondary mb-0">&copy;All Rights Reserved.</p>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Footer End -->
+        <!-- Footer End -->
 
-    <!-- Back to Top -->
+        <!-- Back to Top -->
 
-    <a href="#" class="btn btn-dark py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
-    @else
-    <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
-        <div class="row gx-5">
-            <div class="py-lg-4 text-center">
-                <p class="text-secondary mb-0">&copy;All Rights Reserved.</p>
+        @else
+        <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
+            <div class="row gx-5">
+                <div class="py-lg-4 text-center">
+                    <p class="text-secondary mb-0">&copy;All Rights Reserved.</p>
+                </div>
             </div>
         </div>
-    </div>
-    @endif
-    <x-notify::notify />
-    @notifyJs
+        @endif
+        <x-notify::notify />
+        @notifyJs
 </body>
 
 </html>

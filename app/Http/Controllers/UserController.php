@@ -136,6 +136,7 @@ class UserController extends Controller
         ]);
 
         $image = $request->file('image');
+        $extension = strtolower($image->getClientOriginalExtension());
         $name = $user->id . '.' . $image->getClientOriginalExtension();
         $destinationPath = public_path('/images/profile');
 

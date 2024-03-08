@@ -56,19 +56,5 @@
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-function moveCard(card) {
-    if ($(card).parent().hasClass('wrapper-left')) {
-        // Move the card to the right
-        $(card).remove();
-        $('.wrapper-right').append(card);
-    } else if ($(card).parent().hasClass('wrapper-right')) {
-        // Move the card to the left
-        $(card).remove();
-        $('.wrapper-left').append(card);
-    }
-}
-</script>
+    <script src="{{ asset('js/workoutPlanner.js') }}"></script>
 </x-layout>
-                
