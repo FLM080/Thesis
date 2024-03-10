@@ -4,13 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MuscleGroup;
+use App\Services\DatabaseSchemaService;
 
 class MuscleGroupController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $muscleGroups = MuscleGroup::all();
-        return view('admin.muscleGroup', compact('muscleGroups'));
+        $items = MuscleGroup::all();
+        $columns = DatabaseSchemaService::getColumnNames('muscle_groups');
+        $tableId = 'muscle_group_id';
+        $deleteRoute = 'deleteMuscleGroup';
+        $editRoute = 'editMuscleGroup';
+        $searchRoute = 'searchMuscleGroup';
+        
+        $search = $request->get('search');
+        $items = MuscleGroup::where('muscle_group_name', 'like', "%{$search}%")->get();
+
+        
+        if ($request->ajax()) {
+            return view('partials._table', ['items' => $items, 'columns' => $columns, 'deleteRoute' => $deleteRoute, 'tableId' => $tableId, 'editRoute' => $editRoute]);
+        }
+        return view('admin.muscleGroup', compact('items', 'columns', 'tableId', 'deleteRoute', 'editRoute', 'searchRoute'));
     }
 
     public function store(Request $request)

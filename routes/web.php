@@ -12,6 +12,8 @@ use App\Http\Controllers\WorkoutPlannerController;
 use App\Http\Controllers\AdminController;
 use App\Models\MuscleGroup;
 use App\Http\Controllers\MuscleGroupController;
+use App\Models\Exercise;
+use App\Http\Controllers\ExerciseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,11 +69,16 @@ Route::middleware('localization')->group(function () {
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/exercise', [AdminController::class, 'exercise']);
+        Route::get('/exercise', [ExerciseController::class, 'index'])->name('searchExercise');
+        Route::post('/admin/addExercise', [ExerciseController::class, 'store']);
+        Route::post('/admin/editExercise/{id}', [ExerciseController::class, 'update'])->name('editExercise');
+        Route::delete('/admin/deleteExercise/{id}', [ExerciseController::class, 'destroy'])->name('deleteExercise');
+        
         Route::get('/workout', [AdminController::class, 'workout']);
-        Route::get('/muscleGroup', [MuscleGroupController::class, 'index']);
-        Route::post('/admin/editMuscleGroup/{id}', [MuscleGroupController::class, 'update']);
+
+        Route::get('/muscleGroup', [MuscleGroupController::class, 'index'])->name('searchMuscleGroup');
+        Route::post('/admin/editMuscleGroup/{id}', [MuscleGroupController::class, 'update'])->name('editMuscleGroup');
         Route::post('/admin/addMuscleGroup', [MuscleGroupController::class, 'store']);
-        Route::delete('/admin/deleteMuscleGroup/{id}', [MuscleGroupController::class, 'destroy']);
+        Route::delete('/admin/deleteMuscleGroup/{id}', [MuscleGroupController::class, 'destroy'])->name('deleteMuscleGroup');
     });
 });

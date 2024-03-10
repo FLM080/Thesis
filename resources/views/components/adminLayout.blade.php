@@ -169,7 +169,7 @@
     <x-notify::notify />
     @notifyJs
     <script src="{{ asset('js/modal.js') }}"></script>
-
+    <script src="{{ asset('js/search.js') }}"></script>
 </body>
 
 </html>

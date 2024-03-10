@@ -16,5 +16,15 @@ class DatabaseSchemaService
         return $enums;
     }
 
+    public static function getColumnNames($tableName)
+    {
+        $columns = DB::select("SHOW COLUMNS FROM {$tableName}");
+        $columnNames = [];
+        foreach ($columns as $column) {
+            $columnNames[] = $column->Field;
+        }
+        return $columnNames;
+    }
+
 
 }

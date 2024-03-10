@@ -15,7 +15,7 @@
             <div class="wrapper-right bg-dark">
                 <div class="card" onclick="moveCard(this)">
                     <img src="{{ asset('images/exercises/bench.jpg') }}">
-                    
+
                     <div class="info">
                         <h1>Excercise Name dasdasdasdasdasdasdasdas</h1>
                         <p>desc</p>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="card" onclick="moveCard(this)">
                     <img src="{{ asset('images/exercises/bench.jpg') }}">
-                    
+
                     <div class="info">
                         <h1>Excercise Name</h1>
                         <p>desc</p>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="card" onclick="moveCard(this)">
                     <img src="{{ asset('images/exercises/bench.jpg') }}">
-                    
+
                     <div class="info">
                         <h1>Excercise Name</h1>
                         <p>desc</p>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="card" onclick="moveCard(this)">
                     <img src="{{ asset('images/exercises/bench.jpg') }}">
-                    
+
                     <div class="info">
                         <h1>Excercise Name</h1>
                         <p>desc</p>

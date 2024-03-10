@@ -77,21 +77,22 @@ class UserController extends Controller
     public function show()
     {
         $user = Auth::user(); 
-        $gender = User::where('id', $user->id)->first(); 
 
         $genderColumn = 'user_gender';
         $genders = DatabaseSchemaService::getColumnEnums('users', $genderColumn);
         $selectedGender = $user->user_gender;
-
-
+        
         $preference = new Preference();
         $preferenceData = $preference->getUserPreference($user);
-
-        $columns = $preferenceData['columns'];
-        $options = $preferenceData['options'];
-        $selected = $preferenceData['selected'];
-
-        return view('users.profile', compact('genderColumn', 'genders', 'selectedGender', 'columns', 'options', 'selected'));
+        
+        return view('users.profile', [
+            'genderColumn' => $genderColumn, 
+            'genders' => $genders, 
+            'selectedGender' => $selectedGender, 
+            'columns' => $preferenceData['columns'], 
+            'options' => $preferenceData['options'], 
+            'selected' => $preferenceData['selected']
+        ]);
     }
 
     public function updateGender(Request $request)
