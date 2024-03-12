@@ -21,7 +21,7 @@
             <form method="POST" action="{{ route($deleteRoute, ['id' => $item->$tableId]) }}">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-primary">{{__('Delete') }}</button>
+                <button type="submit" class="btn btn-primary" onclick="return confirm('{{__('Are you sure you want to delete this item?')}}')">{{__('Delete') }}</button>
             </form>
         </td>
     </tr>

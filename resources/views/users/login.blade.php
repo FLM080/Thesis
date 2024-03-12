@@ -11,7 +11,7 @@
                 <div class="mb-4">
                     <h1 class="display-3 text-uppercase mb-0">{{ __('Login') }}</h1>
                 </div>
-                <form method="POST" action="/users/authenticate">
+                <form method="POST" action="{{ route('loginUser') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -31,7 +31,7 @@
                     <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
                     <div class="">
                         <label for="new_member" class="mt-3">{{ __('New on site') }}?</label>
-                        <a class="" href="/register">{{ __('Sign Up') }}</a>
+                        <a class="" href="{{route('register')}}">{{ __('Sign Up') }}</a>
                     </div>
                 </form>
             </div>

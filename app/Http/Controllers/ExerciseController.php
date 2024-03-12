@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\MuscleGroup;
 use App\Models\Exercise;
 use App\Services\DatabaseSchemaService;
@@ -24,7 +25,7 @@ class ExerciseController extends Controller
         $items = Exercise::all();
         $columns = DatabaseSchemaService::getColumnNames('exercise');
         $editRoute = 'editExercise';
-        $searchRoute = 'searchExercise';
+        $searchRoute = 'adminExercise';
 
         $search = $request->get('search');
         $exercises = Exercise::where('exercise_name', 'like', "%{$search}%")
@@ -52,7 +53,7 @@ class ExerciseController extends Controller
         $extensions = config('images.profile.extension');
         $request->validate([
             'muscle_group_id' => 'required',
-            'exercise_name' => 'required|max:20',
+            'exercise_name' => ['required', 'max:30', Rule::unique('exercise', 'exercise_name')],
             'exercise_description' => 'required|max:50',
             'exercise_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
             'exercise_strength_level' => 'required|in:beginner,intermediate,advanced',
@@ -74,9 +75,7 @@ class ExerciseController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $extension = strtolower($image->getClientOriginalExtension());
-            Log::info('Extension: ' . $extension);
             $name = $exercise->exercise_id . '.' . $extension;
-            Log::info('Name: ' . $name);
             $destinationPath = 'images/exercises';
         
             $image->storeAs($destinationPath, $name);
@@ -102,13 +101,33 @@ class ExerciseController extends Controller
         } else {
             notify()->error(__('Failed to save details'));
         }
-        return redirect('/exercise');
-    }
+        return redirect(route('adminExercise'));
+        }
 
     public function destroy(Request $request)
     {
+        $extensions = config('images.profile.extension');
         $exercise = Exercise::find($request->id);
-        $exercise->delete();
-        return redirect('/exercise');
+        $destinationPath = 'images/exercises';
+        $imageDeleted = false;
+
+        foreach ($extensions as $extension) {
+            $fileToDelete = public_path($destinationPath) . '/' . $exercise->exercise_id . '.' . $extension;
+
+            if (is_file($fileToDelete)) {
+                if (unlink($fileToDelete)) {
+                    $imageDeleted = true;
+                    break;
+                }
+            }
+        }
+
+        if ($imageDeleted) {
+            $exercise->delete();
+            notify()->success(__('Exercise deleted successfully'));
+        } else {
+            notify()->error(__('Failed to delete exercise'));
+        }
+        return redirect(route('adminExercise'));
     }
 }

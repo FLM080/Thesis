@@ -6,22 +6,6 @@
                 <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Profile Page') }}</h1>
                 <div class="col-md-7 my-5 mx-auto align-items-center d-flex justify-content-center" id="profile-wall">
                     <div class="d-flex flex-column align-items-center p-3 py-5">
-                        @php
-                        $userId = auth()->user()->id;
-                        $extensions = config('images.profile.extension');
-                        $filePath = 'images/profile/' . $userId;
-                        $defaultPath = config('images.profile.default');
-                    
-                        $userImagePath = $defaultPath;
-                    
-                        foreach ($extensions as $extension) {
-                            $tempPath = $filePath . '.' . $extension;
-                            if (file_exists(public_path($tempPath))) {
-                                $userImagePath = $tempPath;
-                            }
-                        }
-                        @endphp
-                    
                         <img src="{{ asset($userImagePath) }}" class="rounded-circle" id="profile-image">
                         <h1 class="display-3 text-uppercase mb-0 text-white">{{ auth()->user()->name }}</h1>
                         <p class="text-gray">{{ auth()->user()->email }}</p>
@@ -30,12 +14,6 @@
                             <button type="submit" class="btn btn-danger profile-button" type="button">
                                 {{ __('Logout') }}
                             </button>
-                        </form>
-                        <form method="POST" action="/users/{{ Auth::user()->id }}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
-                            @csrf
-                            @method('DELETE')
-                        
-                            <button type="submit" class="btn btn-danger m-5">Delete Account</button>
                         </form>
                     </div>
                 </div>

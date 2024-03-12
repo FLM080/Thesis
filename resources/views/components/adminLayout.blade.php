@@ -1,29 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+@include('components.head')
 
-    <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    @notifyCss
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
-    <title>FitForge: Your ultimate Workout Creator</title>
-    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
-</head>
 
 
 <body>
@@ -32,7 +11,8 @@
     <div class="container-fluid bg-dark px-0">
         <div class="row gx-0">
             <div class="col-lg-3 bg-dark d-none d-lg-block">
-                <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                <a href="{{ route('home') }}"
+                    class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                     <h1 class="m-0 display-4 text-primary text-uppercase">FitForge</h1>
                 </a>
             </div>
@@ -48,15 +28,13 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home')
-                                }}</a>
-                            <a href="/exercise"
-                                class="nav-item nav-link {{ request()->is('exercise') ? 'active' : '' }}">{{ __('Manage
-                                Exercises') }}</a>
-                            <a href="/workout"
-                                class="nav-item nav-link {{ request()->is('workout') ? 'active' : '' }}">{{ __('Manage
-                                Workouts') }}</a>
-                            <a href="/muscleGroup"
+                            <a href="{{ route('home') }}"
+                                class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home') }}</a>
+                            <a href="{{ route('adminExercise') }}"
+                                class="nav-item nav-link {{ request()->is('exercise') ? 'active' : '' }}">{{ __('Manage Exercises') }}</a>
+                            <a href="{{ route('adminWorkout') }}"
+                                class="nav-item nav-link {{ request()->is('workout') ? 'active' : '' }}">{{ __('Manage Workouts') }}</a>
+                            <a href="{{ route('adminMuscleGroup') }}"
                                 class="nav-item nav-link {{ request()->is('muscleGroup') ? 'active' : '' }}">{{
                                 __('Manage Muscle Groups') }}</a>
                         </div>
@@ -66,15 +44,17 @@
                                 {{ auth()->user()->name }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="/profile">{{ __('Profile') }}</a></li>
-                                @if(auth()->user()->user_admin_privilege)
-                                <li><a class="dropdown-item" href="/exercise">{{ __('Admin Panel') }}</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('profile') }}">{{ __('Profile') }}</a>
+                                    @if(auth()->user()->user_admin_privilege)
+                                </li>
+                                <a class="dropdown-item" href="{{ route('adminExercise') }}">{{ __('Admin Panel') }}</a>
                                 @endif
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <form class="inline" method="POST" action="/logout">
+                                    <form class="inline" method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <input type="submit" class="dropdown-item" value="{{ __('Logout') }}">
                                     </form>
@@ -101,16 +81,20 @@
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="/profile">{{ __('Profile') }}</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('profile') }}">{{ __('Profile') }}</a>
+                                    </li>
                                     @if(auth()->user()->user_admin_privilege)
-                                    <li><a class="dropdown-item" href="/exercise">{{ __('Admin Panel') }}</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('adminExercise') }}">{{ __('Admin Panel') }}</a>
+                                    </li>
                                     @endif
 
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                        <form class=" inline" method="POST" action="/logout">
+                                        <form class="inline" method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <input type="submit" class="dropdown-item" value="{{ __('Logout') }}">
                                         </form>
@@ -129,45 +113,7 @@
     <!-- output-->
     {{ $slot }}
 
-    <!-- Footer Start -->
-    @if (request()->is('/'))
-    <div class="container-fluid bg-dark text-secondary px-5 mt-5">
-        <div class="row gx-5">
-            <h4 class="text-uppercase text-light mb-4 text-center pt-3">{{ __('Quick Links') }}</h4>
-            <div class="d-flex flex-row justify-content-center">
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
-                    __('Home') }}</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
-                    __('Plan Your Workout') }}</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
-                    __('Famous Workouts') }}</a>
-                <a class="text-secondary mb-2 me-3" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>{{
-                    __('Give Us Feedback') }}</a>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
-        <div class="row gx-5">
-            <div class="py-lg-4 text-center">
-                <p class="text-secondary mb-0">&copy;All Rights Reserved.</p>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
-
-    <!-- Back to Top -->
-
-    @else
-    <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
-        <div class="row gx-5">
-            <div class="py-lg-4 text-center">
-                <p class="text-secondary mb-0">&copy;All Rights Reserved.</p>
-            </div>script
-        </div>
-    </div>
-    @endif
-    <x-notify::notify />
-    @notifyJs
+    @include('components.footer')
     <script src="{{ asset('js/modal.js') }}"></script>
     <script src="{{ asset('js/search.js') }}"></script>
 </body>

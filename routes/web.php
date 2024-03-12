@@ -32,53 +32,53 @@ Route::middleware('localization')->group(function () {
     //home page
     Route::get('/', function () {
         return view('index');
-    });
+    })->name('home');
 
     //show register form
-    Route::get('/register', [UserController::class, 'create']);
+    Route::get('/register', [UserController::class, 'create'])->name('register');
 
     //show login form
     Route::get('/login', [UserController::class, 'login'])->name('login');
 
     //show workout planner
-    Route::get('/WorkoutPlanner', [WorkoutPlannerController::class, 'show']);
+    Route::get('/WorkoutPlanner', [WorkoutPlannerController::class, 'show'])->name('workoutPlanner');
 
     //create new user
-    Route::post('/users', [UserController::class, 'store']);
+    Route::post('/createUser', [UserController::class, 'store'])->name('createUser');
 
     //login user
-    Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+    Route::post('/users/authenticate', [UserController::class, 'authenticate'])->name('loginUser');
 
     Route::group(['middleware' => 'auth'], function () {
         //logout user
-        Route::post('/logout', [UserController::class, 'logout']);
+        Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
         //show user profile
-        Route::get('/profile', [UserController::class, 'show']);
+        Route::get('/profile', [UserController::class, 'show'])->name('profile');
 
         //update user preference
-        Route::post('/profile/updatePreference/{id}', [PreferenceController::class, 'update']);
+        Route::post('/profile/updatePreference/{id}', [PreferenceController::class, 'update'])->name('updatePreference');
 
-        Route::post('/profile/updateGender/{id}', [UserController::class, 'updateGender']);
+        Route::post('/profile/updateGender/{id}', [UserController::class, 'updateGender'])->name('updateGender');
 
         //update user details
-        Route::post('/profile/updateDetails/{id}', [UserController::class, 'updateDetails']);
+        Route::post('/profile/updateDetails/{id}', [UserController::class, 'updateDetails'])->name('updateDetails');
 
         //update user credentials
-        Route::post('/profile/updateCredentials/{id}', [UserController::class, 'updateCredentials']);
+        Route::post('/profile/updateCredentials/{id}', [UserController::class, 'updateCredentials'])->name('updateCredentials');
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/exercise', [ExerciseController::class, 'index'])->name('searchExercise');
-        Route::post('/admin/addExercise', [ExerciseController::class, 'store']);
+        Route::get('/exercise', [ExerciseController::class, 'index'])->name('adminExercise');
+        Route::post('/admin/addExercise', [ExerciseController::class, 'store'])->name('addExercise');
         Route::post('/admin/editExercise/{id}', [ExerciseController::class, 'update'])->name('editExercise');
         Route::delete('/admin/deleteExercise/{id}', [ExerciseController::class, 'destroy'])->name('deleteExercise');
         
-        Route::get('/workout', [AdminController::class, 'workout']);
+        Route::get('/workout', [AdminController::class, 'workout'])->name('adminWorkout');
 
-        Route::get('/muscleGroup', [MuscleGroupController::class, 'index'])->name('searchMuscleGroup');
+        Route::get('/muscleGroup', [MuscleGroupController::class, 'index'])->name('adminMuscleGroup');
         Route::post('/admin/editMuscleGroup/{id}', [MuscleGroupController::class, 'update'])->name('editMuscleGroup');
-        Route::post('/admin/addMuscleGroup', [MuscleGroupController::class, 'store']);
+        Route::post('/admin/addMuscleGroup', [MuscleGroupController::class, 'store'])->name('addMuscleGroup');
         Route::delete('/admin/deleteMuscleGroup/{id}', [MuscleGroupController::class, 'destroy'])->name('deleteMuscleGroup');
     });
 });

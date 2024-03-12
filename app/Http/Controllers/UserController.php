@@ -35,7 +35,7 @@ class UserController extends Controller
 
 
         notify()->success(__('Account created successfully'));
-        return redirect('/login');
+        return redirect(route('login'));
     }
 
     // show Login Form
@@ -56,7 +56,7 @@ class UserController extends Controller
         if(auth()->attempt($credentials)){
             $request->session()->regenerate();
             notify()->success(__('Successfully logged in'));
-            return redirect()->intended('/');
+            return redirect()->intended(route('home'));
         }
 
         return back()->withErrors([
@@ -71,7 +71,7 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         
         notify()->success(__('Successfully logged out'));
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     public function show()
@@ -82,13 +82,16 @@ class UserController extends Controller
         $genders = DatabaseSchemaService::getColumnEnums('users', $genderColumn);
         $selectedGender = $user->user_gender;
         
+        $userImagePath = $this->getUserImagePath();
+
         $preference = new Preference();
         $preferenceData = $preference->getUserPreference($user);
         
         return view('users.profile', [
             'genderColumn' => $genderColumn, 
             'genders' => $genders, 
-            'selectedGender' => $selectedGender, 
+            'selectedGender' => $selectedGender,
+            'userImagePath' => $userImagePath,
             'columns' => $preferenceData['columns'], 
             'options' => $preferenceData['options'], 
             'selected' => $preferenceData['selected']
@@ -111,7 +114,7 @@ class UserController extends Controller
         } else {
             notify()->error(__('Failed to save gender'));
         }
-        return redirect('/profile');
+        return redirect(route('profile'));
     }
 
     public function updateDetails(Request $request)
@@ -130,33 +133,33 @@ class UserController extends Controller
             $users->name = $formFields['name'];
         }
     
-    if ($request->hasFile('image')) {
-        $extensions = config('images.profile.extension');
-        $request->validate([
-            'image' => 'required|image|mimes:' . implode(',', $extensions) . '',
-        ]);
-
-        $image = $request->file('image');
-        $extension = strtolower($image->getClientOriginalExtension());
-        $name = $user->id . '.' . $image->getClientOriginalExtension();
-        $destinationPath = public_path('/images/profile');
-
-        $existingFiles = glob($destinationPath . '/' . $user->id . '.*');
-        foreach ($existingFiles as $existingFile) {
-            if ($existingFile !== $destinationPath . '/' . $name) {
-                unlink($existingFile);
+        if ($request->hasFile('image')) {
+            $extensions = config('images.profile.extension');
+            $request->validate([
+                'image' => 'required|image|mimes:' . implode(',', $extensions) . '',
+            ]);
+        
+            $image = $request->file('image');
+            $extension = strtolower($image->getClientOriginalExtension());
+            $name = $user->id . '.' . $extension;
+            $destinationPath = public_path('/images/profile');
+        
+            $existingFiles = glob($destinationPath . '/' . $user->id . '.*');
+            foreach ($existingFiles as $existingFile) {
+                if ($existingFile !== $destinationPath . '/' . $name) {
+                    unlink($existingFile);
+                }
             }
+        
+            $resizedImage = Image::make($image)->resize(320, 320, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+        
+            $resizedImage->save($destinationPath . '/' . $name);
+            $user->profile_picture = $destinationPath . '/' . $name;
+            $imageUploaded = true;
         }
-
-        $resizedImage = Image::make($image)->resize(320, 320, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
-
-        $resizedImage->save($destinationPath . '/' . $name);
-        $user->profile_picture = $destinationPath . '/' . $name;
-        $imageUploaded = true;
-    }
         $users->save();
     
         if ($users->wasChanged() || $imageUploaded) {
@@ -164,7 +167,7 @@ class UserController extends Controller
         } else {
             notify()->error(__('Failed to save details'));
         }
-        return redirect('/profile');
+        return redirect(route('profile'));
     }
 
 
@@ -195,6 +198,25 @@ class UserController extends Controller
             notify()->error(__('Failed to update credentials'));
         }
 
-        return redirect('/profile');
+        return redirect(route('profile'));
     }
+
+    public function getUserImagePath() {
+        $userId = auth()->user()->id;
+        $extensions = config('images.profile.extension');
+        $filePath = 'images/profile/' . $userId;
+        $defaultPath = config('images.profile.default');
+    
+        $userImagePath = $defaultPath;
+    
+        foreach ($extensions as $extension) {
+            $tempPath = $filePath . '.' . $extension;
+            if (file_exists(public_path($tempPath))) {
+                $userImagePath = $tempPath;
+            }
+        }
+    
+        return $userImagePath;
+    }
+
 }

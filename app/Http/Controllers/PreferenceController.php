@@ -31,6 +31,6 @@ class PreferenceController extends Controller
         } else {
             notify()->error(__('Failed to save preference'));
         }
-        return redirect('/profile');
+        return redirect(route('profile'));
     }
 }

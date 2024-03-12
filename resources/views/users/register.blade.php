@@ -1,5 +1,5 @@
 <x-registerLayout>
-    <div id="registerOuter" class="container-fluid ">
+    <div id="registerOuter" class="container">
         <div class="row gx-5">
             <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                 <div class="position-relative h-100">
@@ -11,7 +11,7 @@
                 <div class="mb-4">
                     <h1 class="display-3 text-uppercase mb-0">{{ __('Create an Account') }}</h1>
                 </div>
-                <form method="POST" action="/users">
+                <form method="POST" action="{{ route('createUser') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">{{ __('Name') }}</label>
@@ -43,7 +43,7 @@
                     <button type="submit" class="btn  btn-primary">{{ __('Register') }}</button>
                     <div>
                         <label for="already_member" class="mt-3">{{ __('Already a member') }}?</label>
-                        <a class="pb-5" href="/login">{{ __('Login') }}</a>
+                        <a class="pb-5" href="{{route('login')}}">{{ __('Login') }}</a>
                     </div>
                 </form>
             </div>
