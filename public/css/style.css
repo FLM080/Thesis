@@ -274,6 +274,7 @@ div.col-md-4.my-5 {
 }
 
 .edit_moveslider {
+  transition: all 0.5s ease-in-out;
   left: 595px;
 }
 
@@ -288,6 +289,7 @@ div.col-md-4.my-5 {
 }
 
 .edit_form-section-move {
+  transition: all 0.5s ease-in-out;
   left: -1200px;
 }
 
@@ -593,4 +595,8 @@ div.col-md-4.my-5 {
 div.scrollable-table {
   max-height: 365px;
   overflow-y: auto;
+}
+
+#exercise_description_edit{
+  max-height: 100px;
 }

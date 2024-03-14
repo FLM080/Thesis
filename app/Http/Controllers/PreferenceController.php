@@ -25,12 +25,15 @@ class PreferenceController extends Controller
         $preference->preference_strength_level = $request->preference_strength_level;
 
         
-        $preference->save();
-        if ($preference->wasChanged()) {
-            notify()->success(__('Successfully saved preference'));
+        if ($preference->isDirty()) {
+            if ($preference->save()) {
+                notify()->success(__('Successfully saved preference'));
+            } else {
+                notify()->error(__('Failed to save preference'));
+            }
         } else {
-            notify()->error(__('Failed to save preference'));
+            notify()->info(__('No changes to save'));
         }
-        return redirect(route('profile'));
-    }
+            return redirect(route('profile'));
+        }
 }

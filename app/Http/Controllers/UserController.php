@@ -20,7 +20,7 @@ class UserController extends Controller
         return view('users.register');
     }
 
-    //create new user
+
     public function store(Request $request){
         $formFields = $request->validate([
             'name' => ['required', 'min:3', 'max:30','regex:/^[a-zA-Z\s]+$/'],
@@ -28,17 +28,20 @@ class UserController extends Controller
             'password' => ['required', 'min:6', 'max:64', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
         ]);
 
-        //Hash Password
         $formFields['password'] = bcrypt($formFields['password']);
 
         $user = User::create($formFields);
 
 
-        notify()->success(__('Account created successfully'));
-        return redirect(route('login'));
+        if ($user) {
+            notify()->success(__('Successfully registered'));
+            return redirect(route('login'));
+        } else {
+            notify()->error(__('Failed to register'));
+            return redirect(route('register'));
+        }
     }
 
-    // show Login Form
     public function login()
     {
         return view('users.login');
@@ -70,7 +73,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        notify()->success(__('Successfully logged out'));
+        
         return redirect(route('home'));
     }
 
@@ -107,12 +110,15 @@ class UserController extends Controller
             $users->user_id = $user->id;
         }
         $users->user_gender = $request->user_gender;
-        $users->save();
 
-        if ($users->save()) {
-            notify()->success(__('Successfully saved gender'));
-        } else {
-            notify()->error(__('Failed to save gender'));
+        if ($users->isDirty()) {
+            if ($users->save()) {
+                notify()->success(__('Successfully saved details'));
+            } else {
+                notify()->error(__('Failed to save details'));
+            } 
+        }else{
+            notify()->info(__('No changes to save'));
         }
         return redirect(route('profile'));
     }
@@ -160,12 +166,16 @@ class UserController extends Controller
             $user->profile_picture = $destinationPath . '/' . $name;
             $imageUploaded = true;
         }
-        $users->save();
+
     
-        if ($users->wasChanged() || $imageUploaded) {
-            notify()->success(__('Successfully saved details'));
-        } else {
-            notify()->error(__('Failed to save details'));
+        if ($users->isDirty()) {
+            if ($users->save() || $imageUploaded) {
+                notify()->success(__('Successfully saved details'));
+            } else {
+                notify()->error(__('Failed to save details'));
+            } 
+        }else{
+            notify()->info(__('No changes to save'));
         }
         return redirect(route('profile'));
     }
@@ -189,15 +199,17 @@ class UserController extends Controller
             if (!empty($formFields['email'])) {
                 $user->email = $formFields['email'];
             }
-            $user->save();
         }
 
-        if ($user->wasChanged()) {
-            notify()->success(__('Successfully updated credentials'));
-        } else {
-            notify()->error(__('Failed to update credentials'));
+        if ($user->isDirty()) {
+            if ($user->save() ) {
+                notify()->success(__('Successfully saved details'));
+            } else {
+                notify()->error(__('Failed to save details'));
+            } 
+        }else{
+            notify()->info(__('No changes to save'));
         }
-
         return redirect(route('profile'));
     }
 
@@ -219,4 +231,22 @@ class UserController extends Controller
         return $userImagePath;
     }
 
+    public function destroy($id, Request $request)
+    {
+        $user = User::find($id);
+
+        if (password_verify($request->input('current_password'), $user->password)) {
+            if ($user->delete()) {
+                notify()->success(__('Successfully deleted user'));
+                return redirect(route('home'));
+            } else {
+                notify()->error(__('Failed to delete user'));
+            }
+        } else {
+            notify()->error(__('Incorrect password'));
+            return redirect(route('profile'));
+        }
+
+        return redirect(route('profile'));
+    }
 }

@@ -29,7 +29,7 @@
                 <table class="table table-dark table-striped my-2 text-center">
                     <tbody id="table-body">
                         @include('partials._table', ['items' => $items, 'columns' => $columns, 'tableId' =>
-                        $tableId, 'deleteRoute' => $deleteRoute, 'editRoute' => $editRoute])
+                        $tableId, 'deleteRoute' => $deleteRoute, 'editRoute' => $editRoute, 'editType' => 'muscleGroup'])
                     </tbody>
                 </table>
             </div>

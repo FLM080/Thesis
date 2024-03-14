@@ -97,7 +97,7 @@
             <div class="scrollable-table">
                 <table class="table table-dark table-striped my-2 text-center" id="exercises-table">
                     <tbody id="table-body">
-                        @include('partials._table', ['items' => $exercises, 'columns' => $columns, 'deleteRoute' => 'deleteExercise', 'tableId' => $tableId, 'editRoute' => $editRoute])
+                        @include('partials._table', ['items' => $exercises, 'columns' => $columns, 'deleteRoute' => 'deleteExercise', 'tableId' => $tableId, 'editRoute' => $editRoute, 'editType' => 'exercise'])
                     </tbody>
                 </table>
             </div>

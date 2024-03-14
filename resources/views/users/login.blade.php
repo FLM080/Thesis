@@ -29,9 +29,9 @@
                         @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
-                    <div class="">
+                    <div>
                         <label for="new_member" class="mt-3">{{ __('New on site') }}?</label>
-                        <a class="" href="{{route('register')}}">{{ __('Sign Up') }}</a>
+                        <a href="{{route('register')}}">{{ __('Sign Up') }}</a>
                     </div>
                 </form>
             </div>

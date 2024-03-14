@@ -66,9 +66,13 @@ Route::middleware('localization')->group(function () {
 
         //update user credentials
         Route::post('/profile/updateCredentials/{id}', [UserController::class, 'updateCredentials'])->name('updateCredentials');
+
+        Route::delete('/profile/deleteUser/{id}', [UserController::class, 'destroy'])->name('deleteUser');
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
         Route::get('/exercise', [ExerciseController::class, 'index'])->name('adminExercise');
         Route::post('/admin/addExercise', [ExerciseController::class, 'store'])->name('addExercise');
         Route::post('/admin/editExercise/{id}', [ExerciseController::class, 'update'])->name('editExercise');

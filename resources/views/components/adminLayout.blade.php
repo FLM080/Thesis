@@ -30,6 +30,8 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{{ route('home') }}"
                                 class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home') }}</a>
+                            <a href="{{ route('admin') }}" class="nav-item nav-link {{ request()->is('admin') ? 'active' : '' }}">{{
+                                __('Admin') }}</a>
                             <a href="{{ route('adminExercise') }}"
                                 class="nav-item nav-link {{ request()->is('exercise') ? 'active' : '' }}">{{ __('Manage Exercises') }}</a>
                             <a href="{{ route('adminWorkout') }}"

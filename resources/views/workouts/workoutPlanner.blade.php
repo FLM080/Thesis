@@ -12,12 +12,12 @@
         </div>
         <div class="col-md-5 ">
             <!-- Right container -->
-            <div class="wrapper-right bg-dark">
+            <div class="wrapper-right bg-dark ">
                 <div class="card" onclick="moveCard(this)">
                     <img src="{{ asset('images/exercises/bench.jpg') }}">
 
                     <div class="info">
-                        <h1>Excercise Name dasdasdasdasdasdasdasdas</h1>
+                        <h6 class="text-white">Excercise Name dasdasdasdasdasdasdasdas</h6>
                         <p>desc</p>
                         <p>type</p>
                         <p>difficulty</p>

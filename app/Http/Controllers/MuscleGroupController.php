@@ -17,21 +17,22 @@ class MuscleGroupController extends Controller
         $deleteRoute = 'deleteMuscleGroup';
         $editRoute = 'editMuscleGroup';
         $searchRoute = 'adminMuscleGroup';
+        $editType = 'muscleGroup';
         
         $search = $request->get('search');
         $items = MuscleGroup::where('muscle_group_name', 'like', "%{$search}%")->get();
 
         
         if ($request->ajax()) {
-            return view('partials._table', ['items' => $items, 'columns' => $columns, 'deleteRoute' => $deleteRoute, 'tableId' => $tableId, 'editRoute' => $editRoute]);
+            return view('partials._table', ['items' => $items, 'columns' => $columns, 'deleteRoute' => $deleteRoute, 'tableId' => $tableId, 'editRoute' => $editRoute, 'editType' => $editType]);
         }
-        return view('admin.muscleGroup', compact('items', 'columns', 'tableId', 'deleteRoute', 'editRoute', 'searchRoute'));
+        return view('admin.muscleGroup', compact('items', 'columns', 'tableId', 'deleteRoute', 'editRoute', 'searchRoute', 'editType'));    
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'muscle_group_name' => ['required', 'max:30', 'alpha', Rule::unique('muscle_groups', 'muscle_group_name')],
+            'muscle_group_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s]+$/i', Rule::unique('muscle_groups', 'muscle_group_name')],
         ]);
 
         $muscleGroup = new MuscleGroup([
@@ -55,14 +56,21 @@ class MuscleGroupController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'muscle_group_name' => 'required|max:30|alpha_num',
+            'muscle_group_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s]+$/i', \Illuminate\Validation\Rule::unique('muscle_groups', 'muscle_group_name')],
         ]);
 
         $muscleGroup = MuscleGroup::find($id);
         $muscleGroup->muscle_group_name = $validatedData['muscle_group_name'];
-        $muscleGroup->save();
 
-        notify()->success(__('Muscle Group updated successfully'));
+        if ($muscleGroup->isDirty()) {
+            if ($muscleGroup->save()) {
+                notify()->success(__('Muscle Group updated successfully'));
+            } else {
+                notify()->error(__('Failed to update Muscle Group'));
+            }
+        } else {
+            notify()->info(__('No changes were made to the Muscle Group'));
+        }
 
         return redirect(route('adminMuscleGroup'));
     }

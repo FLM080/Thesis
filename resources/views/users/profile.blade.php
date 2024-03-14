@@ -9,7 +9,7 @@
                         <img src="{{ asset($userImagePath) }}" class="rounded-circle" id="profile-image">
                         <h1 class="display-3 text-uppercase mb-0 text-white">{{ auth()->user()->name }}</h1>
                         <p class="text-gray">{{ auth()->user()->email }}</p>
-                        <form method="POST" action="/logout">
+                        <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="btn btn-danger profile-button" type="button">
                                 {{ __('Logout') }}
@@ -22,7 +22,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right text-white">{{ __('Gender') }}</h4>
                         </div>
-                        <form action="/profile/updateGender/{id}" method="POST">
+                        <form action="{{ route('updateGender', [auth()->user()->id]) }}" method="POST">
                             @csrf
                             <div class="col-md-12">  
                                 <select class="form-control" name="{{ $genderColumn }}">
@@ -43,7 +43,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right text-white">{{ __('Preferences') }}</h4>
                         </div>
-                        <form action="/profile/updatePreference/{id}" method="POST">
+                        <form action="{{ route('updatePreference', [auth()->user()->id]) }}" method="POST">
                             @csrf
                             <div class="col-md-12">
                                 @foreach ($columns as $column => $label)
@@ -78,12 +78,12 @@
                 </div>
                 <div class="edit_form-section">
                     <!-- edit_det form -->
-                    <form method="POST" action="/profile/updateDetails/{id}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('updateDetails', [auth()->user()->id]) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="edit_det-box">
                             <input name="name" type="text" class="edit_field" placeholder="{{ __('new Username') }}">
                             @error('name')
-                            <?php notify()->error(__($message)) ?>
+                                <?php notify()->error(__($message)) ?>
                             @enderror
                             <input name="image" type="file" id="profile-img" placeholder="{{ __('Upload Image') }}">
                             @error('image')
@@ -93,7 +93,7 @@
                         </div>
                     </form>
                     <!-- edit_cred form -->
-                    <form method="POST" action="/profile/updateCredentials/{id}">
+                    <form method="POST" action="{{ route('updateCredentials', [auth()->user()->id]) }}">
                         @csrf
                         <div class="edit_cred-box">
                             <input name="email" type="email" class="edit_field" placeholder="{{ __('new Email') }}">
@@ -113,17 +113,20 @@
         </div>
         <div class="my-5 container rounded border border-dark bg-dark" id="delete">
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Delete profile') }}</h1>
-            <div class="container">
-                <form method="POST" action="/users/{{ Auth::user()->id }}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+                <form method="POST" action="{{ route('deleteUser', [auth()->user()->id]) }}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
                     @csrf
                     @method('DELETE')
-                    <div class="form-group">
+                    <div class="form-group w-50 mx-auto">
                         <label for="current_password">{{ __('Current Password') }}</label>
                         <input type="password" name="current_password" id="current_password" class="form-control" required>
+                        @error('current_password')
+                        <?php notify()->error(__($message)) ?>
+                        @enderror        
                     </div>
-                    <button type="submit" class="btn btn-danger m-5">{{ __('Delete Account') }}</button>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-danger m-3">{{ __('Delete Account') }}</button>
+                    </div>
                 </form>
-            </div>
         </div>
     </div>
     <script src="{{ asset('js/profile_edit.js') }}"></script>
