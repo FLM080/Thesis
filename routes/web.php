@@ -54,7 +54,7 @@ Route::middleware('localization')->group(function () {
         Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
         //show user profile
-        Route::get('/profile', [UserController::class, 'show'])->name('profile');
+        Route::get('/profile', [UserController::class, 'index'])->name('profile');
 
         //update user preference
         Route::post('/profile/updatePreference/{id}', [PreferenceController::class, 'update'])->name('updatePreference');
@@ -72,6 +72,8 @@ Route::middleware('localization')->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+        Route::post('/admin/editUser/{id}', [AdminController::class, 'update'])->name('editUser');
+        Route::delete('/admin/deleteUser/{id}', [AdminController::class, 'destroy'])->name('deleteUser');
 
         Route::get('/exercise', [ExerciseController::class, 'index'])->name('adminExercise');
         Route::post('/admin/addExercise', [ExerciseController::class, 'store'])->name('addExercise');

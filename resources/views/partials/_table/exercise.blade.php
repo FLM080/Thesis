@@ -86,3 +86,4 @@
             <button type="submit" class="btn btn-primary my-3">{{ __('Save') }}</button>
         </div>
     </form>
+</div>

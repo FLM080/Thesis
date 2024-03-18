@@ -600,3 +600,10 @@ div.scrollable-table {
 #exercise_description_edit{
   max-height: 100px;
 }
+
+.disabled-field {
+  border-color: red;
+}
+.editable-field {
+  border-color: green;
+}

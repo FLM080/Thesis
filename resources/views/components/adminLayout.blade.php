@@ -31,7 +31,7 @@
                             <a href="{{ route('home') }}"
                                 class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home') }}</a>
                             <a href="{{ route('admin') }}" class="nav-item nav-link {{ request()->is('admin') ? 'active' : '' }}">{{
-                                __('Admin') }}</a>
+                                __('Manage Users') }}</a>
                             <a href="{{ route('adminExercise') }}"
                                 class="nav-item nav-link {{ request()->is('exercise') ? 'active' : '' }}">{{ __('Manage Exercises') }}</a>
                             <a href="{{ route('adminWorkout') }}"
@@ -50,7 +50,7 @@
                                     <a class="dropdown-item" href="{{ route('profile') }}">{{ __('Profile') }}</a>
                                     @if(auth()->user()->user_admin_privilege)
                                 </li>
-                                <a class="dropdown-item" href="{{ route('adminExercise') }}">{{ __('Admin Panel') }}</a>
+                                <a class="dropdown-item" href="{{ route('admin') }}">{{ __('Admin Panel') }}</a>
                                 @endif
                                 <li>
                                     <hr class="dropdown-divider">
@@ -88,7 +88,7 @@
                                     </li>
                                     @if(auth()->user()->user_admin_privilege)
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('adminExercise') }}">{{ __('Admin Panel') }}</a>
+                                        <a class="dropdown-item" href="{{ route('admin') }}">{{ __('Admin Panel') }}</a>
                                     </li>
                                     @endif
 

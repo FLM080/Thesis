@@ -77,7 +77,7 @@ class UserController extends Controller
         return redirect(route('home'));
     }
 
-    public function show()
+    public function index()
     {
         $user = Auth::user(); 
 

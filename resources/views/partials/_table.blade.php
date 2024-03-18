@@ -2,7 +2,11 @@
 
     <tr>
         @foreach ($columns as $column)
-        <th class="text-white">{{ str_replace('id', '', str_replace('_', ' ', __($column))) }}</th>
+            @if($column == 'id')
+            <th class="text-white">{{ __('ID') }}</th>
+            @else
+            <th class="text-white">{{ str_replace('id', '', str_replace('_', ' ', __($column))) }}</th>
+            @endif
         @endforeach
         <th class="text-white text-center">{{ __('Edit') }}</th>
         <th class="text-white text-center">{{ __('Delete') }}</th>
@@ -10,7 +14,9 @@
     @foreach ($items as $item)
     <tr>
         @foreach ($columns as $column)
-            <td class="text-white">{{ $item->getDisplayValue($column)}}</td>
+        <td class="text-white">
+                {{ $item->$column }}
+        </td>
         @endforeach
         <td class="text-center">
             <button type="button" class="btn btn-primary edit-btn"
@@ -36,6 +42,8 @@
                             @include('partials._table.muscleGroup')
                     @elseif($editType == 'exercise')
                             @include('partials._table.exercise')
+                    @elseif($editType == 'user')
+                            @include('partials._table.user')
                     @endif
                 </div>
             </div>

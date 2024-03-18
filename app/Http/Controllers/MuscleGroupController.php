@@ -11,7 +11,6 @@ class MuscleGroupController extends Controller
 {
     public function index(Request $request)
     {
-        $items = MuscleGroup::all();
         $columns = DatabaseSchemaService::getColumnNames('muscle_groups');
         $tableId = 'muscle_group_id';
         $deleteRoute = 'deleteMuscleGroup';

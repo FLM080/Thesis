@@ -22,14 +22,14 @@
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Edit exercises') }}</h1>
             <div class="d-flex justify-content-end">
                 <div class="input-group mb-3" style="max-width: 300px;">
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Search exercises" data-url="{{ route($searchRoute) }}">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Search muscle group" data-url="{{ route($searchRoute) }}">
                 </div>
             </div>
             <div class="scrollable-table">
                 <table class="table table-dark table-striped my-2 text-center">
                     <tbody id="table-body">
                         @include('partials._table', ['items' => $items, 'columns' => $columns, 'tableId' =>
-                        $tableId, 'deleteRoute' => $deleteRoute, 'editRoute' => $editRoute, 'editType' => 'muscleGroup'])
+                        $tableId, 'deleteRoute' => $deleteRoute, 'editRoute' => $editRoute, 'editType' => $editType])
                     </tbody>
                 </table>
             </div>

@@ -18,16 +18,14 @@ class ExerciseController extends Controller
         $exerciseGoal = DatabaseSchemaService::getColumnEnums('exercise', 'exercise_goal');
         $deleteRoute = 'deleteExercise';
         $tableId = 'exercise_id';
-        $exercises = Exercise::all();
         $muscleGroups = MuscleGroup::all();
-        $items = Exercise::all();
         $columns = DatabaseSchemaService::getColumnNames('exercise');
         $editRoute = 'editExercise';
         $searchRoute = 'adminExercise';
         $editType = 'exercise';
 
         $search = $request->get('search');
-        $exercises = Exercise::where('exercise_name', 'like', "%{$search}%")
+        $items = Exercise::where('exercise_name', 'like', "%{$search}%")
             ->orWhere('muscle_group_id', 'like', "%{$search}%")
             ->orWhere('exercise_type', 'like', "%{$search}%")
             ->orWhere('exercise_strength_level', 'like', "%{$search}%")
@@ -35,9 +33,9 @@ class ExerciseController extends Controller
             ->get();
 
         if ($request->ajax()) {
-            return view('partials._table', ['items' => $exercises, 'columns' => $columns, 'deleteRoute' => $deleteRoute, 'tableId' => $tableId, 'editRoute' => $editRoute, 'editType' => $editType, 'muscleGroups' => $muscleGroups, 'exerciseTypes' => $exerciseTypes, 'exerciseDifficulty' => $exerciseDifficulty, 'exerciseGoal' => $exerciseGoal]);
+            return view('partials._table', ['items' => $items, 'columns' => $columns, 'deleteRoute' => $deleteRoute, 'tableId' => $tableId, 'editRoute' => $editRoute, 'editType' => $editType, 'muscleGroups' => $muscleGroups, 'exerciseTypes' => $exerciseTypes, 'exerciseDifficulty' => $exerciseDifficulty, 'exerciseGoal' => $exerciseGoal]);
         }
-        return view('admin.exercise', compact('muscleGroups', 'exerciseTypes', 'exerciseDifficulty', 'exerciseGoal', 'exercises','items', 'columns', 'deleteRoute', 'tableId', 'editRoute', 'searchRoute', 'editType'));
+        return view('admin.exercise', compact('muscleGroups', 'exerciseTypes', 'exerciseDifficulty', 'exerciseGoal','items', 'columns', 'deleteRoute', 'tableId', 'editRoute', 'searchRoute', 'editType'));
     }
 
     public function search(Request $request)
