@@ -7,6 +7,9 @@
                 'png',
             ],
             'default' => 'images/profile/Default.jpg',
-        ]
+        ],
+        'exercises'=>[
+            'default' => 'images/exercises/Default.jpg',
+        ],
     ]
 ?>

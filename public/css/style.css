@@ -446,8 +446,9 @@ div.col-md-4.my-5 {
 
 /*workout planner*/
 
-.row.container-fluid {
+.container-fluid.workoutPlanner {
   background-color: rgba(34, 36, 41, 0.8);
+  min-height: 82vh;
 }
 
 .exercise-name {
@@ -537,7 +538,7 @@ div.col-md-4.my-5 {
 
 .card .info p {
   letter-spacing: 1px;
-  font-size: 15px;
+  font-size: 13px;
   margin-top: 8px;
 }
 
@@ -549,11 +550,7 @@ div.col-md-4.my-5 {
     margin-bottom: 20px;
   }
 
-  .card p {
-    letter-spacing: 1px;
-    font-size: 15px;
-    margin-top: 8px;
-  }
+
 }
 
 .wrapper-right {
@@ -606,4 +603,14 @@ div.scrollable-table {
 }
 .editable-field {
   border-color: green;
+}
+
+.text-white.table-item div {
+  max-width: 300px;
+  max-height: 55px;
+  overflow: auto;
+}
+
+.plannerBg{
+  min-height: 82vh;
 }

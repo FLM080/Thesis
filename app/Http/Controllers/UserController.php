@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Preference;
 use App\Services\DatabaseSchemaService;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Services\ImageService;
 
 
 
@@ -85,7 +86,8 @@ class UserController extends Controller
         $genders = DatabaseSchemaService::getColumnEnums('users', $genderColumn);
         $selectedGender = $user->user_gender;
         
-        $userImagePath = $this->getUserImagePath();
+        $imageService = new ImageService();
+        $userImagePath = $imageService->getImagePath('profile', $user->id, config('images.profile.default'));
 
         $preference = new Preference();
         $preferenceData = $preference->getUserPreference($user);

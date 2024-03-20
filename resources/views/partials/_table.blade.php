@@ -3,7 +3,7 @@
     <tr>
         @foreach ($columns as $column)
             @if($column == 'id')
-            <th class="text-white">{{ __('ID') }}</th>
+            <th class="text-white">{{ __('user') }}</th>
             @else
             <th class="text-white">{{ str_replace('id', '', str_replace('_', ' ', __($column))) }}</th>
             @endif
@@ -14,10 +14,16 @@
     @foreach ($items as $item)
     <tr>
         @foreach ($columns as $column)
-        <td class="text-white">
-                {{ $item->$column }}
+        <td class="text-white table-item">
+            <div>
+                @if($column == 'muscle_group_id' && $item->muscleGroup)
+                    {{ $item->muscleGroup->muscle_group_name }}
+                @else
+                    {{ $item->$column }}
+                @endif
+            </div>
         </td>
-        @endforeach
+    @endforeach
         <td class="text-center">
             <button type="button" class="btn btn-primary edit-btn"
                 data-bs-target="#editModal{{ $item->$tableId }}">{{ __('Edit') }}

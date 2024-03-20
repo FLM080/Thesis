@@ -23,7 +23,7 @@ class Exercise extends BaseModel
         'exercise_goal',
     ];
 
-    public function muscle_group()
+    public function muscleGroup()
     {
         return $this->belongsTo(MuscleGroup::class, 'muscle_group_id');
     }

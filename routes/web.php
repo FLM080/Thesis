@@ -41,7 +41,7 @@ Route::middleware('localization')->group(function () {
     Route::get('/login', [UserController::class, 'login'])->name('login');
 
     //show workout planner
-    Route::get('/WorkoutPlanner', [WorkoutPlannerController::class, 'show'])->name('workoutPlanner');
+    Route::get('/WorkoutPlanner', [WorkoutPlannerController::class, 'index'])->name('workoutPlanner');
 
     //create new user
     Route::post('/createUser', [UserController::class, 'store'])->name('createUser');

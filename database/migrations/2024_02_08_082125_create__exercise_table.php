@@ -15,8 +15,8 @@ return new class extends Migration
             $table->increments('exercise_id');
             $table->smallInteger('muscle_group_id')->unsigned();
             $table->foreign('muscle_group_id')->references('muscle_group_id')->on('muscle_groups')->onDelete('cascade');
-            $table->string('exercise_name', 20);
-            $table->text('exercise_description',50);
+            $table->string('exercise_name', 30);
+            $table->string('exercise_description',150);
             $table->enum('exercise_type', ['bodyweight', 'weight training', 'with cardio', 'no equipment']);
             $table->enum('exercise_strength_level', ['beginner', 'intermediate', 'advanced']);
             $table->enum('exercise_goal', ['lose weight', 'build muscle', 'maintain weight']);

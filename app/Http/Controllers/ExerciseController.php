@@ -25,12 +25,15 @@ class ExerciseController extends Controller
         $editType = 'exercise';
 
         $search = $request->get('search');
-        $items = Exercise::where('exercise_name', 'like', "%{$search}%")
-            ->orWhere('muscle_group_id', 'like', "%{$search}%")
-            ->orWhere('exercise_type', 'like', "%{$search}%")
-            ->orWhere('exercise_strength_level', 'like', "%{$search}%")
-            ->orWhere('exercise_goal', 'like', "%{$search}%")
-            ->get();
+        $items = Exercise::with('muscleGroup')
+        ->where('exercise_name', 'LIKE', "%{$search}%")
+        ->orWhereHas('muscleGroup', function ($query) use ($search) {
+            $query->where('muscle_group_name', 'LIKE', "%{$search}%");
+        })
+        ->orWhere('exercise_type', 'LIKE', "%{$search}%")
+        ->orWhere('exercise_strength_level', 'LIKE', "%{$search}%")
+        ->orWhere('exercise_goal', 'LIKE', "%{$search}%")
+        ->get();
 
         if ($request->ajax()) {
             return view('partials._table', ['items' => $items, 'columns' => $columns, 'deleteRoute' => $deleteRoute, 'tableId' => $tableId, 'editRoute' => $editRoute, 'editType' => $editType, 'muscleGroups' => $muscleGroups, 'exerciseTypes' => $exerciseTypes, 'exerciseDifficulty' => $exerciseDifficulty, 'exerciseGoal' => $exerciseGoal]);
@@ -50,8 +53,8 @@ class ExerciseController extends Controller
         $extensions = config('images.profile.extension');
         $request->validate([
             'muscle_group_id' => 'required',
-            'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s]+$/i',Rule::unique('exercise', 'exercise_name')],
-            'exercise_description' => 'required|max:50',
+            'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s.,-]+$/i',Rule::unique('exercise', 'exercise_name')],
+            'exercise_description' => 'required|max:150|regex:/^[a-zA-Z\s.,-]+$/i',
             'exercise_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
             'exercise_strength_level' => 'required|in:beginner,intermediate,advanced',
             'exercise_goal' => 'required|in:lose weight,build muscle,maintain weight',
@@ -135,8 +138,8 @@ class ExerciseController extends Controller
         $extensions = config('images.profile.extension');
         $request->validate([
             'muscle_group_id' => 'required',
-            'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s]+$/i',Rule::unique('exercise', 'exercise_name')->ignore($exercise->exercise_id, 'exercise_id')],
-            'exercise_description' => 'required|max:50',
+            'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s.,-]+$/i',Rule::unique('exercise', 'exercise_name')->ignore($exercise->exercise_id, 'exercise_id')],
+            'exercise_description' => 'required|max:150|regex:/^[a-zA-Z\s.,-]+$/i',
             'exercise_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
             'exercise_strength_level' => 'required|in:beginner,intermediate,advanced',
             'exercise_goal' => 'required|in:lose weight,build muscle,maintain weight',
@@ -180,6 +183,8 @@ class ExerciseController extends Controller
                 if ($exercise->save()) {
                         notify()->success(__('Successfully updated details'));     
                 }
+            } else if ($exercise->save()) {
+                notify()->success(__('Successfully updated details'));
             } else {
                 notify()->error(__('Failed to update details'));
             }

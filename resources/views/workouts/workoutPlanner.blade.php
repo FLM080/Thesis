@@ -1,57 +1,38 @@
 <x-layout>
-
-    <div class="row container-fluid">
-        <div class=" col-md-5">
-            <!-- Left container -->
-            <div class="wrapper-left bg-dark">
+    <div class="container-fluid workoutPlanner">
+        <div class="row  m-5">
+            <div class=" col-md-5">
+                <!-- Left container -->
+                <div class="wrapper-left bg-dark">
+                </div>
             </div>
-        </div>
-        <div class="col-md-2 text-center ">
-            <!-- Save button -->
-            <button class="btn btn-primary">Save</button>
-        </div>
-        <div class="col-md-5 ">
-            <!-- Right container -->
-            <div class="wrapper-right bg-dark ">
-                <div class="card" onclick="moveCard(this)">
-                    <img src="{{ asset('images/exercises/bench.jpg') }}">
-
-                    <div class="info">
-                        <h6 class="text-white">Excercise Name dasdasdasdasdasdasdasdas</h6>
-                        <p>desc</p>
-                        <p>type</p>
-                        <p>difficulty</p>
+            <div class="col-md-2 d-flex justify-content-center align-items-center">
+                <!-- Save button -->
+                <button class="btn btn-primary">Save</button>
+            </div>
+            <div class="col-md-5">
+                <!-- Right container -->
+                <div class="wrapper-right bg-dark">
+                    @foreach($items as $item)
+                    <div class="card" onclick="moveCard(this)">
+                        <img src="{{ asset($item->imagePath) }}" alt="Exercise Image">
+                        <div class="info">
+                            <h4 class="text-white">{{ $item->exercise_name }}</h4>
+                            <strong>Description:</strong>
+                            <p> {{ $item->exercise_description }}</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Type</strong>
+                                    <p>{{ $item->exercise_type }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Strength Level:</strong>
+                                    <p> {{ $item->exercise_strength_level }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card" onclick="moveCard(this)">
-                    <img src="{{ asset('images/exercises/bench.jpg') }}">
-
-                    <div class="info">
-                        <h1>Excercise Name</h1>
-                        <p>desc</p>
-                        <p>type</p>
-                        <p>difficulty</p>
-                    </div>
-                </div>
-                <div class="card" onclick="moveCard(this)">
-                    <img src="{{ asset('images/exercises/bench.jpg') }}">
-
-                    <div class="info">
-                        <h1>Excercise Name</h1>
-                        <p>desc</p>
-                        <p>type</p>
-                        <p>difficulty</p>
-                    </div>
-                </div>
-                <div class="card" onclick="moveCard(this)">
-                    <img src="{{ asset('images/exercises/bench.jpg') }}">
-
-                    <div class="info">
-                        <h1>Excercise Name</h1>
-                        <p>desc</p>
-                        <p>type</p>
-                        <p>difficulty</p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
