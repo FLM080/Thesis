@@ -447,7 +447,7 @@ div.col-md-4.my-5 {
 /*workout planner*/
 
 .container-fluid.workoutPlanner {
-  background-color: rgba(34, 36, 41, 0.8);
+  background-color: rgb(77, 77, 77);
   min-height: 82vh;
 }
 
@@ -558,11 +558,14 @@ div.col-md-4.my-5 {
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 400px;
   margin-left: auto;
   margin-right: 5px;
   float: right;
+  border: 10px solid rgb(77, 77, 77);
+  border-radius: 25px;
+  margin-bottom: 50px;
 }
 
 .wrapper-left {
@@ -570,11 +573,13 @@ div.col-md-4.my-5 {
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 400px;
   margin-left: 5px;
   margin-right: auto;
   float: left;
+  border: 10px solid rgb(77, 77, 77);
+  border-radius: 20px;
 }
 
 /* admin panel*/
@@ -611,6 +616,6 @@ div.scrollable-table {
   overflow: auto;
 }
 
-.plannerBg{
-  min-height: 82vh;
+textarea {
+  max-height: 100px;
 }

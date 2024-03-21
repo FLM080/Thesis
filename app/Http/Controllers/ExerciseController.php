@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Models\MuscleGroup;
 use App\Models\Exercise;
 use App\Services\DatabaseSchemaService;
+use App\Services\ImageService;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ExerciseController extends Controller
@@ -74,29 +75,15 @@ class ExerciseController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $extension = strtolower($image->getClientOriginalExtension());
-            $name = $exercise->exercise_id . '.' . $extension;
-            $destinationPath = 'images/exercises';
-
-            $image->storeAs($destinationPath, $name);
-
-            $existingFiles = glob(public_path($destinationPath) . '/' . $exercise->id . '.*');
-            foreach ($existingFiles as $existingFile) {
-                if (is_file($existingFile) && $existingFile !== public_path($destinationPath) . '/' . $name) {
-                    unlink($existingFile);
-                }
-            }
-
-            $resizedImage = Image::make($image)->resize(320, 320, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-
-            $resizedImage->save(public_path($destinationPath . '/' . $name));
+            $image = ImageService::uploadAndResize($image, $exercise->exercise_id, '/images/exercises');
             $imageUploaded = true;
         }
 
-        if ($imageUploaded && $exercise->save()) {
+        if ($imageUploaded) {
+            $exerciseSaved = $exercise->save();
+        }
+        
+        if ($imageUploaded && $exerciseSaved) {
             notify()->success(__('Successfully saved details'));
         } else {
             notify()->error(__('Failed to save details'));
@@ -123,10 +110,13 @@ class ExerciseController extends Controller
         }
 
         if ($imageDeleted) {
-            $exercise->delete();
+            $exerciseDeleted = $exercise->delete();
+        }
+        
+        if ($imageDeleted && $exerciseDeleted) {
             notify()->success(__('Exercise deleted successfully'));
         } else {
-            notify()->error(__('Failed to delete exercise'));
+            notify()->error(__('Failed to delete exercise and image'));
         }
         return redirect(route('adminExercise'));
     }
@@ -156,40 +146,24 @@ class ExerciseController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $extension = strtolower($image->getClientOriginalExtension());
-            $name = $exercise->exercise_id . '.' . $extension;
-            $destinationPath = 'images/exercises';
-
-            $image->storeAs($destinationPath, $name);
-
-            $existingFiles = glob(public_path($destinationPath) . '/' . $exercise->id . '.*');
-            foreach ($existingFiles as $existingFile) {
-                if (is_file($existingFile) && $existingFile !== public_path($destinationPath) . '/' . $name) {
-                    unlink($existingFile);
-                }
-            }
-
-            $resizedImage = Image::make($image)->resize(320, 320, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-
-            $resizedImage->save(public_path($destinationPath . '/' . $name));
+            $image = ImageService::uploadAndResize($image, $exercise->exercise_id, '/images/exercises');
             $imageUploaded = true;
         }
 
-        if ($exercise->isDirty()) {
-            if ($imageUploaded){
-                if ($exercise->save()) {
-                        notify()->success(__('Successfully updated details'));     
-                }
-            } else if ($exercise->save()) {
-                notify()->success(__('Successfully updated details'));
-            } else {
-                notify()->error(__('Failed to update details'));
-            }
+        $exerciseSaved = $exercise->save();
+
+        if (!$imageUploaded && !$exerciseSaved) {
+
+            notify()->error(__('Failed to update details'));
+        } else if (!$imageUploaded) {
+
+            notify()->warning(__('Successfully updated details, but failed to upload image'));
+        } else if (!$exerciseSaved) {
+
+            notify()->warning(__('Image uploaded successfully, but failed to update details'));
         } else {
-            notify()->info(__('No changes to save'));
+
+            notify()->success(__('Successfully updated details'));
         }
         return redirect(route('adminExercise'));
     }

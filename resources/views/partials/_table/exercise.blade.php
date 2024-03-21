@@ -8,14 +8,14 @@
         @csrf
         <div class="row m-3">
             <div class="form-group col-md-6">
-                <label for="name" class="text-white">{{ __('Exercise Name') }}</label>
+                <label for="name" >{{ __('Exercise Name') }}</label>
                 <input type="text" class="form-control mb-3" id="name" name="exercise_name"
                     placeholder="{{ __('Enter name') }}" value="{{ $item->exercise_name }}">
                 @error('name')
                 <?php notify()->error(__($message)) ?>
                 @enderror
 
-                <label for="muscle_group_id" class="text-white">{{ __('Muscle Group') }}</label>
+                <label for="muscle_group_id" >{{ __('Muscle Group') }}</label>
                 <select class="form-control mb-3" id="muscle_group_id" name="muscle_group_id">
                     @foreach ($muscleGroups as $muscleGroup)
                     <option value="{{ $muscleGroup->muscle_group_id }}" {{ $item->muscle_group_id ==
@@ -28,7 +28,7 @@
                 <?php notify()->error(__($message)) ?>
                 @enderror
 
-                <label for="image" class="text-white">{{ __('Image') }}</label>
+                <label for="image" >{{ __('Image') }}</label>
                 <input type="file" class="form-control mb-3" id="image" name="image">
                 @error('image')
                 <?php notify()->error(__($message)) ?>
@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group col-md-6">
-                <label for="exercise_type" class="text-white">{{ __('Exercise Type') }}</label>
+                <label for="exercise_type" >{{ __('Exercise Type') }}</label>
                 <select class="form-control mb-3" id="exercise_type" name="exercise_type">
                     @foreach ($exerciseTypes as $type)
                     <option value="{{ $type }}" {{ $item->exercise_type == $type ? 'selected' : '' }}>
@@ -48,7 +48,7 @@
                 <?php notify()->error(__($message)) ?>
                 @enderror
 
-                <label for="difficulty" class="text-white">{{ __('Difficulty') }}</label>
+                <label for="difficulty">{{ __('Difficulty') }}</label>
                 <select class="form-control mb-3" id="difficulty" name="exercise_strength_level">
                     @foreach ($exerciseDifficulty as $difficulty)
                     <option value="{{ $difficulty }}" {{ $item->exercise_strength_level == $difficulty ? 'selected' : ''
@@ -74,7 +74,7 @@
                 @enderror
             </div>
             <div class="form-group col-auto">
-                <label for="description" class="text-white">{{ __('Description') }}</label>
+                <label for="description">{{ __('Description') }}</label>
                 <textarea class="form-control mb-3" id="exercise_description_edit" name="exercise_description" rows="3"
                     placeholder="{{ __('Enter description') }}">{{ $item->exercise_description }}</textarea>
                 @error('description')

@@ -8,7 +8,7 @@
         @csrf
         <div class="d-flex justify-content-center">
             <div class="form-group w-75">
-                <label for="editName{{ $item->$tableId }}" class="text-white">{{ __('Muscle Group Name')}}</label>
+                <label for="editName{{ $item->$tableId }}" >{{ __('Muscle Group Name')}}</label>
                 <input type="text" class="form-control" name="muscle_group_name" value="{{ $item->muscle_group_name }}">
                 @error('muscle_group_name')
                 <?php notify()->error(__($message)) ?>

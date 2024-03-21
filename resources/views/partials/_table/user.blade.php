@@ -8,24 +8,24 @@
         @csrf
         <div class="row m-3 justify-content-center">
             <div class="form-group text-center w-75">
-                <label for="name" class="text-white">{{ __('User Name') }}</label>
+                <label for="name">{{ __('User Name') }}</label>
                 <input type="text" class="form-control mb-3 disabled-field" id="name" name="name" value="{{ $item->name }}" disabled>
             </div>
 
             <div class="form-group text-center w-75">
-                <label for="email" class="text-white">{{ __('Email') }}</label>
+                <label for="email">{{ __('Email') }}</label>
                 <input type="email" class="form-control mb-3 disabled-field" id="email" name="email" placeholder="{{ __('Enter email') }}"
                     value="{{ $item->email }}" disabled>
             </div>
 
             <div class="form-group text-center w-75">
-                <label for="gender" class="text-white">{{ __('Gender') }}</label>
+                <label for="gender">{{ __('Gender') }}</label>
                 <input type="text" class="form-control mb-3 disabled-field" id="gender" name="gender" value="{{ $item->user_gender }}"
                     disabled>
             </div>
 
             <div class="form-group text-center w-75">
-                <label for="user_admin_privilege" class="text-white">{{ __('Admin Status') }}</label>
+                <label for="user_admin_privilege">{{ __('Admin Status') }}</label>
                 <select class="form-control mb-3 editable-field" id="user_admin_privilege" name="user_admin_privilege">
                     <option value="No" {{ $item->user_admin_privilege == 'No' ? 'selected' : '' }}>
                         {{ __('No') }}

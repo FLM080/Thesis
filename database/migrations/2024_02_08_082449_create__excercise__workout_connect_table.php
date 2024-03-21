@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('workout_id')->references('workout_id')->on('workout')->onDelete('cascade');
             $table->Integer('exercise_id')->unsigned();
             $table->foreign('exercise_id')->references('exercise_id')->on('exercise')->onDelete('cascade');
+            $table->string('exercise_workout_name', 30);
             $table->unsignedTinyInteger('exercise_workout_sets');
             $table->unsignedTinyInteger('exercise_workout_reps');
             $table->unsignedTinyInteger('exercise_workout_day');

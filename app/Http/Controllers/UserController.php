@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Preference;
 use App\Services\DatabaseSchemaService;
-use Intervention\Image\ImageManagerStatic as Image;
 use App\Services\ImageService;
 
 
@@ -148,29 +147,14 @@ class UserController extends Controller
             ]);
         
             $image = $request->file('image');
-            $extension = strtolower($image->getClientOriginalExtension());
-            $name = $user->id . '.' . $extension;
-            $destinationPath = public_path('/images/profile');
-        
-            $existingFiles = glob($destinationPath . '/' . $user->id . '.*');
-            foreach ($existingFiles as $existingFile) {
-                if ($existingFile !== $destinationPath . '/' . $name) {
-                    unlink($existingFile);
-                }
-            }
-        
-            $resizedImage = Image::make($image)->resize(320, 320, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-        
-            $resizedImage->save($destinationPath . '/' . $name);
-            $user->profile_picture = $destinationPath . '/' . $name;
+            $image = ImageService::uploadAndResize($image, $user->id, '/images/profile');
+
+
             $imageUploaded = true;
         }
 
     
-        if ($users->isDirty()) {
+        if ($users->isDirty() || $imageUploaded) {
             if ($users->save() || $imageUploaded) {
                 notify()->success(__('Successfully saved details'));
             } else {
@@ -213,24 +197,6 @@ class UserController extends Controller
             notify()->info(__('No changes to save'));
         }
         return redirect(route('profile'));
-    }
-
-    public function getUserImagePath() {
-        $userId = auth()->user()->id;
-        $extensions = config('images.profile.extension');
-        $filePath = 'images/profile/' . $userId;
-        $defaultPath = config('images.profile.default');
-    
-        $userImagePath = $defaultPath;
-    
-        foreach ($extensions as $extension) {
-            $tempPath = $filePath . '.' . $extension;
-            if (file_exists(public_path($tempPath))) {
-                $userImagePath = $tempPath;
-            }
-        }
-    
-        return $userImagePath;
     }
 
     public function destroy($id, Request $request)
