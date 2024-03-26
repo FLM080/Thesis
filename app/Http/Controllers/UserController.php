@@ -104,6 +104,11 @@ class UserController extends Controller
 
     public function updateGender(Request $request)
     {
+
+        $request->validate([
+            'user_gender' => 'required|in:None,Male,Female',
+        ]);
+
         $user = Auth::user();
         $users = user::where('id', $user->id)->first();
         if (!$users) {

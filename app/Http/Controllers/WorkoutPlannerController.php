@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\services\DatabaseSchemaService;
+use App\Services\DatabaseSchemaService;
 use App\Models\Exercise;
 use App\Models\Workout;
 use App\Services\ImageService;
@@ -49,10 +49,10 @@ class WorkoutPlannerController extends Controller
         $request->validate([
             'workout_name' => ['required', 'max:40', 'regex:/^[a-zA-Z\s.,-]+$/i'],
             'workout_description' => 'required|max:254|regex:/^[a-zA-Z\s.,-]+$/i',
-            'workout_strength_level' => 'required',
-            'workout_goal' => 'required',
-            'workout_type' => 'required',
-            'workout_gender' => 'required',
+            'workout_strength_level' => 'required|in:beginner,intermediate,advanced',
+            'workout_goal' => 'required|in:lose weight,build muscle,maintain weight',
+            'workout_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
+            'workout_gender' => 'required|in:Both,Male,Female',
             'workout_days' => 'required|integer|min:1|max:7',
         ]);
 
