@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('exercise_workout_connect', function (Blueprint $table) {
             $table->increments('exercise_workout_connect_id')->unsigned();
-            $table->Integer('workout_id')->unsigned();
-            $table->foreign('workout_id')->references('workout_id')->on('workout')->onDelete('cascade');
-            $table->Integer('exercise_id')->unsigned();
+            $table->integer('workout_day_id')->unsigned();
+            $table->foreign('workout_day_id')->references('workout_day_id')->on('workout_day')->onDelete('cascade');
+            $table->integer('exercise_id')->unsigned();
             $table->foreign('exercise_id')->references('exercise_id')->on('exercise')->onDelete('cascade');
-            $table->string('exercise_workout_name', 30);
             $table->unsignedTinyInteger('exercise_workout_sets');
             $table->unsignedTinyInteger('exercise_workout_reps');
-            $table->unsignedTinyInteger('exercise_workout_day');
-            $table->unsignedTinyInteger('exercise_workout_order');
+            $table->integer('order')->unsigned();
+            $table->unique(['workout_day_id', 'exercise_id']);
         });
     }
 

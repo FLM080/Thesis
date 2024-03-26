@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PreferenceController extends Controller
 {
-    //update user preference
     public function update(Request $request)
     {
         

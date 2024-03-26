@@ -14,6 +14,7 @@ use App\Models\MuscleGroup;
 use App\Http\Controllers\MuscleGroupController;
 use App\Models\Exercise;
 use App\Http\Controllers\ExerciseController;
+use App\Http\Controllers\WorkoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::middleware('localization')->group(function () {
     //login user
     Route::post('/users/authenticate', [UserController::class, 'authenticate'])->name('loginUser');
 
+    Route::post('/saveExercise', [WorkoutController::class, 'store'])->name('saveExercise');
+
     Route::group(['middleware' => 'auth'], function () {
         //logout user
         Route::post('/logout', [UserController::class, 'logout'])->name('logout');
@@ -68,6 +71,12 @@ Route::middleware('localization')->group(function () {
         Route::post('/profile/updateCredentials/{id}', [UserController::class, 'updateCredentials'])->name('updateCredentials');
 
         Route::delete('/profile/deleteUser/{id}', [UserController::class, 'destroy'])->name('deleteUser');
+
+        Route::post('/addWorkoutPlan', [WorkoutPlannerController::class, 'store'])->name('addWorkout');
+
+        Route::post('/addExerciseToWorkout', [WorkoutPlannerController::class, 'addExercise'])->name('addExerciseToWorkout');
+
+        Route::post('/addWorkoutDay', [WorkoutPlannerController::class, 'addWorkoutDay'])->name('addWorkoutDay');
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {
