@@ -11,4 +11,15 @@ class Workout extends Model
     protected $table = 'workout';
     protected $primaryKey = 'workout_id';
     public $timestamps = false;
+    
+
+    public function days()
+    {
+        return $this->hasMany('App\Models\WorkoutDay', 'workout_id', 'workout_id');
+    }
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

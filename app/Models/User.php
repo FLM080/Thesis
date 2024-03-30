@@ -49,7 +49,8 @@ class User extends Authenticatable
         return $this->user_admin_privilege ? 'Yes' : 'No';
     }
 
-    public function workout() {
-        return $this->hasOne('App\Models\Workout', 'user_id');
+    public function workout()
+    {
+        return $this->hasOne(\App\Models\Workout::class);
     }
 }

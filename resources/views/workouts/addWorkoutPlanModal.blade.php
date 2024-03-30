@@ -31,6 +31,13 @@
                             <?php notify()->error(__($message)) ?>
                             @enderror
 
+                            <label for="workoutPlan_image">{{ __('Workout Plan Image') }}</label>
+                            <input type="file" class="form-control mb-3" id="workoutPlan_image" name="workoutPlan_image"
+                                value="{{ old('workoutPlan_image') }}">
+                            @error('workoutPlan_image')
+                            <?php notify()->error(__($message)) ?>
+                            @enderror
+
                             <div class="form-group col-auto">
                                 <label for="description">{{ __('Description') }}</label>
                                 <textarea class="form-control mb-3" id="description" name="workout_description" rows="3"

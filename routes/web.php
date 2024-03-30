@@ -15,6 +15,7 @@ use App\Http\Controllers\MuscleGroupController;
 use App\Models\Exercise;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\WorkoutPlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,8 @@ Route::middleware('localization')->group(function () {
         Route::post('/addExerciseToWorkout', [WorkoutPlannerController::class, 'addExercise'])->name('addExerciseToWorkout');
 
         Route::post('/addWorkoutDay', [WorkoutPlannerController::class, 'addWorkoutDay'])->name('addWorkoutDay');
+
+        Route::get('user/workoutPlan', [WorkoutPlanController::class, 'index'])->name('personalWorkoutPlan');
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {

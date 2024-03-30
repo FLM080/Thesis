@@ -48,9 +48,14 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('profile') }}">{{ __('Profile') }}</a>
-                                    @if(auth()->user()->user_admin_privilege)
                                 </li>
-                                <a class="dropdown-item" href="{{ route('admin') }}">{{ __('Admin Panel') }}</a>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('personalWorkoutPlan') }}">{{ __('My workout plan') }}</a>
+                                </li>
+                                @if(auth()->user()->user_admin_privilege)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin') }}">{{ __('Admin Panel') }}</a>
+                                </li>
                                 @endif
                                 <li>
                                     <hr class="dropdown-divider">
@@ -86,12 +91,14 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ route('profile') }}">{{ __('Profile') }}</a>
                                     </li>
-                                    @if(auth()->user()->user_admin_privilege)
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('admin') }}">{{ __('Admin Panel') }}</a>
+                                        <a class="dropdown-item" href="{{ route('personalWorkoutPlan') }}">{{ __('My workout plan') }}</a>
                                     </li>
+                                    @if(auth()->user()->user_admin_privilege)
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin') }}">{{ __('Admin Panel') }}</a>
+                                        </li>
                                     @endif
-
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>

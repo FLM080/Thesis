@@ -446,7 +446,7 @@ div.col-md-4.my-5 {
 
 /*workout planner*/
 
-.container-fluid.workoutPlanner {
+.background {
     background-color: rgb(77, 77, 77);
     min-height: 82vh;
 }
@@ -703,4 +703,73 @@ textarea {
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     padding: 8px;
+}
+.userWorkout {
+    border-radius: 100px;
+    border: 5px solid black;
+    background-color: rgb(77, 77, 77);
+    display: flex; 
+    align-items: stretch; 
+}
+
+.personalImg {
+    border-radius: 50px;
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.workoutDescription {
+    border-top: 1px solid black;
+}
+
+.workoutView {
+    border-left: 1px solid black;
+    min-height: 40vh;
+}
+
+.userWorkout p {
+    word-wrap: break-word;
+}
+
+.userWorkoutDays{
+    border-radius: 150px;
+    border: 5px solid black;
+    background-color: rgb(100, 100, 100);
+
+    display: flex; 
+    align-items: stretch; 
+}
+
+.workoutDays{
+    border-bottom: 1px solid black;
+}
+.userWorkoutExercises{
+    border-radius: 150px;
+    border: 5px solid black;
+    background-color: rgb(120, 120, 120);
+    display: flex; 
+    align-items: stretch; 
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+    .userWorkout {
+        border-radius: 50px;
+    }
+
+    .workoutView {
+        border-left: none;
+        border-top: 1px solid black;
+        min-height: 15vh;
+    }
+
+    .personalImg {
+        margin: 15px;
+        border-radius: 15px;
+        min-height: 100px;
+        min-width: 100px;
+    }
 }

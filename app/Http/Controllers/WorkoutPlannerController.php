@@ -20,9 +20,16 @@ class WorkoutPlannerController extends Controller
     {
 
         $workout = null;
+        $personalImg = null;
         if (Auth::check()) {
             $user = Auth::user();
             $workout = $user->workout;
+
+            if ($workout) {
+                $imageService = new ImageService();
+                $personalImg = $imageService->getImagePath('workouts/user/plans', $workout->workout_id, config('images.workouts.default'));
+                $workout->imagePath = $personalImg;
+            }
         }
         $columns = DatabaseSchemaService::getColumnNames('exercise');
         $items = Exercise::all();
@@ -40,12 +47,15 @@ class WorkoutPlannerController extends Controller
             $item->imagePath = $imageService->getImagePath('exercises', $item->exercise_id, config('images.exercises.default'));
         }
 
-        return view('workouts.workoutPlanner', compact('items', 'columns', 'workout', 'workoutDifficulty', 'workoutGoals', 'workoutTypes', 'workoutGenders', 'images', 'days'));
+        $variablesToCompact = ['items', 'columns', 'workout', 'workoutDifficulty', 'workoutGoals', 'workoutTypes', 'workoutGenders', 'images', 'days', 'personalImg'];
+
+        return view('workouts.workoutPlanner', compact($variablesToCompact));
     }
 
     public function store(Request $request)
     {
 
+        $extensions = config('images.profile.extension');
         $request->validate([
             'workout_name' => ['required', 'max:40', 'regex:/^[a-zA-Z\s.,-]+$/i'],
             'workout_description' => 'required|max:254|regex:/^[a-zA-Z\s.,-]+$/i',
@@ -54,6 +64,7 @@ class WorkoutPlannerController extends Controller
             'workout_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
             'workout_gender' => 'required|in:Both,Male,Female',
             'workout_days' => 'required|integer|min:1|max:7',
+            'workoutPlan_image' => 'nullable|image|mimes:' . implode(',', $extensions),
         ]);
 
         $workout = new Workout();
@@ -72,6 +83,11 @@ class WorkoutPlannerController extends Controller
             notify()->error(__('Failed to save workout'));
         }
 
+        if ($request->hasFile('workoutPlan_image')) {
+            $image = $request->file('workoutPlan_image');
+            $image = ImageService::uploadAndResize($image, $workout->workout_id, '/images/workouts/user/plans');
+        }
+
         return redirect(route('workoutPlanner'));
 
     }
@@ -81,7 +97,7 @@ class WorkoutPlannerController extends Controller
         $movedCards = $request->input('movedCards');
         $imageService = new ImageService();
 
-        // Process the movedCards data...
+
         $processedData = [];
     
         
@@ -95,7 +111,6 @@ class WorkoutPlannerController extends Controller
 
         }
     
-        // Return the processed data
         return response()->json($processedData);
     }
 
@@ -112,7 +127,7 @@ class WorkoutPlannerController extends Controller
             'exercises.*.order' => 'required|integer|min:1',
         ]);
     
-        $workoutDay = WorkoutDay::updateOrCreate(
+        $workoutDay = WorkoutDay::firstOrNew(
             ['workout_id' => Auth::user()->workout->workout_id, 'workout_day_name' => $request->workout_day_name],
             ['workout_day' => $request->workout_day_day]
         );
@@ -123,31 +138,27 @@ class WorkoutPlannerController extends Controller
 
         if ($existingWorkoutDaysCount < $numberOfDaysInWorkout) {
             $workoutDay->save();
-
+        
             foreach ($request->exercises as $exercise) {
                 ExerciseWorkoutConnect::create([
                     'workout_day_id' => $workoutDay->workout_day_id,
-                'exercise_id' => $exercise['id'],
-                'exercise_workout_sets' => $exercise['sets'],
-                'exercise_workout_reps' => $exercise['reps'],
-                'order' => $exercise['order'],
+                    'exercise_id' => $exercise['id'],
+                    'exercise_workout_sets' => $exercise['sets'],
+                    'exercise_workout_reps' => $exercise['reps'],
+                    'order' => $exercise['order'],
                 ]);
             }
-        notify()->success(__('Successfully saved workout day'));
-            return redirect(route('workoutPlanner'));
-    } else {
-        notify()->error(__('You have reached the maximum number of workout days for this workout plan'));
-        return redirect(route('workoutPlanner'));
-    }
-        
-        
-        
-    
-        if ($request->hasFile('workout_image')) {
-            $image = $request->file('workout_image');
-            $image = ImageService::uploadAndResize($image, $workoutDay->workout_day_id, '/images/workouts/user');
-        }
 
+            if ($request->hasFile('workout_image')) {
+                $image = $request->file('workout_image');
+                $image = ImageService::uploadAndResize($image, $workoutDay->workout_day_id, '/images/workouts/user/days');
+            }
         
+            notify()->success(__('Successfully saved workout day'));
+        } else {
+            notify()->error(__('You have reached the maximum number of workout days for this workout plan'));
+        }
+        
+        return redirect(route('workoutPlanner'));     
     }
 }

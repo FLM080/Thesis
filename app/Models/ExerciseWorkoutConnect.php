@@ -19,4 +19,9 @@ class ExerciseWorkoutConnect extends Model
         'exercise_workout_reps',
         'order',
     ];
+
+    public function exercise()
+    {
+        return $this->belongsTo(Exercise::class, 'exercise_id');
+    }
 }
