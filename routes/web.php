@@ -79,23 +79,35 @@ Route::middleware('localization')->group(function () {
 
         Route::post('/addWorkoutDay', [WorkoutPlannerController::class, 'addWorkoutDay'])->name('addWorkoutDay');
 
-        Route::get('user/workoutPlan', [WorkoutPlanController::class, 'index'])->name('personalWorkoutPlan');
+        Route::get('/user/workoutPlan', [WorkoutPlanController::class, 'index'])->name('personalWorkoutPlan');
+
+        Route::post('/user/updateWorkoutPlan/{id}', [WorkoutPlanController::class, 'updateWorkoutPlan'])->name('updateWorkoutPlan');
+
+        Route::delete('/user/deleteWorkoutPlan/{id}', [WorkoutPlanController::class, 'destroyWorkoutPlan'])->name('deleteWorkoutPlan');
+
+        Route::post('/user/updateWorkoutDay/{id}', [WorkoutPlanController::class, 'updateWorkoutDay'])->name('updateWorkoutDay');
+
+        Route::delete('/user/deleteWorkoutDay/{id}', [WorkoutPlanController::class, 'destroyWorkoutDay'])->name('deleteWorkoutDay');
+
+        Route::post('/user/updateWorkoutDayExercise/{id}', [WorkoutPlanController::class, 'updateWorkoutDayExercise'])->name('updateWorkoutDayExercise');
+
+        Route::delete('/user/deleteWorkoutDayExercise/{id}', [WorkoutPlanController::class, 'destroyWorkoutDayExercise'])->name('deleteWorkoutDayExercise');
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-        Route::post('/admin/editUser/{id}', [AdminController::class, 'update'])->name('editUser');
+        Route::post('/admin/updateUser/{id}', [AdminController::class, 'update'])->name('editUser');
         Route::delete('/admin/deleteUser/{id}', [AdminController::class, 'destroy'])->name('deleteUser');
 
         Route::get('/exercise', [ExerciseController::class, 'index'])->name('adminExercise');
         Route::post('/admin/addExercise', [ExerciseController::class, 'store'])->name('addExercise');
-        Route::post('/admin/editExercise/{id}', [ExerciseController::class, 'update'])->name('editExercise');
+        Route::post('/admin/updateExercise/{id}', [ExerciseController::class, 'update'])->name('editExercise');
         Route::delete('/admin/deleteExercise/{id}', [ExerciseController::class, 'destroy'])->name('deleteExercise');
         
         Route::get('/workout', [AdminController::class, 'workout'])->name('adminWorkout');
 
         Route::get('/muscleGroup', [MuscleGroupController::class, 'index'])->name('adminMuscleGroup');
-        Route::post('/admin/editMuscleGroup/{id}', [MuscleGroupController::class, 'update'])->name('editMuscleGroup');
+        Route::post('/admin/updateMuscleGroup/{id}', [MuscleGroupController::class, 'update'])->name('editMuscleGroup');
         Route::post('/admin/addMuscleGroup', [MuscleGroupController::class, 'store'])->name('addMuscleGroup');
         Route::delete('/admin/deleteMuscleGroup/{id}', [MuscleGroupController::class, 'destroy'])->name('deleteMuscleGroup');
     });

@@ -59,9 +59,9 @@ class WorkoutPlannerController extends Controller
         $request->validate([
             'workout_name' => ['required', 'max:40', 'regex:/^[a-zA-Z\s.,-]+$/i'],
             'workout_description' => 'required|max:254|regex:/^[a-zA-Z\s.,-]+$/i',
-            'workout_strength_level' => 'required|in:beginner,intermediate,advanced',
-            'workout_goal' => 'required|in:lose weight,build muscle,maintain weight',
-            'workout_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
+            'workout_strength_level' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_strength_level')),
+            'workout_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_goal')),
+            'workout_type' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_type')),
             'workout_gender' => 'required|in:Both,Male,Female',
             'workout_days' => 'required|integer|min:1|max:7',
             'workoutPlan_image' => 'nullable|image|mimes:' . implode(',', $extensions),
@@ -120,7 +120,7 @@ class WorkoutPlannerController extends Controller
         $extensions = config('images.profile.extension');
         $request->validate([
             'workout_day_name' => 'required|max:30',
-            'workout_day_day' => 'required|in:Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
+            'workout_day_day' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout_day', 'workout_day')),
             'workout_image' => 'nullable|image|mimes:' . implode(',', $extensions),
             'exercises.*.sets' => 'required|integer|min:1',
             'exercises.*.reps' => 'required|integer|min:1',
@@ -145,7 +145,7 @@ class WorkoutPlannerController extends Controller
                     'exercise_id' => $exercise['id'],
                     'exercise_workout_sets' => $exercise['sets'],
                     'exercise_workout_reps' => $exercise['reps'],
-                    'order' => $exercise['order'],
+                    'exercise_workout_order' => $exercise['order'],
                 ]);
             }
 

@@ -713,17 +713,24 @@ textarea {
 }
 
 .personalImg {
-    border-radius: 50px;
-    width: 75%;
-    height: 75%;
-    object-fit: cover;
+    border-radius: 75px;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 200px;
+    max-height: 350px;
+    object-fit: fill;
+    padding: 10%;
+}
+
+.workoutDayExercises:not(:nth-last-child(-n+2)){
+    border-bottom: 1px solid black;
 }
 
 .workoutDescription {
     border-top: 1px solid black;
 }
 
-.workoutView {
+.workoutEdit{
     border-left: 1px solid black;
     min-height: 40vh;
 }
@@ -736,12 +743,13 @@ textarea {
     border-radius: 150px;
     border: 5px solid black;
     background-color: rgb(100, 100, 100);
-
     display: flex; 
-    align-items: stretch; 
+    align-items: center;
+    justify-content: center;
+    padding: 25%;
 }
 
-.workoutDays{
+.workoutDays:not(:nth-last-child(-n+2)){
     border-bottom: 1px solid black;
 }
 .userWorkoutExercises{
@@ -749,10 +757,15 @@ textarea {
     border: 5px solid black;
     background-color: rgb(120, 120, 120);
     display: flex; 
-    align-items: stretch; 
+    align-items: center;
+    justify-content: center;
 }
 
-
+p{
+    word-wrap: break-word;
+    word-break: break-word;
+    
+}
 
 
 @media screen and (max-width: 768px) {
@@ -760,16 +773,36 @@ textarea {
         border-radius: 50px;
     }
 
-    .workoutView {
+    .workoutEdit {
         border-left: none;
         border-top: 1px solid black;
         min-height: 15vh;
     }
 
     .personalImg {
-        margin: 15px;
-        border-radius: 15px;
-        min-height: 100px;
+        padding: 15px;
+        border-radius: 25px;
         min-width: 100px;
+        min-height: 100px;
+        max-width: 150px;
+        max-height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media only screen and (max-width: 320px) {
+    .personalImg {
+        padding: none;
+        margin: none;
+        border-radius: 20px;
+        min-width: 80px;
+        min-height: 80px;
+        max-width: 80px;
+        max-height: 80px;
+    }
+    .exerciseDesc{
+        overflow: auto;
+        max-height: 200px;
     }
 }

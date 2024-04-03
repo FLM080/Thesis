@@ -19,7 +19,7 @@
                             @enderror
 
                             <label for="workout_gender">{{ __('Recommended Gender') }}</label>
-                            <select class="form-control mb-3" id="workout_gender" name="workout_gender">
+                            <select class="form-select mb-3" id="workout_gender" name="workout_gender">
                                 @foreach($workoutGenders as $gender)
                                 <option value="{{ $gender }}" {{ old('workout_gender')==$gender ? 'selected' :
                                     (old('workout_gender')==$gender ? 'selected' : '' ) }}>
@@ -50,7 +50,7 @@
                         <div class="form-group col-md-6">
 
                             <label for="workout_days">{{ __('Workout Days') }}</label>
-                            <select class="form-control mb-3" id="workout_days" name="workout_days">
+                            <select class="form-select mb-3" id="workout_days" name="workout_days">
                                 @for ($i = 1; $i <= 7; $i++) <option value="{{ $i }}" {{ old('workout_days')==$i
                                     ? 'selected' : '' }}>
                                     {{ $i }}
@@ -62,7 +62,7 @@
                             @enderror
 
                             <label for="workout_strength_level" ">{{ __('Workout Strength Level')}}</label>
-                        <select class=" form-control mb-3" id="workout_strength_level" name="workout_strength_level">
+                        <select class=" form-select mb-3" id="workout_strength_level" name="workout_strength_level">
                                 @foreach($workoutDifficulty as $Difficulty)
                                 <option value="{{ $Difficulty }}" {{ old('workout_strength_level')==$Difficulty
                                     ? 'selected' : '' }}>
@@ -75,7 +75,7 @@
                                 @enderror
 
                                 <label for="workout_goal">{{ __('Workout Goal') }}</label>
-                                <select class="form-control mb-3" id="workout_goal" name="workout_goal">
+                                <select class="form-select mb-3" id="workout_goal" name="workout_goal">
                                     @foreach($workoutGoals as $goal)
                                     <option value="{{ $goal }}" {{ old('workout_goal')==$goal ? 'selected' : '' }}>
                                         {{ __($goal) }}
@@ -87,7 +87,7 @@
                                 @enderror
 
                                 <label for="workout_type">{{ __('Workout Type') }}</label>
-                                <select class="form-control mb-3" id="workout_type" name="workout_type">
+                                <select class="form-select mb-3" id="workout_type" name="workout_type">
                                     @foreach($workoutTypes as $type)
                                     <option value="{{ $type }}" {{ old('workout_type')==$type ? 'selected' : '' }}>
                                         {{ __($type) }}

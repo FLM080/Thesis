@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="workout_day_day">{{ __('Day') }}</label>
-                            <select class="form-control mb-3" id="workout_day_day" name="workout_day_day">
+                            <select class="form-select mb-3" id="workout_day_day" name="workout_day_day">
                                 @foreach($days as $day)
                                 <option value="{{ $day }}">{{ $day }}</option>
                                 @endforeach

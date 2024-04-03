@@ -106,7 +106,7 @@ class UserController extends Controller
     {
 
         $request->validate([
-            'user_gender' => 'required|in:None,Male,Female',
+            'user_gender' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('user', 'user_gender')),
         ]);
 
         $user = Auth::user();
@@ -205,10 +205,14 @@ class UserController extends Controller
     }
 
     public function destroy($id, Request $request)
-    {
-        $user = User::find($id);
+{
+    $user = User::find($id);
 
-        if (password_verify($request->input('current_password'), $user->password)) {
+    if (password_verify($request->input('current_password'), $user->password)) {
+
+        $imageDeleted = imageService::deleteImage($id, '/images/profile');
+
+        if ($imageDeleted) {
             if ($user->delete()) {
                 notify()->success(__('Successfully deleted user'));
                 return redirect(route('home'));
@@ -216,10 +220,13 @@ class UserController extends Controller
                 notify()->error(__('Failed to delete user'));
             }
         } else {
-            notify()->error(__('Incorrect password'));
-            return redirect(route('profile'));
+            notify()->error(__('Failed to delete user image'));
         }
-
+    } else {
+        notify()->error(__('Incorrect password'));
         return redirect(route('profile'));
     }
+
+    return redirect(route('profile'));
+}
 }

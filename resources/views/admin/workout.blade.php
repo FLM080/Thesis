@@ -3,7 +3,7 @@
         <div class="container my-5 rounded border border-dark bg-dark">
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Add Exercises') }}</h1>
 
-            <form method="POST" action="/admin/addExercises" enctype="multipart/form-data">
+            <form method="POST" action="" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="name" class="text-white">{{ __('Exercise Name') }}</label>

@@ -46,8 +46,8 @@
             @if($workout)
             <div class="col-12">
                 <div class="row m-5 justify-content-center align-items-center userWorkout flex-wrap">
-                    <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
-                        <img src="{{ asset($personalImg) }}" alt="{{ __('Personal Image') }}" class="personalImg img-fluid" >
+                    <div class="col-3 justify-content-center align-items-center d-flex">
+                        <img src="{{ asset($personalImg) }}" alt="{{ __('Personal Image') }}" class="personalImg" >
                     </div>
                     <div class="col-md-7 h-75 ">
                         <div class="row">

@@ -45,4 +45,23 @@ class ImageService
 
         return $destinationPath . '/' . $name;
     }
+
+    public static function deleteImage($id, $destinationPath)
+    {
+        $extensions = config('images.profile.extension');
+        $imageDeleted = false;
+
+        foreach ($extensions as $extension) {
+            $fileToDelete = public_path($destinationPath) . '/' . $id . '.' . $extension;
+
+            if (is_file($fileToDelete)) {
+                if (unlink($fileToDelete)) {
+                    $imageDeleted = true;
+                    break;
+                }
+            }
+        }
+
+        return $imageDeleted;
+    }
 }

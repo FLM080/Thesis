@@ -15,7 +15,7 @@
             @if($workout)
             <div class="col-12 mb-5">
                 <div class="row m-5 pb-0 mb-0 justify-content-center align-items-center userWorkout flex-wrap">
-                    <div class="col-4 justify-content-center align-items-center d-flex">
+                    <div class="col-3 justify-content-center align-items-center d-flex">
                         <img src="{{ asset($workoutPlanImg) }}" alt="{{ __('Personal Image') }}" class="personalImg">
                     </div>
                     <div class="col-md-6 h-75 ">
@@ -37,62 +37,67 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2 d-flex justify-content-center align-items-center workoutView">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#mainToggleDiv">Toggle</button>
+                    <div class="col-md-1 d-flex justify-content-center align-items-center workoutEdit">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#updateWorkoutPlanModal{{ $workout->workout_id }}">Edit</button>
                     </div>
-                    <div id="mainToggleDiv" class="collapse row m-3 justify-content-center align-items-center userWorkoutDays flex-wrap">
-                        @if(!$days)
-                        <h1 class="text-white m-3 text-uppercase ">{{ __('you dont have workouts yet') }}</h1>
+                    <div class="col-md-2 p-5 d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#mainToggleDiv">More</button>
+                    </div>
+                    <div id="mainToggleDiv" class="collapse row m-5 p-3 justify-content-center align-items-center userWorkoutDays flex-wrap">
+                        @if($days->isEmpty())
+                            <h1 class="text-white m-3 text-uppercase text-center">{{ __('you dont have workouts yet') }}</h1>
                         @else
                         @foreach($days as $day)
-                        <div class="workoutDays" id="dayDiv{{ $day->workout_day_id }}">
-                            <div class="row p-3 d-flex justify-content-center align-items-center">
-                                <div class="col-md-3 p-0 m-0">
+                        <div class="workoutDays  p-3" id="dayDiv{{ $day->workout_day_id }}">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
                                     <img src="{{ asset($day->daysImagePath) }}" alt="Day Image" class="personalImg">
                                 </div>
                                 <div class="col-md-3 h-75">
                                     <p class="text-white"><strong>{{ __('Workout Days Name:') }}</strong> {{ $day->workout_day_name }}</p>
                                     <p class="text-white"><strong>{{ __('Day:') }}</strong> {{ $day->workout_day }}</p>
                                 </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#editModal{{ $day->workout_day_id }}">Edit</button>
+                                <div class="col-md-2 d-flex justify-content-center align-items-center">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateDayModal{{ $day->workout_day_id }}">edit</button>
                                 </div>
-                                <div class="col-md-2 p-3 ">
-                                    <button class="toggleButton btn btn-primary" data-bs-toggle="collapse" data-bs-target="#toggleDiv{{ $day->workout_day_id }}">Toggle {{ $day->workout_day_name }}</button>
+                                <div class="col-md-2 p-3 d-flex justify-content-center align-items-center">
+                                    <button class="toggleButton btn btn-primary" data-bs-toggle="collapse" data-bs-target="#toggleDiv{{ $day->workout_day_id }}">More</button>
                                 </div>
                             </div>
-                            <div id="toggleDiv{{ $day->workout_day_id }}" class="row collapse justify-content-center align-items-center userWorkoutExercises flex-wrap mb-5">
+                            <div id="toggleDiv{{ $day->workout_day_id }}" class="collapse row justify-content-center align-items-center flex-wrap userWorkoutExercises">
                                 @foreach($day->exerciseWorkout->sortBy('order') as $exercise)
-                                <div class="row p-3 d-flex justify-content-center align-items-center ">
-                                    <div class="col-md-3 p-0 m-0">
-                                        <img src="{{ asset($exercise->exerciseImagePath) }}" alt="Exercise Image" class="personalImg">
+                                <div class="row p-3 d-flex justify-content-center align-items-center workoutDayExercises">
+                                    <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
+                                        <img src="{{ asset($exercise->exerciseImagePath) }}" alt="Exercise Image" class="personalImg ">
                                     </div>
-                                    <div class="col-md-5 h-75">
+                                    <div class="col-md-5 p-0 h-75">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <p class="text-white"><strong>{{ __('Exercise Name:') }}</strong> {{ $exercise->exerciseName }}</p>
-                                                <p class="text-white"><strong>{{ __('Exercise Reps:') }}</strong> {{ $exercise->exerciseType }}</p>
-                                                <p class="text-white "><strong>{{ __('Order:') }}</strong> {{ $exercise->exerciseDifficulty }}</p>
+                                                <p class="text-white"><strong>{{ __('Exercise Equipment type:') }}</strong> {{ $exercise->exerciseType }}</p>
+                                                <p class="text-white "><strong>{{ __('Exercise Difficulty:') }}</strong> {{ $exercise->exerciseDifficulty }}</p>
                                             </div>
                                             <div class="col-md-6">
-                                                <p class="text-white"><strong>{{ __('Order:') }}</strong> {{ $exercise->order }}</p>
+                                                <p class="text-white"><strong>{{ __('Order:') }}</strong> {{ $exercise->exercise_workout_order }}</p>
                                                 <p class="text-white"><strong>{{ __('Exercise Sets:') }}</strong> {{ $exercise->exercise_workout_sets }}</p>
                                                 <p class="text-white"><strong>{{ __('Exercise Reps:') }}</strong> {{ $exercise->exercise_workout_reps }}</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <p class="text-white"><strong>{{ __('Exercise Description:') }}</strong> {{ $exercise->exerciseDescription }}</p>
+                                                <p class="text-white exerciseDesc"><strong>{{ __('Exercise Description:') }}</strong> {{ $exercise->exerciseDescription }}</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#editExerciseModal{{ $exercise->id }}">Edit</button>
+                                    <div class="col-md-2 p-3 d-flex justify-content-center align-items-center">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateExerciseModal{{ $exercise->exercise_workout_connect_id }}">edit</button>
                                     </div>
                                 </div>
+                                @include('users.viewWorkoutModals.updateExerciseModal')
                                 @endforeach
                             </div>
                         </div>
+                        @include('users.viewWorkoutModals.updateDayModal')
                         @endforeach
                         @endif
                     </div>
@@ -100,6 +105,8 @@
             </div>
             @endif
         </div>
+        @include('users.viewWorkoutModals.updateWorkoutPlanModal')
         @endif
     </div>
+    <script src="{{ asset('js/editWorkoutPlanButton.js') }}"></script>
 </x-layout>

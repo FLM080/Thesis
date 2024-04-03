@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Preference;
 use Illuminate\Support\Facades\Auth;
+use App\Services\DatabaseSchemaService;
 
 class PreferenceController extends Controller
 {
     public function update(Request $request)
     {
         $request->validate([
-            'preference_goal' => 'required|in:lose weight,build muscle,maintain weight',
-            'preference_workout_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
-            'preference_strength_level' => 'required|in:beginner,intermediate,advanced',
+            'preference_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('preference', 'preference_goal')),
+            'preference_workout_type' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('preference', 'preference_workout_type')),
+            'preference_strength_level' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('preference', 'preference_strength_level')),
         ]);
         $user = Auth::user();
         $preference = Preference::where('user_id', $user->id)->first();

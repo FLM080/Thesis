@@ -1,4 +1,4 @@
-<h5 class="modal-title" id="editModalLabel{{ $item->id }}">{{ __('Edit User') }}</h5>
+<h5 class="modal-title" id="updateModalLabel{{ $item->id }}">{{ __('update User') }}</h5>
 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
 </button>
@@ -26,7 +26,7 @@
 
             <div class="form-group text-center w-75">
                 <label for="user_admin_privilege">{{ __('Admin Status') }}</label>
-                <select class="form-control mb-3 editable-field" id="user_admin_privilege" name="user_admin_privilege">
+                <select class="form-select mb-3 updateable-field" id="user_admin_privilege" name="user_admin_privilege">
                     <option value="No" {{ $item->user_admin_privilege == 'No' ? 'selected' : '' }}>
                         {{ __('No') }}
                     </option>
@@ -38,8 +38,8 @@
             <?php notify()->error(__($message)) ?>
             @enderror
         </div>
-        <div class="text-right">
-            <button type="submit" class="btn btn-primary my-3">{{ __('Save') }}</button>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary ">{{ __('Save') }}</button>
         </div>
     </form>
 </div>

@@ -56,9 +56,9 @@ class ExerciseController extends Controller
             'muscle_group_id' => 'required',
             'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s.,-]+$/i',Rule::unique('exercise', 'exercise_name')],
             'exercise_description' => 'required|max:150|regex:/^[a-zA-Z\s.,-]+$/i',
-            'exercise_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
-            'exercise_strength_level' => 'required|in:beginner,intermediate,advanced',
-            'exercise_goal' => 'required|in:lose weight,build muscle,maintain weight',
+            'exercise_type' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_type')),
+            'exercise_strength_level' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_strength_level')),
+            'exercise_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_goal')),
             'image' => 'required|image|mimes:' . implode(',', $extensions) . '',
         ]);
 
@@ -92,34 +92,24 @@ class ExerciseController extends Controller
     }
 
     public function destroy(Request $request)
-    {
-        $extensions = config('images.profile.extension');
-        $exercise = Exercise::find($request->id);
-        $destinationPath = 'images/exercises';
-        $imageDeleted = false;
+{
+    $exercise = Exercise::find($request->id);
+    $destinationPath = 'images/exercises';
 
-        foreach ($extensions as $extension) {
-            $fileToDelete = public_path($destinationPath) . '/' . $exercise->exercise_id . '.' . $extension;
 
-            if (is_file($fileToDelete)) {
-                if (unlink($fileToDelete)) {
-                    $imageDeleted = true;
-                    break;
-                }
-            }
-        }
+    $imageDeleted = imageService::deleteImage($exercise->exercise_id, $destinationPath);
 
-        if ($imageDeleted) {
-            $exerciseDeleted = $exercise->delete();
-        }
-        
-        if ($imageDeleted && $exerciseDeleted) {
-            notify()->success(__('Exercise deleted successfully'));
-        } else {
-            notify()->error(__('Failed to delete exercise and image'));
-        }
-        return redirect(route('adminExercise'));
+    if ($imageDeleted) {
+        $exerciseDeleted = $exercise->delete();
     }
+    
+    if ($imageDeleted && $exerciseDeleted) {
+        notify()->success(__('Exercise deleted successfully'));
+    } else {
+        notify()->error(__('Failed to delete exercise and image'));
+    }
+    return redirect(route('adminExercise'));
+}
 
     public function update(Request $request, $id)
     {
@@ -130,9 +120,9 @@ class ExerciseController extends Controller
             'muscle_group_id' => 'required',
             'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s.,-]+$/i',Rule::unique('exercise', 'exercise_name')->ignore($exercise->exercise_id, 'exercise_id')],
             'exercise_description' => 'required|max:150|regex:/^[a-zA-Z\s.,-]+$/i',
-            'exercise_type' => 'required|in:bodyweight,weight training,with cardio,no equipment',
-            'exercise_strength_level' => 'required|in:beginner,intermediate,advanced',
-            'exercise_goal' => 'required|in:lose weight,build muscle,maintain weight',
+            'exercise_type' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_type')),
+            'exercise_strength_level' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_strength_level')),
+            'exercise_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_goal')),
             'image' => 'image|mimes:' . implode(',', $extensions) . '',
         ]);
 
