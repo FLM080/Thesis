@@ -5,7 +5,7 @@ namespace App\Services;
 use Intervention\Image\ImageManagerStatic as Image;
 class ImageService
 {
-    public function getImagePath($directory, $id, $defaultPath)
+    public static function getImagePath($directory, $id, $defaultPath)
     {
         $extensions = config('images.profile.extension');
         $filePath = "images/{$directory}/{$id}";
@@ -49,19 +49,20 @@ class ImageService
     public static function deleteImage($id, $destinationPath)
     {
         $extensions = config('images.profile.extension');
-        $imageDeleted = false;
+        $imageExists = false;
 
         foreach ($extensions as $extension) {
             $fileToDelete = public_path($destinationPath) . '/' . $id . '.' . $extension;
 
             if (is_file($fileToDelete)) {
-                if (unlink($fileToDelete)) {
-                    $imageDeleted = true;
-                    break;
+                $imageExists = true;
+
+                if (!unlink($fileToDelete)) {
+                    return false; 
                 }
             }
         }
 
-        return $imageDeleted;
+        return $imageExists ? true : true; 
     }
 }

@@ -17,7 +17,7 @@ class ExerciseWorkoutConnect extends Model
         'exercise_id',
         'exercise_workout_sets',
         'exercise_workout_reps',
-        'order',
+        'exercise_workout_order',
     ];
 
     public function exercise()

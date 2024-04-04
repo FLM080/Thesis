@@ -73,7 +73,7 @@
                     </div>
                 </form>
                 <div class="modal-footer">
-                    <form action="{{ route('deleteWorkoutPlan', $workout->workout_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this workout plan?')"
+                    <form action="{{ route('deleteWorkoutPlan', $workout->workout_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this workout plan?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>

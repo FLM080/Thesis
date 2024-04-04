@@ -444,7 +444,7 @@ div.col-md-4.my-5 {
     }
 }
 
-/*workout planner*/
+
 
 .background {
     background-color: rgb(77, 77, 77);
@@ -580,17 +580,9 @@ div.col-md-4.my-5 {
     border-radius: 20px;
 }
 
-/* admin panel*/
 
-#admin-page {
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    background: rgba(34, 36, 41, 0.8);
-    align-self: center;
-    justify-content: center;
-    width: 100%;
-}
+
+
 
 div.scrollable-table {
     max-height: 365px;
@@ -692,18 +684,70 @@ textarea {
     max-width: 800px;
     
 }
+
+.searchbar{
+    max-width: 300px;
+}
+
 .small-column {
     width: 10px;
 }
-#exercisesTable {
+
+.exercisesTable {
     border-collapse: collapse;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.selectedExercisesTable{
+    border-collapse: collapse;
+    max-height: 400px;
+    overflow: auto;
+}
+
+#selectedExercisesTable td, #selectedExercisesTable th {
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 8px;   
+    vertical-align: middle;
+}
+
+.exerciseDescription{
+    max-height: 100px;
+    overflow-y: auto;
 }
 
 #exercisesTable td, #exercisesTable th {
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    padding: 8px;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 8px;   
+    vertical-align: middle;
+    align-items: center;
 }
+
+#exercisesTable tbody td {
+    min-width: 100px;
+    max-width: 150px;
+}
+
+#selectedExercisesTable tbody td {
+    min-width: 200px;
+    max-width: 250px;
+}
+
+.addexercise {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.exerciseTableImage {
+    width: 250px;
+    height: 150px;
+    padding: 15px;
+}
+
 .userWorkout {
     border-radius: 100px;
     border: 5px solid black;

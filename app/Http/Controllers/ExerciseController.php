@@ -8,7 +8,6 @@ use App\Models\MuscleGroup;
 use App\Models\Exercise;
 use App\Services\DatabaseSchemaService;
 use App\Services\ImageService;
-use Intervention\Image\ImageManagerStatic as Image;
 
 class ExerciseController extends Controller
 {

@@ -67,9 +67,4 @@ class AdminController extends Controller
         }
         return redirect()->route('admin');
     }
-
-    public function workout()
-    {
-        return view('admin.workout');
-    }
 }

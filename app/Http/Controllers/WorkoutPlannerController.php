@@ -119,7 +119,7 @@ class WorkoutPlannerController extends Controller
 
         $extensions = config('images.profile.extension');
         $request->validate([
-            'workout_day_name' => 'required|max:30',
+            'workout_day_name' => 'required|max:30|regex:/^[a-zA-Z\s.,-]+$/i',
             'workout_day_day' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout_day', 'workout_day')),
             'workout_image' => 'nullable|image|mimes:' . implode(',', $extensions),
             'exercises.*.sets' => 'required|integer|min:1',

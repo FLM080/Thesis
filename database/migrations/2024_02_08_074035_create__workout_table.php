@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('workout', function (Blueprint $table) {
             $table->increments('workout_id');
-            $table->Integer('user_id')->unsigned()->unique();
+            $table->integer('user_id')->unsigned()->nullable()->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('workout_name');
-            $table->text('workout_description');
+            $table->string('workout_description', 150);
             $table->tinyInteger('workout_days');
             $table->enum('workout_strength_level', ['beginner', 'intermediate', 'advanced']);
             $table->enum('workout_goal', ['lose weight', 'build muscle', 'maintain weight']);

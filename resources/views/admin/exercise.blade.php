@@ -1,5 +1,5 @@
 <x-adminLayout>
-    <div id="admin-page">
+    <div class="background">
         <div class="container my-5 rounded border border-dark bg-dark">
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Add Exercise') }}</h1>
             @if ($errors->any())
@@ -90,7 +90,7 @@
         <div class="container my-5 rounded border border-dark bg-dark">
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Edit exercises') }}</h1>
             <div class="d-flex justify-content-end">
-                <div class="input-group mb-3" style="max-width: 300px;">
+                <div class="input-group mb-3 searchbar">
                     <input type="text" class="form-control" id="search" name="search" placeholder="Search exercises" data-url="{{ route($searchRoute) }}">
                 </div>
             </div>

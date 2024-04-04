@@ -104,7 +104,9 @@ Route::middleware('localization')->group(function () {
         Route::post('/admin/updateExercise/{id}', [ExerciseController::class, 'update'])->name('editExercise');
         Route::delete('/admin/deleteExercise/{id}', [ExerciseController::class, 'destroy'])->name('deleteExercise');
         
-        Route::get('/workout', [AdminController::class, 'workout'])->name('adminWorkout');
+        Route::get('/workout', [WorkoutController::class, 'index'])->name('adminWorkout');
+        Route::post('/admin/addWorkout', [WorkoutController::class, 'storePlan'])->name('addWorkoutPlan');
+        Route::post('/admin/addWorkoutDay', [WorkoutController::class, 'storeDay'])->name('addWorkoutDayAdmin');
 
         Route::get('/muscleGroup', [MuscleGroupController::class, 'index'])->name('adminMuscleGroup');
         Route::post('/admin/updateMuscleGroup/{id}', [MuscleGroupController::class, 'update'])->name('editMuscleGroup');

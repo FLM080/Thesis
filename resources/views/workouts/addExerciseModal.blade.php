@@ -11,7 +11,7 @@
                     @csrf
                     <div class="row m-3">
                         <div class="form-group col-md-6">
-                            <label for="workout_day_name">{{ __('Workout name') }}</label>
+                            <label for="workout_day_name">{{ __('Workout Day name') }}</label>
                             <input type="text" class="form-control mb-3" id="workout_day_name" name="workout_day_name"
                                 placeholder="{{ __('Enter name') }}" value="{{ old('workout_day_name') }}">
                             @error('workout_day_name')
@@ -35,7 +35,7 @@
                             <input type="file" class="form-control" id="workout_image" name="workout_image">
                         </div>
 
-                        <div class="form-group col-md-12" style="max-height: 400px; overflow-y: auto;">
+                        <div class="form-group col-md-12 exercisesTable">
                             <table id="exercisesTable" class="table  table-striped my-2 text-center">
                             </table>
                         </div>
