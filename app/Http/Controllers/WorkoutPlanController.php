@@ -136,6 +136,7 @@ class WorkoutPlanController extends Controller
         $workoutDay->workout_day_name = $request->workout_day_name;
         $workoutDay->workout_day = $request->workout_day;
 
+        $imageUploaded = false;
         if ($request->hasFile('WorkoutDayImage')) {
             $image = $request->file('WorkoutDayImage');
             $image = ImageService::uploadAndResize($image, $workoutDay->workout_day_id, '/images/workouts/user/days');
@@ -178,7 +179,7 @@ class WorkoutPlanController extends Controller
         return redirect()->route('personalWorkoutPlan');
     }
 
-    public function updateWorkoutDayExercise(Request $request, $exercise_workout_connect_id)
+    public function updateWorkoutDayExercise(Request $request)
     {
         $request->validate([
             'exercise_order' => 'required|integer|min:1',
@@ -188,7 +189,7 @@ class WorkoutPlanController extends Controller
 
 
 
-        $exerciseWorkout = ExerciseWorkoutConnect::find($exercise_workout_connect_id);
+        $exerciseWorkout = ExerciseWorkoutConnect::find($request->exercise_workout_id);
         if ($exerciseWorkout) {
             $exerciseWorkout->exercise_workout_reps = $request->exercise_reps;
             $exerciseWorkout->exercise_workout_sets = $request->exercise_sets;

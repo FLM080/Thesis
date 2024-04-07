@@ -1,12 +1,12 @@
-<div class="modal fade" id="updateExerciseModal{{ $exercise->exercise_workout_connect_id }}" tabindex="-1" aria-labelledby="updateExerciseModalLabel{{ $exercise->exercise_id }}" aria-hidden="true">
+<div class="modal fade" id="updateExerciseModal{{ $exercise->exercise_workout_id }}" tabindex="-1" aria-labelledby="updateExerciseModalLabel{{ $exercise->exercise_id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateExerciseModalLabel{{ $exercise->exercise_workout_connect_id }}">Update Exercise</h5>
+                <h5 class="modal-title" id="updateExerciseModalLabel{{ $exercise->exercise_workout_id }}">Update Exercise</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="updateExerciseForm" action="{{ route('updateWorkoutDayExercise', $exercise->exercise_workout_connect_id) }} " method="POST">
+                <form id="updateExerciseForm" action="{{ route('editFamousWorkoutDayExercise', $exercise->exercise_workout_id) }} " method="POST">
                     @csrf
                     <div class="row d-flex justify-content-center align-items-center">
                         <div class="col-md-6">
@@ -28,7 +28,7 @@
                     </div>
                 </form>
                 <div class="modal-footer">
-                    <form action="{{ route('deleteWorkoutDayExercise', $exercise->exercise_workout_connect_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this exercise? This action cannot be undone.');">
+                    <form action="{{ route('deleteFamousWorkoutDayExercise', $exercise->exercise_workout_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this exercise? This action cannot be undone.');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>

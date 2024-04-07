@@ -4,9 +4,10 @@
         @foreach ($columns as $column)
             @if($column == 'id')
             <th class="text-white">{{ __('user') }}</th>
-            @else
+            @elseif(!($editType == 'workout' && $column == 'user_id'))
             <th class="text-white">{{ str_replace('id', '', str_replace('_', ' ', __($column))) }}</th>
             @endif
+
         @endforeach
         <th class="text-white text-center">{{ __('Edit') }}</th>
         <th class="text-white text-center">{{ __('Delete') }}</th>
@@ -14,6 +15,7 @@
     @foreach ($items as $item)
     <tr>
         @foreach ($columns as $column)
+        @if(!($editType == 'workout' && $column == 'user_id'))
         <td class="text-white table-item">
             <div>
                 @if($column == 'muscle_group_id' && $item->muscleGroup)
@@ -23,12 +25,17 @@
                 @endif
             </div>
         </td>
+        @endif
     @endforeach
-        <td class="text-center">
+    <td class="text-center">
+        @if($editType == 'workout')
+            <a href="{{ route($editRoute, ['id' => $item->workout_id]) }}" class="btn btn-primary">{{ __('Edit') }}</a>
+        @else
             <button type="button" class="btn btn-primary edit-btn"
                 data-bs-target="#editModal{{ $item->$tableId }}">{{ __('Edit') }}
             </button>
-        </td>
+        @endif
+    </td>
         <td class="text-center">
             <form method="POST" action="{{ route($deleteRoute, ['id' => $item->$tableId]) }}">
                 @csrf

@@ -106,7 +106,15 @@ Route::middleware('localization')->group(function () {
         
         Route::get('/workout', [WorkoutController::class, 'index'])->name('adminWorkout');
         Route::post('/admin/addWorkout', [WorkoutController::class, 'storePlan'])->name('addWorkoutPlan');
+        Route::delete('/admin/deleteWorkout/{id}', [WorkoutController::class, 'destroyPlan'])->name('deleteWorkoutPlanAdmin');
+        Route::get('/admin/updateWorkout/{id}', [WorkoutController::class, 'showUpdatePlan'])->name('showUpdateWorkoutPlanAdmin');
         Route::post('/admin/addWorkoutDay', [WorkoutController::class, 'storeDay'])->name('addWorkoutDayAdmin');
+        Route::post('/admin/updateFamousWorkoutDay/{id}', [WorkoutController::class, 'updateFamousWorkoutDay'])->name('editFamousWorkoutDay');
+        Route::delete('/admin/deleteFamousWorkoutDay/{id}', [WorkoutController::class, 'destroyFamousWorkoutDay'])->name('deleteFamousWorkoutDay');
+        Route::post('/admin/updateFamousWorkoutDayExercise/{id}', [WorkoutController::class, 'updateFamousWorkoutDayExercise'])->name('editFamousWorkoutDayExercise');
+        Route::delete('/admin/deleteFamousWorkoutDayExercise/{id}', [WorkoutController::class, 'destroyFamousWorkoutDayExercise'])->name('deleteFamousWorkoutDayExercise');
+        Route::post('/admin/updateFamousWorkoutPlan/{id}', [WorkoutController::class, 'updateFamousWorkoutPlan'])->name('editFamousWorkoutPlan');
+        Route::delete('/admin/deleteFamousWorkoutPlan/{id}', [WorkoutController::class, 'destroyFamousWorkoutPlan'])->name('deleteFamousWorkoutPlan');
 
         Route::get('/muscleGroup', [MuscleGroupController::class, 'index'])->name('adminMuscleGroup');
         Route::post('/admin/updateMuscleGroup/{id}', [MuscleGroupController::class, 'update'])->name('editMuscleGroup');

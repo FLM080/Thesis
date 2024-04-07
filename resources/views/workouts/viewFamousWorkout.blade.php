@@ -65,9 +65,6 @@
                                 </div>
                             </div>
                             <div id="toggleDiv{{ $day->workout_day_id }}" class="collapse row justify-content-center align-items-center flex-wrap userWorkoutExercises">
-                                @if($day->exerciseWorkout->isEmpty())
-                                    <h1 class="text-white m-3 text-uppercase text-center">{{ __('you dont have exercises on this day') }}</h1>
-                                @endif
                                 @foreach($day->exerciseWorkout->sortBy('order') as $exercise)
                                 <div class="row p-3 d-flex justify-content-center align-items-center workoutDayExercises">
                                     <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">

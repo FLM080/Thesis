@@ -106,7 +106,7 @@ class UserController extends Controller
     {
 
         $request->validate([
-            'user_gender' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('user', 'user_gender')),
+            'user_gender' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('users', 'user_gender')),
         ]);
 
         $user = Auth::user();

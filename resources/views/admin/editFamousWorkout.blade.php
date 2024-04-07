@@ -1,4 +1,4 @@
-<x-layout>
+<x-adminlayout>
     <div class="container-fluid background">
         @if(!$workout)
         <div class="row m-5 bg-dark">
@@ -51,7 +51,7 @@
                         <div class="workoutDays  p-3" id="dayDiv{{ $day->workout_day_id }}">
                             <div class="row d-flex justify-content-center align-items-center">
                                 <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
-                                    <img src="{{ asset($day->daysImagePath) }}" alt="Day Image" class="personalImg">
+                                    <img src="{{ asset($day->workoutDayImg) }}" alt="Day Image" class="personalImg">
                                 </div>
                                 <div class="col-md-3 h-75">
                                     <p class="text-white"><strong>{{ __('Workout Days Name:') }}</strong> {{ $day->workout_day_name }}</p>
@@ -65,20 +65,20 @@
                                 </div>
                             </div>
                             <div id="toggleDiv{{ $day->workout_day_id }}" class="collapse row justify-content-center align-items-center flex-wrap userWorkoutExercises">
-                                @if($day->exerciseWorkout->isEmpty())
-                                    <h1 class="text-white m-3 text-uppercase text-center">{{ __('you dont have exercises on this day') }}</h1>
+                                @if(empty($day->exercises))
+                                    <h1 class="text-white m-3 text-uppercase text-center">{{ __('you dont have Exercises on this day') }}</h1>
                                 @endif
-                                @foreach($day->exerciseWorkout->sortBy('order') as $exercise)
+                                @foreach($day->exercises as $exercise)
                                 <div class="row p-3 d-flex justify-content-center align-items-center workoutDayExercises">
                                     <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset($exercise->exerciseImagePath) }}" alt="Exercise Image" class="personalImg ">
+                                        <img src="{{ asset($exercise->exerciseImg) }}" alt="Exercise Image" class="personalImg ">
                                     </div>
                                     <div class="col-md-5 p-0 h-75">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p class="text-white"><strong>{{ __('Exercise Name:') }}</strong> {{ $exercise->exerciseName }}</p>
-                                                <p class="text-white"><strong>{{ __('Exercise Equipment type:') }}</strong> {{ $exercise->exerciseType }}</p>
-                                                <p class="text-white "><strong>{{ __('Exercise Difficulty:') }}</strong> {{ $exercise->exerciseDifficulty }}</p>
+                                                <p class="text-white"><strong>{{ __('Exercise Name:') }}</strong> {{ $exercise->exercise_name }}</p>
+                                                <p class="text-white"><strong>{{ __('Exercise Equipment type:') }}</strong> {{ $exercise->exercise_type }}</p>
+                                                <p class="text-white "><strong>{{ __('Exercise Difficulty:') }}</strong> {{ $exercise->exercise_strength_level }}</p>
                                             </div>
                                             <div class="col-md-6">
                                                 <p class="text-white"><strong>{{ __('Order:') }}</strong> {{ $exercise->exercise_workout_order }}</p>
@@ -88,19 +88,19 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <p class="text-white exerciseDesc"><strong>{{ __('Exercise Description:') }}</strong> {{ $exercise->exerciseDescription }}</p>
+                                                <p class="text-white exerciseDesc"><strong>{{ __('Exercise Description:') }}</strong> {{ $exercise->exercise_description }}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 p-3 d-flex justify-content-center align-items-center">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateExerciseModal{{ $exercise->exercise_workout_connect_id }}">edit</button>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateExerciseModal{{ $exercise->exercise_workout_id}}">edit</button>
                                     </div>
                                 </div>
-                                @include('users.viewWorkoutModals.updateExerciseModal')
+                                @include('admin.editFamousWorkoutModals.editFamousExerciseModal')
                                 @endforeach
                             </div>
                         </div>
-                        @include('users.viewWorkoutModals.updateDayModal')
+                        @include('admin.editFamousWorkoutModals.editFamousDayModal')
                         @endforeach
                         @endif
                     </div>
@@ -108,8 +108,8 @@
             </div>
             @endif
         </div>
-        @include('users.viewWorkoutModals.updateWorkoutPlanModal')
+        @include('admin.editFamousWorkoutModals.editFamousWorkoutPlanModal')
         @endif
     </div>
     <script src="{{ asset('js/editWorkoutPlanButton.js') }}"></script>
-</x-layout>
+</x-adminlayout>
