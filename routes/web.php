@@ -16,6 +16,7 @@ use App\Models\Exercise;
 use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\WorkoutPlanController;
+use App\Http\Controllers\FamousWorkoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,8 @@ Route::middleware('localization')->group(function () {
     //show workout planner
     Route::get('/WorkoutPlanner', [WorkoutPlannerController::class, 'index'])->name('workoutPlanner');
 
+    Route::get('/FamousWorkouts', [FamousWorkoutController::class, 'index'])->name('famousWorkouts');
+
     //create new user
     Route::post('/createUser', [UserController::class, 'store'])->name('createUser');
 
@@ -70,6 +73,9 @@ Route::middleware('localization')->group(function () {
 
         //update user credentials
         Route::post('/profile/updateCredentials/{id}', [UserController::class, 'updateCredentials'])->name('updateCredentials');
+
+        Route::get('/FamousWorkouts/{id}', [FamousWorkoutController::class, 'show'])->name('famousWorkout');
+        Route::post('/FamousWorkouts/{id}', [FamousWorkoutController::class, 'store'])->name('copyFamousWorkout');
 
         Route::delete('/profile/deleteUser/{id}', [UserController::class, 'destroy'])->name('deleteUser');
 
@@ -103,7 +109,7 @@ Route::middleware('localization')->group(function () {
         Route::post('/admin/addExercise', [ExerciseController::class, 'store'])->name('addExercise');
         Route::post('/admin/updateExercise/{id}', [ExerciseController::class, 'update'])->name('editExercise');
         Route::delete('/admin/deleteExercise/{id}', [ExerciseController::class, 'destroy'])->name('deleteExercise');
-        
+
         Route::get('/workout', [WorkoutController::class, 'index'])->name('adminWorkout');
         Route::post('/admin/addWorkout', [WorkoutController::class, 'storePlan'])->name('addWorkoutPlan');
         Route::delete('/admin/deleteWorkout/{id}', [WorkoutController::class, 'destroyPlan'])->name('deleteWorkoutPlanAdmin');

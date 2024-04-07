@@ -27,8 +27,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{{route('home')}}" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">{{ __('Home') }}</a>
                             <a href="{{route('workoutPlanner')}}" class="nav-item nav-link {{ request()->is('WorkoutPlanner') ? 'active' : '' }}">{{ __('Plan Your Workout') }}</a>
-                            <a href="" class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
-                            <a href="" class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us Feedback') }}</a>
+                            <a href="{{route('famousWorkouts')}}" class="nav-item nav-link {{ request()->is('FamousWorkouts') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
                             <div class=" px-md-5 nav-item nav-link dropdown d-flex">
                                 <a class="dropdown-toggle  font-bold align-self-center"
                                     role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

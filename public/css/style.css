@@ -119,18 +119,14 @@ h6,
     height: 3rem;
 }
 
-.bg-carousel {
-    background: linear-gradient(rgba(34, 36, 41, 0.8), rgba(34, 36, 41, 0.8)),
-        url(../img/carousel-1.jpg) top center no-repeat;
-    background-size: cover;
-}
-
 #carousel {
     position: relative;
     z-index: 1;
 }
 
-/*saját kezdés*/
+.carouselImg{
+    max-height: 85vh;
+}
 
 body {
     overflow-x: hidden;
@@ -482,6 +478,10 @@ div.col-md-4.my-5 {
     box-shadow: 0px 7px 10px rgba(black, 0.5);
     transition: 0.4s ease-out;
     box-shadow: 0px 7px 10px rgba(black, 0.5);
+
+    max-width: 320px;
+    max-height: 320px;
+    min-height: 300px;
 }
 
 .card:hover {
@@ -849,4 +849,13 @@ p{
         overflow: auto;
         max-height: 200px;
     }
+}
+
+.description{
+    max-height: 100px;
+    overflow: auto;
+}
+
+.famousWorkoutsContainer{
+    max-width: 100%;
 }

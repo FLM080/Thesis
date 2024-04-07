@@ -28,12 +28,10 @@
                                 <a href="{{route('workoutPlanner')}}"
                                     class="nav-item nav-link {{ request()->is('WorkoutPlanner') ? 'active' : '' }}">{{
                                     __('Manage Your Workout') }}</a>
-                                <a href=""
-                                    class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous
-                                    Workouts') }}</a>
-                                <a href=""
-                                    class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us
-                                    Feedback') }}</a>
+                                <a href="{{route('famousWorkouts')}}" class="nav-item nav-link {{ request()->is('FamousWorkouts') ? 'active' : '' }}">
+                                    {{ __('Famous Workouts') }}
+                                </a>
+
                             </div>
                             <div class="d-flex flex-row justify-content-between">
                                 <a class="nav-item nav-link btn btn-primary py-md-3 px-md-5 d-lg-none" role="button"
@@ -124,10 +122,8 @@
                                 <a href="{{route('workoutPlanner')}}"
                                     class="nav-item nav-link {{ request()->is('WorkoutPlanner') ? 'active' : '' }}">{{
                                     __('Plan Your Workout') }}</a>
-                                <a href=""
-                                    class="nav-item nav-link {{ request()->is('famous') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
-                                <a href=""
-                                    class="nav-item nav-link {{ request()->is('feedback') ? 'active' : '' }}">{{ __('Give Us Feedback') }}</a>
+                                <a href="{{route('famousWorkouts')}}"
+                                    class="nav-item nav-link {{ request()->is('FamousWorkouts') ? 'active' : '' }}">{{ __('Famous Workouts') }}</a>
                                 <a href="{{ route('login') }}"
                                     class="nav-item nav-link btn btn-outline-primary py-md-3 px-md-5 d-lg-block d-lg-none" k
                                     id="Login">{{ __('Login') }}</a>

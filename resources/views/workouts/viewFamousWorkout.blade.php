@@ -2,16 +2,11 @@
     <div class="container-fluid background">
         @if(!$workout)
         <div class="row m-5 bg-dark">
-            <h1 class="text-white m-3 text-uppercase ">{{ __('you don`t have a workout plan yet') }}</h1>
-            <div class="justify-content-center d-flex my-5">
-                <a href="{{ route('workoutPlanner') }}" type="button" class="btn btn-primary m-3 w-50">
-                    {{__('Make a workout plan')}}
-                </a>
-            </div>
+            <h1 class="text-white m-3 text-uppercase ">{{ __('error') }}</h1>
         </div>
         @else
         <div class="row m-3 bg-dark">
-            <h1 class="text-white m-3 text-uppercase ">{{ __('My workout plan') }}</h1>
+            <h1 class="text-white m-3 text-uppercase ">{{ __('') }}{{ $workout->workout_name }}{{ __('`s workout plan') }}</h1>
             @if($workout)
             <div class="col-12 mb-5">
                 <div class="row m-5 pb-0 mb-0 justify-content-center align-items-center userWorkout flex-wrap">
@@ -37,15 +32,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-1 d-flex justify-content-center align-items-center workoutEdit">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#updateWorkoutPlanModal{{ $workout->workout_id }}">Edit</button>
-                    </div>
-                    <div class="col-md-2 p-5 d-flex justify-content-center align-items-center">
+                    <div class="col-md-2 p-5 d-flex justify-content-center align-items-center workoutEdit">
                         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#mainToggleDiv">More</button>
                     </div>
                     <div id="mainToggleDiv" class="collapse row m-5 p-3 justify-content-center align-items-center userWorkoutDays flex-wrap">
                         @if($days->isEmpty())
-                            <h1 class="text-white m-3 text-uppercase text-center">{{ __('you dont have workouts yet') }}</h1>
+                            <h1 class="text-white m-3 text-uppercase text-center">{{ __('No workouts yet') }}</h1>
                         @else
                         @foreach($days as $day)
                         <div class="workoutDays  p-3" id="dayDiv{{ $day->workout_day_id }}">
@@ -57,15 +49,15 @@
                                     <p class="text-white"><strong>{{ __('Workout Days Name:') }}</strong> {{ $day->workout_day_name }}</p>
                                     <p class="text-white"><strong>{{ __('Day:') }}</strong> {{ $day->workout_day }}</p>
                                 </div>
-                                <div class="col-md-2 d-flex justify-content-center align-items-center">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateDayModal{{ $day->workout_day_id }}">edit</button>
-                                </div>
                                 <div class="col-md-2 p-3 d-flex justify-content-center align-items-center">
                                     <button class="toggleButton btn btn-primary" data-bs-toggle="collapse" data-bs-target="#toggleDiv{{ $day->workout_day_id }}">More</button>
                                 </div>
                             </div>
                             <div id="toggleDiv{{ $day->workout_day_id }}" class="collapse row justify-content-center align-items-center flex-wrap userWorkoutExercises">
                                 @foreach($day->exerciseWorkout->sortBy('order') as $exercise)
+                                @if(empty($day->exercises))
+                                <h1 class="text-white m-3 text-uppercase text-center">{{ __('no exercises yet') }}</h1>
+                                @endif
                                 <div class="row p-3 d-flex justify-content-center align-items-center workoutDayExercises">
                                     <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
                                         <img src="{{ asset($exercise->exerciseImagePath) }}" alt="Exercise Image" class="personalImg ">
@@ -89,24 +81,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 p-3 d-flex justify-content-center align-items-center">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateExerciseModal{{ $exercise->exercise_workout_connect_id }}">edit</button>
-                                    </div>
                                 </div>
-                                @include('users.viewWorkoutModals.updateExerciseModal')
                                 @endforeach
                             </div>
                         </div>
-                        @include('users.viewWorkoutModals.updateDayModal')
                         @endforeach
                         @endif
                     </div>
                 </div>
             </div>
             @endif
+            <div class="row m-3">
+                <div class="col text-start">
+                    <a href="{{ url()->previous() }}" class="btn btn-primary m-2">{{ __('Go Back') }}</a>
+                </div>
+                <div class="col text-end">
+                    <form method="POST" action="{{ route('copyFamousWorkout', $workout->workout_id) }}">
+                        @csrf
+                        <input type="hidden" name="workout_id" value="{{ $workout->workout_id }}">
+                        <button type="submit" class="btn btn-primary m-2">{{ __('Choose Path') }}</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        @include('users.viewWorkoutModals.updateWorkoutPlanModal')
         @endif
     </div>
-    <script src="{{ asset('js/editWorkoutPlanButton.js') }}"></script>
 </x-layout>

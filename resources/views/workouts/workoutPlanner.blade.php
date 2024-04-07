@@ -86,23 +86,22 @@
             </div>
             @if(!$workout)
             @auth
-            <div class="col-md-2 d-flex justify-content-center align-items-center workoutPlanner-button">
+            <div class="col-md-2 my-3 d-flex justify-content-center align-items-center workoutPlanner-button">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#workoutModal">{{ __('Create a workout plan') }}</button>
             </div>
             @endauth
             @guest
-            <div class="col-md-2 d-flex justify-content-center align-items-center workoutPlanner-button">
+            <div class="col-md-2 my-3 d-flex justify-content-center align-items-center workoutPlanner-button">
                 <a href="{{ route('login') }}" class="btn btn-primary ">{{ __('Save') }}</a>
             </div>
             @endguest
             @else
             <div class="col-md-2 my-3 d-flex justify-content-center align-items-center workoutPlanner-button">
-                <button class="btn btn-primary saveExercise">{{ __('Save') }}</button>
+                <button class="btn btn-primary saveExercise ">{{ __('Save') }}</button>
             </div>
             @endif
             <div class="col-md-5">
                 <h2 class="text-white m-3 text-uppercase ">{{ __('available exercises') }}</h2>
-                <!-- Right container -->
                 <div class="wrapper-right bg-dark">
                     @foreach($items as $item)
                     <div class="card" id="card-{{ $item->exercise_id }}" onclick="moveCard(this)">
@@ -110,7 +109,7 @@
                         <div class="info">
                             <h4 class="text-white">{{ $item->exercise_name }}</h4>
                             <strong>{{ __('Description:') }}</strong>
-                            <p> {{ $item->exercise_description }}</p>
+                            <p class="description"> {{ $item->exercise_description }}</p>
                             <div class="row">
                                 <div class="col-md-6">
                                     <strong>{{ __('Type') }}</strong>
