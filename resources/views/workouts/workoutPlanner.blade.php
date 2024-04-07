@@ -26,7 +26,7 @@
                     <div class="scroller" data-direction="right" data-speed="slow">
                         <div class="scroller__inner">
                             @foreach ($images as $image)
-                            <img class="loopingImg" src="{{ asset('images/workouts/famous/' . $image->getFilename()) }}"
+                            <img class="loopingImg" src="{{ asset('images/workouts/famous/carousel/' . $image->getFilename()) }}"
                                 alt="famousImages">
                             @endforeach
                         </div>

@@ -33,10 +33,7 @@ class WorkoutPlannerController extends Controller
         }
         $columns = DatabaseSchemaService::getColumnNames('exercise');
         $items = Exercise::all();
-        $images = File::files(public_path('images/workouts/famous/plans'));
-        $images = array_filter($images, function ($image) {
-            return $image->getFilename() !== 'Default.jpg';
-        });
+        $images = File::files(public_path('images/workouts/famous/carousel'));
         $days = DatabaseSchemaService::getColumnEnums('workout_day', 'workout_day');
 
 

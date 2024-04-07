@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use App\Models\workout;
+use App\Models\Workout;
 use App\Services\ImageService;
 use App\Services\DatabaseSchemaService;
 use Illuminate\Support\Facades\Auth;

@@ -159,9 +159,8 @@
             @endauth
         </div>
     </div>
-    <!-- Header End -->
 
-    <!-- output-->
+    
     {{ $slot }}
 
     @include('components.footer')

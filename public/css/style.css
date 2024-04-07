@@ -859,3 +859,11 @@ p{
 .famousWorkoutsContainer{
     max-width: 100%;
 }
+
+.carouselText{
+    max-width: 900px;
+}
+.logoImage{
+    min-height: 500px;
+    max-height: 500px;
+}
