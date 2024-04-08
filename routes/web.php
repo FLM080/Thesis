@@ -82,21 +82,14 @@ Route::middleware('localization')->group(function () {
         Route::post('/addWorkoutPlan', [WorkoutPlannerController::class, 'store'])->name('addWorkout');
 
         Route::post('/addExerciseToWorkout', [WorkoutPlannerController::class, 'addExercise'])->name('addExerciseToWorkout');
-
         Route::post('/addWorkoutDay', [WorkoutPlannerController::class, 'addWorkoutDay'])->name('addWorkoutDay');
 
         Route::get('/user/workoutPlan', [WorkoutPlanController::class, 'index'])->name('personalWorkoutPlan');
-
         Route::post('/user/updateWorkoutPlan/{id}', [WorkoutPlanController::class, 'updateWorkoutPlan'])->name('updateWorkoutPlan');
-
         Route::delete('/user/deleteWorkoutPlan/{id}', [WorkoutPlanController::class, 'destroyWorkoutPlan'])->name('deleteWorkoutPlan');
-
         Route::post('/user/updateWorkoutDay/{id}', [WorkoutPlanController::class, 'updateWorkoutDay'])->name('updateWorkoutDay');
-
         Route::delete('/user/deleteWorkoutDay/{id}', [WorkoutPlanController::class, 'destroyWorkoutDay'])->name('deleteWorkoutDay');
-
         Route::post('/user/updateWorkoutDayExercise/{id}', [WorkoutPlanController::class, 'updateWorkoutDayExercise'])->name('updateWorkoutDayExercise');
-
         Route::delete('/user/deleteWorkoutDayExercise/{id}', [WorkoutPlanController::class, 'destroyWorkoutDayExercise'])->name('deleteWorkoutDayExercise');
     });
 

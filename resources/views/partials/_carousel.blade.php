@@ -1,4 +1,4 @@
-<div class="container-fluid p-0 mb-5">
+<div class="container-fluid p-0">
     <div id="header-carousel" class="carousel slide" id="carousel" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -7,8 +7,8 @@
                     <div class="p-3 carouselText">
                         <h5 class="text-white text-uppercase">{{ __('Best Workout Planner') }}</h5>
                         <h1 class="display-2 text-white text-uppercase mb-md-4">{{ __('Make your own workout plan') }}</h1>
-                        <a href="{{ route('register') }}" class="btn btn-primary py-md-3 px-md-5 me-3">{{ __('Join Us') }}</a>
-                        <a href="{{ route('workoutPlanner') }}" class="btn btn-light py-md-3 px-md-5">{{ __('Check out the possibilities') }}</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary py-md-3 px-md-5 me-3 m-2">{{ __('Join Us') }}</a>
+                        <a href="{{ route('workoutPlanner') }}" class="btn btn-light py-md-3 px-md-5 m-2">{{ __('Check out the possibilities') }}</a>
                     </div>
                 </div>
             </div>
@@ -18,8 +18,8 @@
                     <div class="p-3 carouselText">
                         <h5 class="text-white text-uppercase">{{ __('Best Workout Planner') }}</h5>
                         <h1 class="display-2 text-white text-uppercase mb-md-4">{{ __('Follow the path of your favourite') }}</h1>
-                        <a href="{{ route('register') }}" class="btn btn-primary py-md-3 px-md-5 me-3">{{ __('Join Us') }}</a>
-                        <a href="{{ route('famousWorkouts') }}" class="btn btn-light py-md-3 px-md-5">{{ __('Check out the possibilities') }}</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary py-md-3 px-md-5 me-3 m-2 ">{{ __('Join Us') }}</a>
+                        <a href="{{ route('famousWorkouts') }}" class="btn btn-light py-md-3 px-md-5 m-2">{{ __('Check out the possibilities') }}</a>
                     </div>
                 </div>
             </div>

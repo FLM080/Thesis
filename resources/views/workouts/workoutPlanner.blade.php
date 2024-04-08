@@ -34,9 +34,9 @@
 
                 </div>
                 <div class="justify-content-center d-flex my-5">
-                    <button type="button" class="btn btn-primary m-3 w-50">
-                        {{__('Follow the path')}}
-                    </button>
+                    <a href="{{ route('famousWorkouts') }}" class="btn btn-primary m-3 w-50">
+                        {{__('Follow The Path')}}
+                    </a>
                 </div>
             </div>
         </div>

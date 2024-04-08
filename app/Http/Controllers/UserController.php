@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public function store(Request $request){
         $formFields = $request->validate([
-            'name' => ['required', 'min:3', 'max:30','regex:/^[a-zA-Z\s]+$/'],
+            'name' => ['required', 'min:3', 'max:30','regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]+$/'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
             'password' => ['required', 'min:6', 'max:64', 'confirmed', 'regex:/^(?=.*[A-Z])(?=.*\d).+$/'],
         ]);
@@ -140,7 +140,7 @@ class UserController extends Controller
     
         if ($request->has('name') && !empty($request->name)) {
             $formFields = $request->validate([
-                'name' => ['nullable', 'min:3', 'max:30', 'regex:/^[a-zA-Z\s]+$/'],
+                'name' => ['nullable', 'min:3', 'max:30', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]+$/'],
             ]);
             $users->name = $formFields['name'];
         }

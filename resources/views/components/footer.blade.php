@@ -5,7 +5,7 @@
         <div class="d-flex flex-row justify-content-center">
             <a class="text-secondary mb-2 me-3" href="{{ route('home') }}"><i class="bi bi-arrow-right text-primary me-2"></i>{{ __('Home') }}</a>
             <a class="text-secondary mb-2 me-3" href="{{ route('workoutPlanner') }}"><i class="bi bi-arrow-right text-primary me-2"></i>{{ __('Plan Your Workout') }}</a>
-            <a class="text-secondary mb-2 me-3" href=""><i class="bi bi-arrow-right text-primary me-2"></i>{{ __('Famous Workouts') }}</a>
+            <a class="text-secondary mb-2 me-3" href="{{route('famousWorkouts')}}"><i class="bi bi-arrow-right text-primary me-2"></i>{{ __('Famous Workouts') }}</a>
         </div>
     </div>
 </div>

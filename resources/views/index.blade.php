@@ -4,7 +4,7 @@
     @include('partials._carousel')
 
 
-    <div class="container-fluid p-5">
+    <div class="container-fluid p-5 mb-5">
         <div class="row gx-5 d-flex justify-content-center align-items-center">
             <div class="col-lg-5 mb-5 mb-lg-0 logoImage">
                 <div class="h-100">
@@ -25,12 +25,12 @@
                     staying motivated is key to sticking with your fitness journey, which is why we offer the option to
                     follow in the footsteps of your favorite celebrities and fitness icons.') }}</p>
                 <div class="rounded bg-dark p-5">
-                    <ul class="nav nav-pills justify-content-between mb-3">
-                        <li class="nav-item w-50">
+                    <ul class="nav nav-pills justify-content-between responsive-nav">
+                        <li class="nav-item responsive-nav-item mb-3">
                             <a class="nav-link text-uppercase text-center w-100 active" data-bs-toggle="pill"
                                 href="#pills-1">{{ __('Making Your Own Workout') }}</a>
                         </li>
-                        <li class="nav-item w-50">
+                        <li class="nav-item responsive-nav-item mb-3">
                             <a class="nav-link text-uppercase text-center w-100" data-bs-toggle="pill"
                                 href="#pills-2">{{ __('Choosing a Famous Workout') }}</a>
                         </li>

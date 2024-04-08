@@ -53,8 +53,8 @@ class ExerciseController extends Controller
         $extensions = config('images.profile.extension');
         $request->validate([
             'muscle_group_id' => 'required',
-            'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s.,-]+$/i',Rule::unique('exercise', 'exercise_name')],
-            'exercise_description' => 'required|max:150|regex:/^[a-zA-Z\s.,-]+$/i',
+            'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',Rule::unique('exercise', 'exercise_name')],
+            'exercise_description' => 'required|max:150|regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',
             'exercise_type' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_type')),
             'exercise_strength_level' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_strength_level')),
             'exercise_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_goal')),
@@ -117,8 +117,8 @@ class ExerciseController extends Controller
         $extensions = config('images.profile.extension');
         $request->validate([
             'muscle_group_id' => 'required',
-            'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s.,-]+$/i',Rule::unique('exercise', 'exercise_name')->ignore($exercise->exercise_id, 'exercise_id')],
-            'exercise_description' => 'required|max:150|regex:/^[a-zA-Z\s.,-]+$/i',
+            'exercise_name' => ['required', 'max:30', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',Rule::unique('exercise', 'exercise_name')->ignore($exercise->exercise_id, 'exercise_id')],
+            'exercise_description' => 'required|max:150|regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',
             'exercise_type' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_type')),
             'exercise_strength_level' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_strength_level')),
             'exercise_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_goal')),
