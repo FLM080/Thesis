@@ -3,20 +3,20 @@
         <div class="container my-5 rounded border border-dark bg-dark">
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Add workout plan') }}</h1>
             @if ($errors->any())
-            <?php notify()->error($errors->first()) ?>
+            <?php notify()->error(__($errors->first())) ?>
             @endif
             <form method="POST" action="{{ route('addWorkoutPlan') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row m-3">
                     <div class="form-group col-md-6">
-                        <label for="name">{{ __('Workout Plan Name') }}</label>
+                        <label class="text-white" for="name">{{ __('Workout Plan Name') }}</label>
                         <input type="text" class="form-control mb-3" id="name" name="workout_name"
                             placeholder="{{ __('Enter name') }}" value="{{ old('workout_name') }}">
                         @error('name')
                         <?php notify()->error(__($message)) ?>
                         @enderror
 
-                        <label for="workout_gender">{{ __('Recommended Gender') }}</label>
+                        <label class="text-white" for="workout_gender">{{ __('Recommended Gender') }}</label>
                         <select class="form-control mb-3" id="workout_gender" name="workout_gender">
                             @foreach($workout_gender as $gender)
                             <option value="{{ $gender }}" {{ old('workout_gender')==$gender ? 'selected' : '' }}>
@@ -28,7 +28,7 @@
                         <?php notify()->error(__($message)) ?>
                         @enderror
 
-                        <label for="workoutPlan_image">{{ __('Workout Plan Image') }}</label>
+                        <label class="text-white" for="workoutPlan_image">{{ __('Workout Plan Image') }}</label>
                         <input type="file" class="form-control mb-3" id="workoutPlan_image" name="workoutPlan_image"
                             value="{{ old('workoutPlan_image') }}">
                         @error('workoutPlan_image')
@@ -36,7 +36,7 @@
                         @enderror
 
                         <div class="form-group col-auto">
-                            <label for="description">{{ __('Description') }}</label>
+                            <label class="text-white" for="description">{{ __('Description') }}</label>
                             <textarea class="form-control mb-3" id="description" name="workout_description" rows="3"
                                 placeholder="{{ __('Enter description') }}">{{ old('workout_description') }}</textarea>
                             @error('description')
@@ -46,11 +46,11 @@
                     </div>
                     <div class="form-group col-md-6">
 
-                        <label for="workout_days">{{ __('Workout Days') }}</label>
+                        <label class="text-white" for="workout_days">{{ __('Workout Days') }}</label>
                         <select class="form-control mb-3" id="workout_days" name="workout_days">
                             @for ($i = 1; $i <= 7; $i++) <option value="{{ $i }}" {{ old('workout_days')==$i
                                 ? 'selected' : '' }}>
-                                {{ $i }}
+                                {{ __($i) }}
                                 </option>
                                 @endfor
                         </select>
@@ -58,7 +58,7 @@
                         <?php notify()->error(__($message)) ?>
                         @enderror
 
-                        <label for="workout_strength_level">{{ __('Workout Strength Level')}}</label>
+                        <label class="text-white" for="workout_strength_level">{{ __('Workout Strength Level')}}</label>
                         <select class="form-control mb-3" id="workout_strength_level" name="workout_strength_level">
                             @foreach($workout_strength_level as $Difficulty)
                             <option value="{{ $Difficulty }}" {{ old('workout_strength_level')==$Difficulty ? 'selected'
@@ -71,7 +71,7 @@
                         <?php notify()->error(__($message)) ?>
                         @enderror
 
-                        <label for="workout_goal">{{ __('Workout Goal') }}</label>
+                        <label class="text-white" for="workout_goal">{{ __('Workout Goal') }}</label>
                         <select class="form-control mb-3" id="workout_goal" name="workout_goal">
                             @foreach($workout_goal as $goal)
                             <option value="{{ $goal }}" {{ old('workout_goal')==$goal ? 'selected' : '' }}>
@@ -83,7 +83,7 @@
                         <?php notify()->error(__($message)) ?>
                         @enderror
 
-                        <label for="workout_type">{{ __('Workout Type') }}</label>
+                        <label class="text-white" for="workout_type">{{ __('Workout Type') }}</label>
                         <select class="form-control mb-3" id="workout_type" name="workout_type">
                             @foreach($workout_type as $type)
                             <option value="{{ $type }}" {{ old('workout_type')==$type ? 'selected' : '' }}>
@@ -108,17 +108,17 @@
                     @csrf
                     <div class="row m-3">
                         <div class="form-group col-md-6">
-                            <label for="workout_day_name">{{ __('Workout name') }}</label>
+                            <label class="text-white" for="workout_day_name">{{ __('Workout name') }}</label>
                             <input type="text" class="form-control mb-3" id="workout_day_name" name="workout_day_name"
                                 placeholder="{{ __('Enter name') }}" value="{{ old('workout_day_name') }}">
                             @error('workout_day_name')
                             <?php notify()->error(__($message)) ?>
                             @enderror
 
-                            <label for="workout_plan">{{ __('Workout Plan') }}</label>
+                            <label class="text-white" for="workout_plan">{{ __('Workout Plan') }}</label>
                             <select class="form-select mb-3" id="workout_plan" name="workout_plan">
                                 @foreach($workout_plans as $plan)
-                                <option value="{{ $plan->workout_id }}">{{ $plan->workout_name }}</option>
+                                <option value="{{ $plan->workout_id }}">{{ __($plan->workout_name) }}</option>
                                 @endforeach
                             </select>
                             @error('workout_plan')
@@ -126,17 +126,17 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="workout_day_day">{{ __('Day') }}</label>
+                            <label class="text-white" for="workout_day_day">{{ __('Day') }}</label>
                             <select class="form-select mb-3" id="workout_day_day" name="workout_day_day">
                                 @foreach($days as $day)
-                                <option value="{{ $day }}">{{ $day }}</option>
+                                <option value="{{ $day }}">{{ __($day) }}</option>
                                 @endforeach
                             </select>
                             @error('workout_day_day')
                             <?php notify()->error(__($message)) ?>
                             @enderror
 
-                            <label for="workout_day_image">{{ __('Workout day Image') }}</label>
+                            <label class="text-white" for="workout_day_image">{{ __('Workout day Image (Optional)') }}</label>
                             <input type="file" class="form-control" id="workout_day_image" name="workout_day_image">
                         </div>
                         <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Avaiable exercises') }}</h1>
@@ -145,10 +145,10 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th class="text-white">Name</th>
-                                        <th class="text-white">Description</th>
-                                        <th class="text-white">Type</th>
-                                        <th class="text-white">Difficulty</th>
+                                        <th class="text-white">{{ __('Name') }}</th>
+                                        <th class="text-white">{{ __('Description') }}</th>
+                                        <th class="text-white">{{ __('Type') }}</th>
+                                        <th class="text-white">{{ __('Difficulty') }}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -158,13 +158,13 @@
                                         <td class="text-center">
                                             <img class="exerciseTableImage" src="{{ asset($exercise->image_path) }}" alt="{{ $exercise->exercise_name }}" >
                                         </td>
-                                        <td class="text-white text-center">{{ $exercise->exercise_name }}</td>
+                                        <td class="text-white text-center">{{ __($exercise->exercise_name) }}</td>
                                         <td class="text-white text-center">
-                                            <div class="exerciseDescription">{{ $exercise->exercise_description }}</div>
+                                            <div class="exerciseDescription">{{ __($exercise->exercise_description) }}</div>
                                         </td>
-                                        <td class="text-white text-center">{{ $exercise->exercise_type }}</td>
-                                        <td class="text-white text-center">{{ $exercise->exercise_strength_level }}</td>
-                                        <td class="text-center"><button type="button" class="btn btn-primary addExercise" data-id="{{ $exercise->exercise_id }}">Add</button></td>
+                                        <td class="text-white text-center">{{ __($exercise->exercise_type) }}</td>
+                                        <td class="text-white text-center">{{ __($exercise->exercise_strength_level) }}</td>
+                                        <td class="text-center"><button type="button" class="btn btn-primary addExercise" data-id="{{ $exercise->exercise_id }}">{{ __('Add') }}</button></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -176,13 +176,13 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th class="text-white">Name</th>
-                                        <th class="text-white">Description</th>
-                                        <th class="text-white">Type</th>
-                                        <th class="text-white">Difficulty</th>
-                                        <th class="text-white">Sets</th>
-                                        <th class="text-white">Reps</th>
-                                        <th class="text-white">Order</th>
+                                        <th class="text-white">{{ __('Name') }}</th>
+                                        <th class="text-white">{{ __('Description') }}</th>
+                                        <th class="text-white">{{ __('Type') }}</th>
+                                        <th class="text-white">{{ __('Difficulty') }}</th>
+                                        <th class="text-white">{{ __('Sets') }}</th>
+                                        <th class="text-white">{{ __('Reps') }}</th>
+                                        <th class="text-white">{{ __('Order') }}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -206,7 +206,7 @@
             </div>
             <div class="d-flex justify-content-end">
                 <div class="input-group mb-3 searchbar">
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Search exercises" data-url="{{ route($searchRoute) }}">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="{{ __('Search exercises') }}" data-url="{{ route($searchRoute) }}">
                 </div>
             </div>
             <div class="scrollable-table">

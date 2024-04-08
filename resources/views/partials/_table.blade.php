@@ -5,7 +5,7 @@
             @if($column == 'id')
             <th class="text-white">{{ __('user') }}</th>
             @elseif(!($editType == 'workout' && $column == 'user_id'))
-            <th class="text-white">{{ str_replace('id', '', str_replace('_', ' ', __($column))) }}</th>
+            <th class="text-white">{{ __(str_replace('id', '', str_replace('_', ' ', __($column)))) }}</th>
             @endif
 
         @endforeach
@@ -19,9 +19,9 @@
         <td class="text-white table-item">
             <div>
                 @if($column == 'muscle_group_id' && $item->muscleGroup)
-                    {{ $item->muscleGroup->muscle_group_name }}
+                    {{ __($item->muscleGroup->muscle_group_name) }}
                 @else
-                    {{ $item->$column }}
+                    {{ __($item->$column) }}
                 @endif
             </div>
         </td>

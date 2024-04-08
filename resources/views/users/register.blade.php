@@ -30,7 +30,7 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">{{ __('Password') }}</label>
                         <input type="password" class="form-control" id="password" name="password"
-                            value="{{old('password')}}">
+                            value="{{old('password')}}" title="{{__('Password must contain at least 6 characters, including UPPER/lowercase and numbers')}}">
                         @error('password')
                         <p class="text-danger">{{__($message)}}</p>
                         @enderror

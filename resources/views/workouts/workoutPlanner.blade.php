@@ -80,7 +80,6 @@
             <h1 class="text-white m-3 text-uppercase ">{{ __('exercises') }}</h1>
             <div class=" col-md-5">
                 <h2 class="text-white m-3 text-uppercase ">{{ __('Chosen exercises') }}</h2>
-                <!-- Left container -->
                 <div class="wrapper-left bg-dark">
                 </div>
             </div>
@@ -113,11 +112,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <strong>{{ __('Type') }}</strong>
-                                    <p>{{ $item->exercise_type }}</p>
+                                    <p>{{ __($item->exercise_type) }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>{{ __('Strength Level:') }}</strong>
-                                    <p> {{ $item->exercise_strength_level }}</p>
+                                    <p> {{ __($item->exercise_strength_level) }}</p>
                                 </div>
                             </div>
                         </div>

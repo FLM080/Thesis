@@ -15,6 +15,9 @@
                             <label for="workout_day_name" class="form-label">Day Name</label>
                             <input type="text" class="form-control" name="workout_day_name" id="workout_day_name"
                                 value="{{ $day->workout_day_name }}">
+                            @error('workout_day_name')
+                            <?php notify()->error(__($message)) ?>
+                            @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="workout_day" class="form-label">Day Number</label>
@@ -25,12 +28,18 @@
                                     }}>{{ $dayOption }}</option>
                                 @endforeach
                             </select>
+                            @error('workout_day')
+                            <?php notify()->error(__($message)) ?>
+                            @enderror
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="WorkoutDayImage" class="form-label">Day Image</label>
                         <input type="file" class="form-control" id="WorkoutDayImage"
                             name="WorkoutDayImage">
+                        @error('WorkoutDayImage')
+                        <?php notify()->error(__($message)) ?>
+                        @enderror
                     </div>
             </div>
         </form>

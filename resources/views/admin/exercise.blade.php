@@ -28,7 +28,7 @@
                         <?php notify()->error(__($message)) ?>
                         @enderror
 
-                        <label for="image" class="text-white">{{ __('Image') }}</label>
+                        <label for="image" class="text-white">{{ __('Exercise Image') }}</label>
                         <input type="file" class="form-control mb-3" id="image" name="image">
                         @error('image')
                         <?php notify()->error(__($message)) ?>
@@ -73,8 +73,8 @@
                         <?php notify()->error(__($message)) ?>
                         @enderror
                     </div>
-                    <div class="form-group col-auto>
-                        <label for="description" class="text-white">{{ __('Description') }}</label>
+                    <div class="form-group col-12">
+                        <label class="text-white" for="description" class="text-white">{{ __('Description') }}</label>
                         <textarea class="form-control mb-3" id="description" name="exercise_description" rows="3"
                             placeholder="{{ __('Enter description') }}">{{ old('exercise_description') }}</textarea>
                         @error('description')
@@ -91,7 +91,7 @@
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Edit exercises') }}</h1>
             <div class="d-flex justify-content-end">
                 <div class="input-group mb-3 searchbar">
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Search exercises" data-url="{{ route($searchRoute) }}">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="{{__('Search exercises')}}" data-url="{{ route($searchRoute) }}">
                 </div>
             </div>
             <div class="scrollable-table">

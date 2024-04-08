@@ -727,7 +727,7 @@ textarea {
 
 #exercisesTable tbody td {
     min-width: 100px;
-    max-width: 150px;
+    max-width: 100px;
 }
 
 #selectedExercisesTable tbody td {
@@ -743,7 +743,7 @@ textarea {
 }
 
 .exerciseTableImage {
-    width: 250px;
+    width: 200px;
     height: 150px;
     padding: 15px;
 }
@@ -858,6 +858,10 @@ p{
 
 .famousWorkoutsContainer{
     max-width: 100%;
+    height: 500px;
+}
+.info{
+    height: 100%;
 }
 
 .carouselText{
@@ -896,4 +900,26 @@ p{
     .responsive-nav-item {
         width: 100%;
     }
+}
+.planner-image{
+    max-width: 200px;
+    max-height: 150px; 
+    min-width: 150px; 
+    min-height: 100px;
+}
+.planner-description{
+    max-height: 70px; 
+    max-width: 200px; 
+    overflow: auto;
+}
+.planner-description{
+    max-height: 70px;
+    max-width: 200px;
+    overflow: auto;
+}
+.planner-input{
+    vertical-align: middle;
+}
+.planner-exercise-input{
+    width: 30px;
 }

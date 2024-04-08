@@ -31,8 +31,11 @@
                         </div>
 
                         <div class="form-group col-md-12 mb-3">
-                            <label for="workout_image">{{ __('Workout Image') }}</label>
+                            <label for="workout_image">{{ __('Workout Day Image (Optional)') }}</label>
                             <input type="file" class="form-control" id="workout_image" name="workout_image">
+                            @error('workout_image')
+                            <?php notify()->error(__($message)) ?>
+                            @enderror
                         </div>
 
                         <div class="form-group col-md-12 exercisesTable">

@@ -55,7 +55,7 @@
                             </div>
                             <div id="toggleDiv{{ $day->workout_day_id }}" class="collapse row justify-content-center align-items-center flex-wrap userWorkoutExercises">
                                 @foreach($day->exerciseWorkout->sortBy('order') as $exercise)
-                                @if(empty($day->exercises))
+                                @if(empty($exercise))
                                 <h1 class="text-white m-3 text-uppercase text-center">{{ __('no exercises yet') }}</h1>
                                 @endif
                                 <div class="row p-3 d-flex justify-content-center align-items-center workoutDayExercises">

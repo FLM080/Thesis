@@ -4,7 +4,7 @@
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Edit users') }}</h1>
             <div class="d-flex justify-content-end">
                 <div class="input-group mb-3 searchbar">
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Search user" data-url="{{ route($searchRoute) }}">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="{{__('Search user')}}" data-url="{{ route($searchRoute) }}">
                 </div>
             </div>
             <div class="scrollable-table">

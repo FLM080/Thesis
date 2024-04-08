@@ -20,7 +20,7 @@
                     @foreach ($muscleGroups as $muscleGroup)
                     <option value="{{ $muscleGroup->muscle_group_id }}" {{ $item->muscle_group_id ==
                         $muscleGroup->muscle_group_id ? 'selected' : '' }}>
-                        {{ $muscleGroup->muscle_group_name }}
+                        {{ __($muscleGroup->muscle_group_name) }}
                     </option>
                     @endforeach
                 </select>
@@ -39,9 +39,7 @@
                 <label for="exercise_type" >{{ __('Exercise Type') }}</label>
                 <select class="form-select mb-3" id="exercise_type" name="exercise_type">
                     @foreach ($exerciseTypes as $type)
-                    <option value="{{ $type }}" {{ $item->exercise_type == $type ? 'selected' : '' }}>
-                        {{ $type }}
-                    </option>
+                    <option value="{{ __($type) }}" {{ $item->exercise_type == $type ? 'selected' : '' }}>{{__($type)}}</option>
                     @endforeach
                 </select>
                 @error('exercise_type')
@@ -53,7 +51,7 @@
                     @foreach ($exerciseDifficulty as $difficulty)
                     <option value="{{ $difficulty }}" {{ $item->exercise_strength_level == $difficulty ? 'selected' : ''
                         }}>
-                        {{ $difficulty }}
+                        {{ __($difficulty) }}
                     </option>
                     @endforeach
                 </select>
@@ -65,7 +63,7 @@
                 <select class="form-select mb-3" id="goal" name="exercise_goal">
                     @foreach ($exerciseGoal as $goal)
                     <option value="{{ $goal }}" {{ $item->exercise_goal == $goal ? 'selected' : '' }}>
-                        {{ $goal }}
+                        {{ __($goal) }}
                     </option>
                     @endforeach
                 </select>
@@ -76,7 +74,7 @@
             <div class="form-group col-auto">
                 <label for="description">{{ __('Description') }}</label>
                 <textarea class="form-control mb-3" id="exercise_description_update" name="exercise_description" rows="3"
-                    placeholder="{{ __('Enter description') }}">{{ $item->exercise_description }}</textarea>
+                    placeholder="{{ __('Enter description') }}">{{ __($item->exercise_description) }}</textarea>
                 @error('description')
                 <?php notify()->error(__($message)) ?>
                 @enderror

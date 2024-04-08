@@ -9,7 +9,6 @@ use App\Services\ImageService;
 use App\Models\Exercise;
 use App\Models\WorkoutDay;
 use App\Models\ExerciseWorkoutConnect;
-use Illuminate\Support\Facades\Log;
 
 
 class WorkoutController extends Controller
@@ -57,8 +56,8 @@ class WorkoutController extends Controller
     {
         $extensions = config('images.profile.extension');
         $request->validate([
-            'workout_name' => 'required|max:30|regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',
-            'workout_description' => 'required|max:150|regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',
+            'workout_name' => ['required', 'max:30', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i'],
+            'workout_description' => ['required', 'max:150', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i'],
             'workout_strength_level' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_strength_level')),
             'workout_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_goal')),
             'workout_type' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_type')),
@@ -87,20 +86,20 @@ class WorkoutController extends Controller
 
         if ($workout->save()) {
             if ($imageUploaded) {
-                notify()->success('Workout plan and image created successfully');
+                notify()->success(__('Workout plan and image created successfully'));
             } else {
-                notify()->error('Workout plan created but image could not be uploaded');
+                notify()->error(__('Workout plan created but image could not be uploaded'));
             }
         } elseif ($imageUploaded) {
-            notify()->error('Image uploaded but workout plan could not be saved');
+            notify()->error(__('Image uploaded but workout plan could not be saved'));
         } else {
-            notify()->error('Failed to save workout plan and image');
+            notify()->error(__('Failed to save workout plan and image'));
         }
         
         return redirect(route('adminWorkout'));
     }
 
-    public function destroyPlan(Request $request)
+    public function destroyFamousWorkoutPlan(Request $request)
     {
         $workout = Workout::find($request->id);
         $destinationPath = 'images/workouts/famous/plans';
@@ -109,9 +108,9 @@ class WorkoutController extends Controller
 
         if ($imageDeleted) {
             $workout->delete();
-            notify()->success('Workout plan deleted successfully');
+            notify()->success(__('Workout plan deleted successfully'));
         } else {
-            notify()->error('Failed to delete workout plan and image');
+            notify()->error(__('Failed to delete workout plan and image'));
         }
 
         return redirect(route('adminWorkout'));
@@ -123,21 +122,21 @@ class WorkoutController extends Controller
         $workout = Workout::find($request->workout_plan);
 
         if (!$workout) {
-            notify()->error('Workout plan not found');
+            notify()->error(__('Workout plan not found'));
             return redirect(route('adminWorkout'));
         }
 
         $dayCount = WorkoutDay::where('workout_id', $workout->workout_id)->count();
 
         if ($dayCount >= $workout->workout_days) {
-            notify()->error('Workout plan has reached the maximum number of days');
+            notify()->error(__('Workout plan has reached the maximum number of days'));
             return redirect(route('adminWorkout'));
         }
 
         $extensions = config('images.profile.extension');
         $request->validate([
             'workout_plan' => 'required|integer',
-            'workout_day_name' => 'required|max:30|regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',
+            'workout_day_name' => ['required', 'max:30', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i'],
             'workout_day_day' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout_day', 'workout_day')),
             'exercises' => 'required|array',
             'exercises.*.exercise_id' => 'required|integer',
@@ -180,15 +179,15 @@ class WorkoutController extends Controller
             $workoutDay->save();
         
             if ($imageUploaded) {
-                notify()->success('Workout day and image created successfully');
+                notify()->success(__('Workout day and image created successfully'));
             } else {
-                notify()->info('Workout day created but image was not uploaded');
+                notify()->info(__('Workout day created but image was not uploaded'));
             }
         } catch (\Exception $e) {
             if (isset($imageUploaded) && $imageUploaded) {
-                notify()->error('Image uploaded but workout day and exercises could not be saved');
+                notify()->error(__('Image uploaded but workout day and exercises could not be saved'));
             } else {
-                notify()->error('Failed to save workout day and exercises');
+                notify()->error(__('Failed to save workout day and exercises'));
             }
         }
 
@@ -229,7 +228,7 @@ class WorkoutController extends Controller
         $daysOfTheWeek = DatabaseSchemaService::getColumnEnums('workout_day', 'workout_day');
 
         if (!$workout) {
-            notify()->error('Workout plan not found');
+            notify()->error(__('Workout plan not found'));
             return redirect(route('adminWorkout'));
         }
 
@@ -241,7 +240,7 @@ class WorkoutController extends Controller
     public function updateFamousWorkoutDay(Request $request)
     {
         $request->validate([
-            'workout_day_name' => 'required|max:40|regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',
+            'workout_day_name' => ['required', 'max:40', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i'],
             'workout_day' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout_day', 'workout_day')),
             'WorkoutDayImage' => 'nullable|image|mimes:' . implode(',', config('images.profile.extension')),
         ]);
@@ -327,13 +326,14 @@ class WorkoutController extends Controller
     public function destroyFamousWorkoutDayExercise(Request $request)
     {
         $exerciseWorkoutConnect = ExerciseWorkoutConnect::find($request->id);
-        $workoutDayId = $exerciseWorkoutConnect->workout_day_id->workout_id;
+        $workoutDay = WorkoutDay::find($exerciseWorkoutConnect->workout_day_id);
+        $workoutId = $workoutDay->workout_id;
         if($exerciseWorkoutConnect::destroy($request->id)){
-            notify()->success('Exercise deleted from workout day');
-            return redirect()->route('showUpdateWorkoutPlanAdmin', ['id' => $workoutDayId]);
+            notify()->success(__('Exercise deleted from workout day'));
+            return redirect()->route('showUpdateWorkoutPlanAdmin', ['id' => $workoutId]);
         } else {
-            notify()->error('ExerciseWorkoutConnect not found');
-            return redirect()->route('showUpdateWorkoutPlanAdmin', ['id' => $workoutDayId]);
+            notify()->error(__('ExerciseWorkoutConnect not found'));
+            return redirect()->route('showUpdateWorkoutPlanAdmin', ['id' => $workoutId]);
         }
     }
 
@@ -342,8 +342,8 @@ class WorkoutController extends Controller
         $imageUploaded = false;
         $extensions = config('images.profile.extension');
         $request->validate([
-            'workout_name' => 'required', 'max:40', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',
-            'workout_description' => 'required|max:254|regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i',
+            'workout_name' => ['required', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i'],
+            'workout_description' => ['required', 'max:254', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i'],
             'workout_strength_level' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_strength_level')),
             'workout_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_goal')),
             'workout_type' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('workout', 'workout_type')),

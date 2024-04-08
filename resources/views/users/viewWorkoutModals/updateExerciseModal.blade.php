@@ -15,14 +15,23 @@
                                     <label for="exercise_order" class="form-label">Order</label>
                                     <input type="number" class="form-control" id="exercise_order" name="exercise_order" value="{{ $exercise->exercise_workout_order }}" min="1">
                                 </div>
+                                @error('exercise_order')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                                 <div class="mb-3">
                                     <label for="exercise_sets" class="form-label">Sets</label>
                                     <input type="number" class="form-control" id="exercise_sets" name="exercise_sets" value="{{ $exercise->exercise_workout_sets }}" min="1">
                                 </div>
+                                @error('exercise_sets')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                                 <div class="mb-3">
                                     <label for="exercise_reps" class="form-label">Reps</label>
                                     <input type="number" class="form-control" id="exercise_reps" name="exercise_reps" value="{{ $exercise->exercise_workout_reps }}" min="1">
                                 </div>
+                                @error('exercise_reps')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                         </div>
                     </div>

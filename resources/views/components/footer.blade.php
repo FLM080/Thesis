@@ -13,7 +13,7 @@
 <div class="container-fluid py-4 py-lg-0 px-5" id="footer">
     <div class="row gx-5">
         <div class="py-lg-4 text-center">
-            <p class="text-secondary mb-0">&copy;All Rights Reserved.</p>
+            <p class="text-secondary mb-0">&copy;{{__('All Rights Reserved.')}}</p>
         </div>
     </div>
 </div>

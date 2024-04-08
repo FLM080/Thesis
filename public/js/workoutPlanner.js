@@ -99,16 +99,12 @@ const populateCellWithKeyData = (cell, key, exercise) => {
     if (key === "imageUrl") {
         const img = document.createElement("img");
         img.src = exercise[key];
-        img.style.maxWidth = "200px"; 
-        img.style.maxHeight = "150px"; 
-        img.style.minWidth = "150px";
-        img.style.minHeight = "100px";
+        img.className = "planner-image"
         cell.appendChild(img);
     } else if (key === "description") {
         const div = document.createElement("div");
-        div.style.maxHeight = "70px";
-        div.style.maxWidth = "200px";
-        div.style.overflow = "auto";
+        div.className = "planner-description";
+        
         div.textContent = exercise[key];
         cell.appendChild(div);
     } else {
@@ -120,7 +116,7 @@ const populateCellWithKeyData = (cell, key, exercise) => {
 const populateRowWithInputData = (row, exercise, i) => {
     ["sets", "reps", "order"].forEach((key) => {
         const cell = row.insertCell();
-        cell.style.verticalAlign = "middle";
+        cell.className = "planner-input";
         appendInputToCell(cell, key, exercise, i);
     });
 }
@@ -132,7 +128,7 @@ const appendInputToCell = (cell, key, exercise, i) => {
     input.name = `exercises[${i}][${key}]`;
     input.min = 1; 
     input.value = exercise[key] || 1; 
-    input.style.width = "20px"; 
+    input.className = "planner-exercise-input";
     cell.appendChild(input);
 }
 

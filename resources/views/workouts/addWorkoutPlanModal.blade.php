@@ -14,7 +14,7 @@
                             <label for="name">{{ __('Workout Plan Name') }}</label>
                             <input type="text" class="form-control mb-3" id="name" name="workout_name"
                                 placeholder="{{ __('Enter name') }}" value="{{ old('workout_name') }}">
-                            @error('name')
+                            @error('workout_name')
                             <?php notify()->error(__($message)) ?>
                             @enderror
 
@@ -31,7 +31,7 @@
                             <?php notify()->error(__($message)) ?>
                             @enderror
 
-                            <label for="workoutPlan_image">{{ __('Workout Plan Image') }}</label>
+                            <label for="workoutPlan_image">{{ __('Workout Plan Image (Optional)') }}</label>
                             <input type="file" class="form-control mb-3" id="workoutPlan_image" name="workoutPlan_image"
                                 value="{{ old('workoutPlan_image') }}">
                             @error('workoutPlan_image')

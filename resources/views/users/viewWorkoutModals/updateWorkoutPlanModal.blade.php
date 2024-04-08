@@ -14,6 +14,9 @@
                             <div class="mb-3">
                                 <label for="workout_name" class="form-label">Name of the workout plan</label>
                                 <input type="text" class="form-control" id="workout_name" name="workout_name" value="{{ $workout->workout_name }}">
+                                @error('workout_name')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="workout-type" class="form-label">Exercise types</label>
@@ -22,6 +25,9 @@
                                         <option value="{{ $type }}" {{ $workout->workout_type == $type ? 'selected' : '' }}>{{ $type }}</option>
                                     @endforeach
                                 </select>
+                                @error('workout_type')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="workout-strength-level" class="form-label">Strength level</label>
@@ -30,6 +36,9 @@
                                         <option value="{{ $difficulty }}" {{ $workout->workout_strength_level == $difficulty ? 'selected' : '' }}>{{ $difficulty }}</option>
                                     @endforeach
                                 </select>
+                                @error('workout_strength_level')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -40,10 +49,16 @@
                                         <option value="{{ $goal }}" {{ $workout->workout_goal == $goal ? 'selected' : '' }}>{{ $goal }}</option>
                                     @endforeach
                                 </select>
+                                @error('workout_goal')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="workout-days" class="form-label">Days</label>
                                 <input type="number" class="form-control" id="workout-days" name="workout_days" value="{{ $workout->workout_days }}" min="1" max="7">
+                                @error('workout_days')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="workout-gender" class="form-label">Recommended Gender</label>
@@ -52,6 +67,9 @@
                                         <option value="{{ $gender }}" {{ $workout->workout_gender == $gender ? 'selected' : '' }}>{{ $gender }}</option>
                                     @endforeach
                                 </select>
+                                @error('workout-gender')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -60,6 +78,9 @@
                             <div class="mb-3">
                                 <label for="workout-description" class="form-label">Description</label>
                                 <textarea class="form-control" id="workout-description" name="workout_description" rows="3">{{ $workout->workout_description }}</textarea>
+                                @error('workout_description')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -68,6 +89,9 @@
                             <div class="mb-3">
                                 <label for="workoutPlan_image" class="form-label">Workout Plan Image</label>
                                 <input type="file" class="form-control" id="workoutPlan_image" name="workoutPlan_image">
+                                @error('workoutPlan_image')
+                                <?php notify()->error(__($message)) ?>
+                                @enderror
                             </div>
                         </div>
                     </div>
