@@ -77,7 +77,6 @@
                     <button class="edit_cred">{{ __('Credentials') }}</button>
                 </div>
                 <div class="edit_form-section">
-                    <!-- edit_det form -->
                     <form method="POST" action="{{ route('updateDetails', [auth()->user()->id]) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="edit_det-box">

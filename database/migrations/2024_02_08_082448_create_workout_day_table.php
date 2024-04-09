@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('workout_day', function (Blueprint $table) {
-            $table->increments('workout_day_id')->unsigned();
+            $table->bigIncrements('workout_day_id')->unsigned();
             $table->integer('workout_id')->unsigned();
             $table->foreign('workout_id')->references('workout_id')->on('workout')->onDelete('cascade');
-            $table->string('workout_day_name', 30);
+            $table->string('workout_day_name', 40);
             $table->enum('workout_day', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
             $table->unique(['workout_id', 'workout_day_name']);
         });

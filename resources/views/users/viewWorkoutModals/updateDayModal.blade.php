@@ -44,7 +44,7 @@
             </div>
         </form>
             <div class="modal-footer">
-                <form action="{{ route('deleteWorkoutDay', $day->workout_day_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this day? This action cannot be undone.');">
+                <form action="{{ route('deleteWorkoutDay', $day->workout_day_id) }}" method="POST" onsubmit="return confirm({{__('Are you sure you want to delete this day? This action cannot be undone.')}});">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>

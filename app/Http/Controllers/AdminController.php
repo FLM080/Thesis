@@ -23,13 +23,13 @@ class AdminController extends Controller
 
         $search = $request->get('search');
         $items = User::where('name', 'like', "%{$search}%")
-            ->orWhere('email', 'like', "%{$search}%")
-            ->orWhere('user_admin_privilege', 'like', "%{$search}%")
-            ->get()
-            ->map(function ($user) {
-                $user->user_admin_privilege = $user->admin_status;
-                return $user;
-            });
+        ->orWhere('email', 'like', "%{$search}%")
+        ->orWhere('user_admin_privilege', 'like', "%{$search}%")
+        ->get()
+        ->map(function ($user) {
+            $user->admin_status_display = $user->admin_status;
+            return $user;
+        });
 
 
         if ($request->ajax()) {
@@ -40,19 +40,29 @@ class AdminController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'admin' => 'required|boolean',
-        ]);
-    
-        $user = User::find($id);
-    
-        if ($request->has('admin')) {
-            $user->user_admin_privilege = $request->admin;
-        }
-    
-        $user->save();
+{
+    $request->validate([
+        'user_admin_privilege' => 'required|in:0,1',
+    ]);
+
+    $user = User::find($id);
+
+    if ($request->has('user_admin_privilege')) {
+        $user->user_admin_privilege = $request->user_admin_privilege;
     }
+
+    if ($user->isDirty()) {
+        if ($user->save()) {
+            notify()->success(__('User updated successfully'));
+        } else {
+            notify()->error(__('User could not be updated'));
+        }
+    } else {
+        notify()->info(__('No changes made'));
+    }
+
+    return redirect()->route('admin');
+}
     
     public function destroy($id)
     {

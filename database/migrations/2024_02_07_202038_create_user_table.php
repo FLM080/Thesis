@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
 
 return new class extends Migration
 {
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->enum('user_gender', ['None','Male', 'Female']);
             $table->boolean('user_admin_privilege')->default(false);
         });
+        Artisan::call('db:seed', ['--class' => 'AdminSeeder']);
     }
 
     /**

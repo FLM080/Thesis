@@ -31,7 +31,7 @@ class MuscleGroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'muscle_group_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s]+$/i', Rule::unique('muscle_groups', 'muscle_group_name')],
+            'muscle_group_name' => ['required', 'max:30', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i', Rule::unique('muscle_groups', 'muscle_group_name')],
         ]);
 
         $muscleGroup = new MuscleGroup([
@@ -55,7 +55,7 @@ class MuscleGroupController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'muscle_group_name' => ['required', 'max:30', 'regex:/^[a-zA-Z\s]+$/i', \Illuminate\Validation\Rule::unique('muscle_groups', 'muscle_group_name')],
+            'muscle_group_name' => ['required', 'max:30', 'regex:/^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s.,-]+$/i', Rule::unique('muscle_groups', 'muscle_group_name')],
         ]);
 
         $muscleGroup = MuscleGroup::find($id);

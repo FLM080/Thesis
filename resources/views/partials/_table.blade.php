@@ -20,13 +20,15 @@
             <div>
                 @if($column == 'muscle_group_id' && $item->muscleGroup)
                     {{ __($item->muscleGroup->muscle_group_name) }}
+                @elseif($column == 'user_admin_privilege')
+                    {{ __($item->$column == 1 ? 'Yes' : 'No') }}
                 @else
                     {{ __($item->$column) }}
                 @endif
             </div>
         </td>
         @endif
-    @endforeach
+@endforeach
     <td class="text-center">
         @if($editType == 'workout')
             <a href="{{ route($editRoute, ['id' => $item->workout_id]) }}" class="btn btn-primary">{{ __('Edit') }}</a>

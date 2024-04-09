@@ -66,7 +66,7 @@ class FamousWorkoutController extends Controller
         return view('workouts.viewFamousWorkout', compact('workout', 'workoutPlanImg', 'days', 'dayImagePath', 'exerciseImagePath', 'daysOfTheWeek', 'workoutDifficulty', 'workoutGoals', 'workoutTypes', 'workoutGenders'));
     }
 
-    public function store(Request $request, $id)
+    public function store($id)
     {
 
         Request()->validate([

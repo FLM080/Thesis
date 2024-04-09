@@ -27,17 +27,17 @@
             <div class="form-group text-center w-75">
                 <label for="user_admin_privilege">{{ __('Admin Status') }}</label>
                 <select class="form-select mb-3 updateable-field" id="user_admin_privilege" name="user_admin_privilege">
-                    <option value="No" {{ $item->user_admin_privilege == 'No' ? 'selected' : '' }}>
+                    <option value="0" {{ $item->user_admin_privilege == false ? 'selected' : '' }}>
                         {{ __('No') }}
                     </option>
-                    <option value="Yes" {{ $item->user_admin_privilege == 'Yes' ? 'selected' : '' }}>
+                    <option value="1" {{ $item->user_admin_privilege == true ? 'selected' : '' }}>
                         {{ __('Yes') }}
                     </option>
                 </select>
-            @error('user_admin_privilege')
-            <?php notify()->error(__($message)) ?>
-            @enderror
-        </div>
+                @error('user_admin_privilege')
+                    <?php notify()->error(__($message)) ?>
+                @enderror
+            </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary ">{{ __('Save') }}</button>
         </div>
