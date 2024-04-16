@@ -53,13 +53,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <p class="text-white"><strong>{{ __('Name of the workout plan:') }}</strong> {{ $workout->workout_name }}</p>
-                                <p class="text-white"><strong>{{ __('Exercise types:') }}</strong> {{ $workout->workout_type }}</p>
-                                <p class="text-white"><strong>{{ __('Required strength level for the workout:') }}</strong> {{ $workout->workout_strength_level }}</p>
+                                <p class="text-white"><strong>{{ __('Exercise types:') }}</strong> {{ __($workout->workout_type) }}</p>
+                                <p class="text-white"><strong>{{ __('Required strength level:') }}</strong> {{ __($workout->workout_strength_level) }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p class="text-white"><strong>{{ __('Goal of the plan:') }}</strong> {{ $workout->workout_goal }}</p>
+                                <p class="text-white"><strong>{{ __('Goal of the plan:') }}</strong> {{ __($workout->workout_goal) }}</p>
                                 <p class="text-white"><strong>{{ __('Days:') }}</strong> {{ $workout->workout_days }}</p>
-                                <p class="text-white"><strong>{{ __('Recommended Gender:') }}</strong> {{ $workout->workout_gender }}</p>
+                                <p class="text-white"><strong>{{ __('Recommended Gender:') }}</strong> {{ __($workout->workout_gender) }}</p>
                             </div>
                         </div>
                         <div class="row workoutDescription">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2 d-flex justify-content-center align-items-center workoutView h-100">
+                    <div class="col-md-2 d-flex justify-content-center align-items-center workoutEdit h-100">
                         <a href="{{ route('personalWorkoutPlan') }}" class="btn btn-primary">{{ __('View') }}</a>
                     </div>
                 </div>

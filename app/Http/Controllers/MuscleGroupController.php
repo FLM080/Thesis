@@ -23,9 +23,16 @@ class MuscleGroupController extends Controller
 
         
         if ($request->ajax()) {
-            return view('partials._table', ['items' => $items, 'columns' => $columns, 'deleteRoute' => $deleteRoute, 'tableId' => $tableId, 'editRoute' => $editRoute, 'editType' => $editType]);
+            return view('partials._table', [
+                'items' => $items,
+                'columns' => $columns,
+                'deleteRoute' => $deleteRoute,
+                'tableId' => $tableId,
+                'editRoute' => $editRoute,
+                'editType' => $editType
+            ]);
         }
-        return view('admin.muscleGroup', compact('items', 'columns', 'tableId', 'deleteRoute', 'editRoute', 'searchRoute', 'editType'));    
+        return view('admin.muscleGroup', compact('items', 'columns', 'tableId', 'deleteRoute', 'editRoute', 'searchRoute', 'editType'));
     }
 
     public function store(Request $request)

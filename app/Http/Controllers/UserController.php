@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Preference;
 use App\Services\DatabaseSchemaService;
 use App\Services\ImageService;
-
+use Illuminate\Support\Facades\Log;
 
 
 class UserController extends Controller
@@ -43,7 +43,7 @@ class UserController extends Controller
     }
 
     public function login()
-    {
+    { 
         return view('users.login');
     }
 
@@ -205,28 +205,32 @@ class UserController extends Controller
     }
 
     public function destroy($id, Request $request)
-{
-    $user = User::find($id);
-
-    if (password_verify($request->input('current_password'), $user->password)) {
-
-        $imageDeleted = imageService::deleteImage($id, '/images/profile');
-
-        if ($imageDeleted) {
+    {
+        $user = User::find($id);
+    
+        if (password_verify($request->input('current_password'), $user->password)) {
+    
+            if ($user->image) {
+                $imageDeleted = imageService::deleteImage($id, '/images/profile');
+    
+                if (!$imageDeleted) {
+                    notify()->error(__('Failed to delete user image'));
+                    return redirect(route('profile'));
+                }
+            }
+    
             if ($user->delete()) {
                 notify()->success(__('Successfully deleted user'));
                 return redirect(route('home'));
             } else {
                 notify()->error(__('Failed to delete user'));
+                return redirect(route('profile'));
             }
         } else {
-            notify()->error(__('Failed to delete user image'));
+            notify()->error(__('Incorrect password'));
+            return redirect(route('profile'));
         }
-    } else {
-        notify()->error(__('Incorrect password'));
+    
         return redirect(route('profile'));
     }
-
-    return redirect(route('profile'));
-}
 }

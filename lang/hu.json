@@ -46,7 +46,7 @@
     "validation.max.string": "A mező nem lehet hosszabb, mint 255 karakter.",
     "lose weight": "fogyás",
     "maintain weight": "súly megtartása",
-    "body weight": "testtömeg",
+    "body weight": "testsúlyos",
     "weight training": "súlyzós edzés",
     "with cardio": "kardióval",
     "no equipment": "felszerelés nélkül",
@@ -129,7 +129,7 @@
     "Search user": "Felhasználó keresése",
     "Yes": "igen",
     "No": "Nem",
-    "bodyweight": "testtömeg",
+    "bodyweight": "testsúlyos",
     "My workout plan": "Saját edzés tervem",
     "Name of the workout plan:": "Edzés terv neve:",
     "Exercise types:": "Gyakorlat típusok:",
@@ -200,6 +200,12 @@
     "Best workout plans": "Legjobb edzéstervek",
     "Follow the path of your favourites": "Kövesd kedvenceid útját",
     "View Workout": "Edzés megtekintése",
-    "Famous Workout Plans": "Híres edzéstervek"
+    "Famous Workout Plans": "Híres edzéstervek",
+    "View": "megtekintés",
+    "Both": "Mindkettő",
+    "Manage Your Workout": "Edzésed kezelése",
+    "you don't have workout days yet": "Még nincsenek edzés napjaid",
+    "Are you sure you want to delete your account? This action cannot be undone.": "Biztosan törölni szeretné a fiókját? Ez a művelet nem vonható vissza."
+     
     
 }

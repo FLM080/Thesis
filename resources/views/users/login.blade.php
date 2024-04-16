@@ -4,7 +4,7 @@
             <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                 <div class="position-relative h-100">
                     <div class="position-absolute w-100 h-100 " id="registerImg"
-                        style="background-image: url('{{asset('images/hero-1.jpg')}}');"></div>
+                        style="background-image: url('{{asset('images/Login.jpg')}}');"></div>
                 </div>
             </div>
             <div class="col-lg-7">

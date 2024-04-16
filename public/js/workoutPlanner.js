@@ -1,6 +1,6 @@
 let movedCards = [];
 
-// Extracts card data from a card element
+
 const getCardData = (cardElement) => {
     if (!cardElement) throw new Error('Card element is required');
     const card = $(cardElement);
@@ -12,19 +12,16 @@ const getCardData = (cardElement) => {
     return { id, name, description, type, strengthLevel, sets, order, reps };
 }
 
-// Moves a card to a target wrapper
 const moveCardToWrapper = (card, targetWrapper) => {
     if (!card || !targetWrapper) throw new Error('Both card and targetWrapper are required');
     card.appendTo(targetWrapper);
 }
 
-// Updates the movedCards array based on the cardData and direction of movement
 const updateMovedCards = (cardData, isMovingRight) => {
     if(!cardData || typeof isMovingRight !== 'boolean') throw new Error('Both cardData and isMovingRight are required');
     isMovingRight ? movedCards = movedCards.filter((c) => c.id !== cardData.id) : movedCards.push(cardData);
 }
 
-// Moves a card and updates the movedCards array
 const moveCard = (cardElement) => {
     if(!cardElement) throw new Error('Card element is required');
     const cardData = getCardData(cardElement);
@@ -33,13 +30,11 @@ const moveCard = (cardElement) => {
     updateMovedCards(cardData, isMovingRight);
 }
 
-// Clears a table
 const clearTable = (table) => {
     if (!table) throw new Error('Table is required');
     table.innerHTML = '';
 }
 
-// Creates a table header
 const createTableHeader = (table) => {
     if(!table) throw new Error('Table is required');
     const headerRow = table.createTHead().insertRow();
@@ -47,7 +42,6 @@ const createTableHeader = (table) => {
         .forEach(text => headerRow.appendChild(document.createElement("th")).textContent = text);
 }
 
-// Handles the click event for the saveExercise button
 $(".saveExercise").click(() => {
     $.ajax({
         url: "addExerciseToWorkout", 
@@ -67,7 +61,6 @@ $(".saveExercise").click(() => {
     });
 });
 
-// Populates a table with response data
 const populateTable = (table, response) => {
     if(!table || !Array.isArray(response)) throw new Error('Both table and response are required');
     response.forEach((exercise, i) => {
@@ -76,14 +69,12 @@ const populateTable = (table, response) => {
     });
 }
 
-// Populates a table row with exercise data
 const populateRowWithExerciseData = (row, exercise, i) => {
     populateRowWithMainData(row, exercise);
     populateRowWithInputData(row, exercise, i);
     appendIdInput(row, exercise, i);
 }
 
-// Populates a table row with main exercise data
 const populateRowWithMainData = (row, exercise) => {
     ["imageUrl", "name", "description", "type", "strengthLevel"].forEach((key) => {
         if(exercise.hasOwnProperty(key)) {
@@ -94,7 +85,6 @@ const populateRowWithMainData = (row, exercise) => {
     });
 }
 
-// Populates a table cell with specific key data
 const populateCellWithKeyData = (cell, key, exercise) => {
     if (key === "imageUrl") {
         const img = document.createElement("img");
@@ -112,7 +102,6 @@ const populateCellWithKeyData = (cell, key, exercise) => {
     }
 }
 
-// Populates a table row with input data
 const populateRowWithInputData = (row, exercise, i) => {
     ["sets", "reps", "order"].forEach((key) => {
         const cell = row.insertCell();
@@ -121,7 +110,6 @@ const populateRowWithInputData = (row, exercise, i) => {
     });
 }
 
-// Appends an input to a table cell
 const appendInputToCell = (cell, key, exercise, i) => {
     const input = document.createElement("input");
     input.type = "number";
@@ -132,7 +120,6 @@ const appendInputToCell = (cell, key, exercise, i) => {
     cell.appendChild(input);
 }
 
-// Appends an id input to a table row
 const appendIdInput = (row, exercise, i) => {
     if(exercise.hasOwnProperty('id')) {
         const idInput = document.createElement("input");

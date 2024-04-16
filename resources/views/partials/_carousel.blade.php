@@ -7,8 +7,10 @@
                     <div class="p-3 carouselText">
                         <h5 class="text-white text-uppercase">{{ __('Best Workout Planner') }}</h5>
                         <h1 class="display-2 text-white text-uppercase mb-md-4">{{ __('Make your own workout plan') }}</h1>
+                        @if(!auth()->check())
                         <a href="{{ route('register') }}" class="btn btn-primary py-md-3 px-md-5 me-3 m-2">{{ __('Join Us') }}</a>
-                        <a href="{{ route('workoutPlanner') }}" class="btn btn-light py-md-3 px-md-5 m-2">{{ __('Check out the possibilities') }}</a>
+                    @endif
+                    <a href="{{ route('workoutPlanner') }}" class="btn {{ auth()->check() ? 'btn-primary py-md-3 px-md-5 me-3 m-2' : 'btn-light py-md-3 px-md-5 m-2' }}">{{ __('Check out the possibilities') }}</a>
                     </div>
                 </div>
             </div>
@@ -18,8 +20,10 @@
                     <div class="p-3 carouselText">
                         <h5 class="text-white text-uppercase">{{ __('Best Workout Planner') }}</h5>
                         <h1 class="display-2 text-white text-uppercase mb-md-4">{{ __('Follow the path of your favourite') }}</h1>
-                        <a href="{{ route('register') }}" class="btn btn-primary py-md-3 px-md-5 me-3 m-2 ">{{ __('Join Us') }}</a>
-                        <a href="{{ route('famousWorkouts') }}" class="btn btn-light py-md-3 px-md-5 m-2">{{ __('Check out the possibilities') }}</a>
+                        @if(!auth()->check())
+                            <a href="{{ route('register') }}" class="btn btn-primary py-md-3 px-md-5 me-3 m-2">{{ __('Join Us') }}</a>
+                        @endif
+                        <a href="{{ route('famousWorkouts') }}" class="btn {{ auth()->check() ? 'btn-primary py-md-3 px-md-5 me-3 m-2' : 'btn-light py-md-3 px-md-5 m-2' }}">{{ __('Check out the possibilities') }}</a>
                     </div>
                 </div>
             </div>

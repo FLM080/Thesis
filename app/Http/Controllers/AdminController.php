@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        $deleteRoute = 'deleteUser';
+        $deleteRoute = 'adminDeleteUser';
         $tableId = 'id';
         $columns = collect(DatabaseSchemaService::getColumnNames('users'))->reject(function ($column) {
             return $column === 'password';

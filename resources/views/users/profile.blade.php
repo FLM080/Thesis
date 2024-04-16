@@ -112,8 +112,7 @@
         </div>
         <div class="my-5 container rounded border border-dark bg-dark" id="delete">
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Delete profile') }}</h1>
-                <form method="POST" action="{{ route('deleteUser', [auth()->user()->id]) }}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
-                    @csrf
+            <form method="POST" action="{{ route('deleteUser', [auth()->user()->id]) }}" onsubmit="return confirm('{{ __('Are you sure you want to delete your account? This action cannot be undone.') }}');">                    @csrf
                     @method('DELETE')
                     <div class="form-group w-50 mx-auto">
                         <label for="current_password">{{ __('Current Password') }}</label>

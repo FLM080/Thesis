@@ -68,36 +68,30 @@ class FamousWorkoutController extends Controller
 
     public function store($id)
     {
-
         Request()->validate([
             'workout_id' => 'required|integer',
         ]);
 
         $user = Auth::user();
-
         if ($user->workout) {
             notify()->info('You already have a workout plan.');
             return redirect()->route('famousWorkouts');
         } else {
             $workout = Workout::with('days.exerciseWorkout.exercise')->whereNull('user_id')->find($id);
-
             if ($workout) {
                 $newWorkout = $workout->replicate();
                 $newWorkout->user_id = $user->id;
                 $newWorkout->push();
-
                 foreach ($workout->days as $day) {
                     $newDay = $day->replicate();
                     $newDay->workout_id = $newWorkout->workout_id;
                     $newDay->push();
-
                     foreach ($day->exerciseWorkout as $exerciseWorkout) {
                         $newExerciseWorkout = $exerciseWorkout->replicate();
                         $newExerciseWorkout->workout_day_id = $newDay->workout_day_id;
                         $newExerciseWorkout->push();
                     }
                 }
-
                 notify()->success('Workout plan copied successfully.');
                 return redirect()->route('personalWorkoutPlan');
             } else {

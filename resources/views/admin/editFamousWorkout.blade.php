@@ -1,4 +1,4 @@
-<x-adminlayout>
+<x-adminLayout>
     <div class="container-fluid background">
         @if(!$workout)
         <div class="row m-5 bg-dark">
@@ -112,4 +112,4 @@
         @endif
     </div>
     <script src="{{ asset('js/editWorkoutPlanButton.js') }}"></script>
-</x-adminlayout>
+</x-adminLayout>

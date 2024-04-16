@@ -42,7 +42,7 @@
                                 <label for="description">{{ __('Description') }}</label>
                                 <textarea class="form-control mb-3" id="description" name="workout_description" rows="3"
                                     placeholder="{{ __('Enter description') }}">{{ old('workout_description') }}</textarea>
-                                @error('description')
+                                @error('workout_description')
                                 <?php notify()->error(__($message)) ?>
                                 @enderror
                             </div>
