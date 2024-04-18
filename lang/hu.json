@@ -205,7 +205,23 @@
     "Both": "Mindkettő",
     "Manage Your Workout": "Edzésed kezelése",
     "you don't have workout days yet": "Még nincsenek edzés napjaid",
-    "Are you sure you want to delete your account? This action cannot be undone.": "Biztosan törölni szeretné a fiókját? Ez a művelet nem vonható vissza."
-     
-    
+    "Are you sure you want to delete your account? This action cannot be undone.": "Biztosan törölni szeretné a fiókját? Ez a művelet nem vonható vissza.",
+    "Workout Day name": "Edzés nap neve",
+    "Workout Day Image (Optional)": "Edzés nap képe (opcionális)",
+    "`s workout plan": " edzés terv",
+    "Go Back": "Vissza",
+    "Choose Path": "Út kiválasztása",
+    "You already have a workout plan.": "Már van edzés terved.",
+    "Workout plan copied successfully.": "Edzés terv sikeresen másolva.",
+    "Workout plan not found.": "Edzés terv nem található.",
+    "Current Password": "Jelenlegi jelszó",
+    "Delete Account": "Fiók törlése",
+    "Day Image (Optional)": "Nap képe (opcionális)",
+    "update Muscle Group": "Izomcsoport frissítése",
+    "Add workout plan": "Edzés terv hozzáadása",
+    "update Exercise": "Gyakorlat frissítése",
+    "update User": "Felhasználó frissítése",
+    "User Name": "Felhasználó név",
+    "Admin Status": "Admin státusz"
+
 }

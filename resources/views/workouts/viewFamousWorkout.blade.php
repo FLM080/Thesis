@@ -17,13 +17,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <p class="text-white"><strong>{{ __('Name of the workout plan:') }}</strong> {{ $workout->workout_name }}</p>
-                                <p class="text-white"><strong>{{ __('Exercise types:') }}</strong> {{ $workout->workout_type }}</p>
-                                <p class="text-white"><strong>{{ __('Required strength level for the workout:') }}</strong> {{ $workout->workout_strength_level }}</p>
+                                <p class="text-white"><strong>{{ __('Exercise types:') }}</strong> {{ __($workout->workout_type) }}</p>
+                                <p class="text-white"><strong>{{ __('Required strength level:') }}</strong> {{ __($workout->workout_strength_level) }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p class="text-white"><strong>{{ __('Goal of the plan:') }}</strong> {{ $workout->workout_goal }}</p>
+                                <p class="text-white"><strong>{{ __('Goal of the plan:') }}</strong> {{ __($workout->workout_goal) }}</p>
                                 <p class="text-white"><strong>{{ __('Days:') }}</strong> {{ $workout->workout_days }}</p>
-                                <p class="text-white"><strong>{{ __('Recommended Gender:') }}</strong> {{ $workout->workout_gender }}</p>
+                                <p class="text-white"><strong>{{ __('Recommended Gender:') }}</strong> {{ __($workout->workout_gender) }}</p>
                             </div>
                         </div>
                         <div class="row workoutDescription">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 p-5 d-flex justify-content-center align-items-center workoutEdit">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#mainToggleDiv">More</button>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#mainToggleDiv">{{ __('More') }}</button>
                     </div>
                     <div id="mainToggleDiv" class="collapse row m-5 p-3 justify-content-center align-items-center userWorkoutDays flex-wrap">
                         @if($days->isEmpty())
@@ -43,14 +43,14 @@
                         <div class="workoutDays  p-3" id="dayDiv{{ $day->workout_day_id }}">
                             <div class="row d-flex justify-content-center align-items-center">
                                 <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
-                                    <img src="{{ asset($day->daysImagePath) }}" alt="Day Image" class="personalImg">
+                                    <img src="{{ asset($day->daysImagePath) }}" alt="{{ __('Day Image') }}" class="personalImg">
                                 </div>
                                 <div class="col-md-3 h-75">
                                     <p class="text-white"><strong>{{ __('Workout Days Name:') }}</strong> {{ $day->workout_day_name }}</p>
-                                    <p class="text-white"><strong>{{ __('Day:') }}</strong> {{ $day->workout_day }}</p>
+                                    <p class="text-white"><strong>{{ __('Day:') }}</strong> {{ __($day->workout_day) }}</p>
                                 </div>
                                 <div class="col-md-2 p-3 d-flex justify-content-center align-items-center">
-                                    <button class="toggleButton btn btn-primary" data-bs-toggle="collapse" data-bs-target="#toggleDiv{{ $day->workout_day_id }}">More</button>
+                                    <button class="toggleButton btn btn-primary" data-bs-toggle="collapse" data-bs-target="#toggleDiv{{ $day->workout_day_id }}">{{ __('More') }}</button>
                                 </div>
                             </div>
                             <div id="toggleDiv{{ $day->workout_day_id }}" class="collapse row justify-content-center align-items-center flex-wrap userWorkoutExercises">
@@ -60,14 +60,14 @@
                                 @endif
                                 <div class="row p-3 d-flex justify-content-center align-items-center workoutDayExercises">
                                     <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset($exercise->exerciseImagePath) }}" alt="Exercise Image" class="personalImg ">
+                                        <img src="{{ asset($exercise->exerciseImagePath) }}" alt="{{ __('Exercise Image') }}" class="personalImg ">
                                     </div>
                                     <div class="col-md-5 p-0 h-75">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p class="text-white"><strong>{{ __('Exercise Name:') }}</strong> {{ $exercise->exerciseName }}</p>
-                                                <p class="text-white"><strong>{{ __('Exercise Equipment type:') }}</strong> {{ $exercise->exerciseType }}</p>
-                                                <p class="text-white "><strong>{{ __('Exercise Difficulty:') }}</strong> {{ $exercise->exerciseDifficulty }}</p>
+                                                <p class="text-white"><strong>{{ __('Exercise Name:') }}</strong> {{ __($exercise->exerciseName) }}</p>
+                                                <p class="text-white"><strong>{{ __('Exercise Equipment type:') }}</strong> {{ __($exercise->exerciseType) }}</p>
+                                                <p class="text-white "><strong>{{ __('Exercise Difficulty:') }}</strong> {{ __($exercise->exerciseDifficulty) }}</p>
                                             </div>
                                             <div class="col-md-6">
                                                 <p class="text-white"><strong>{{ __('Order:') }}</strong> {{ $exercise->exercise_workout_order }}</p>

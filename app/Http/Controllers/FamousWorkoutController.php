@@ -74,7 +74,7 @@ class FamousWorkoutController extends Controller
 
         $user = Auth::user();
         if ($user->workout) {
-            notify()->info('You already have a workout plan.');
+            notify()->info(__('You already have a workout plan.'));
             return redirect()->route('famousWorkouts');
         } else {
             $workout = Workout::with('days.exerciseWorkout.exercise')->whereNull('user_id')->find($id);
@@ -92,10 +92,10 @@ class FamousWorkoutController extends Controller
                         $newExerciseWorkout->push();
                     }
                 }
-                notify()->success('Workout plan copied successfully.');
+                notify()->success(__('Workout plan copied successfully.'));
                 return redirect()->route('personalWorkoutPlan');
             } else {
-                notify()->error('Workout plan not found.');
+                notify()->error(__('Workout plan not found.'));
                 return redirect()->route('famousWorkouts');
             }
         }

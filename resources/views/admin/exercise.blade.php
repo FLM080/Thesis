@@ -3,7 +3,7 @@
         <div class="container my-5 rounded border border-dark bg-dark">
             <h1 class="text-white m-3 text-uppercase mb-0">{{ __('Add Exercise') }}</h1>
             @if ($errors->any())
-                <?php notify()->error($errors->first()) ?>
+                <?php notify()->error(__($errors->first())) ?>
             @endif
             <form method="POST" action="{{ route('addExercise') }}" enctype="multipart/form-data">
                 @csrf
@@ -20,7 +20,7 @@
                         <select class="form-control mb-3" id="muscle_group_id" name="muscle_group_id">
                             @foreach ($muscleGroups as $muscleGroup)
                             <option value="{{ $muscleGroup->muscle_group_id }}" {{ old('muscle_group_id') == $muscleGroup->muscle_group_id ? 'selected' : '' }}>
-                                {{ $muscleGroup->muscle_group_name }}
+                                {{ __($muscleGroup->muscle_group_name) }}
                             </option>
                             @endforeach
                         </select>
@@ -41,7 +41,7 @@
                         <select class="form-control mb-3" id="exercise_type" name="exercise_type">
                             @foreach ($exerciseTypes as $type)
                             <option value="{{ $type }}" {{ old('exercise_type') == $type ? 'selected' : '' }}>
-                                {{ $type }}
+                                {{ __($type) }}
                             </option>
                             @endforeach
                         </select>
@@ -53,7 +53,7 @@
                         <select class="form-control mb-3" id="difficulty" name="exercise_strength_level">
                             @foreach ($exerciseDifficulty as $difficulty)
                             <option value="{{ $difficulty }}" {{ old('exercise_strength_level') == $difficulty ? 'selected' : '' }}>
-                                {{ $difficulty }}
+                                {{ __($difficulty) }}
                             </option>
                             @endforeach
                         </select>
@@ -65,7 +65,7 @@
                         <select class="form-control mb-3" id="goal" name="exercise_goal">
                             @foreach ($exerciseGoal as $goal)
                             <option value="{{ $goal }}" {{ old('exercise_goal') == $goal ? 'selected' : '' }}>
-                                {{ $goal }}
+                                {{ __($goal) }}
                             </option>
                             @endforeach
                         </select>

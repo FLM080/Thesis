@@ -10,5 +10,4 @@ function submitFormOnClick() {
     });
 }
 
-
 submitFormOnClick();

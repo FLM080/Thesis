@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 @include('components.head')
-
-
-
 <body>
-
-    <!-- Header Start -->
     <div class="container-fluid bg-dark px-0">
         <div class="row gx-0">
             <div class="col-lg-3 bg-dark d-none d-lg-block">
@@ -86,7 +80,6 @@
                                     role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ auth()->user()->name }}
                                 </a>
-
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
                                         <a class="dropdown-item" href="{{ route('profile') }}">{{ __('Profile') }}</a>
@@ -117,11 +110,8 @@
             @endauth
         </div>
     </div>
-    <!-- Header End -->
-
-    <!-- output-->
+    
     {{ $slot }}
-
     @include('components.footer')
     <script src="{{ asset('js/modal.js') }}"></script>
     <script src="{{ asset('js/search.js') }}"></script>

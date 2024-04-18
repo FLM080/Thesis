@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 @include('components.head')
-
     <body>
         <div class="container-fluid bg-dark px-0">
             <div class="row gx-0">

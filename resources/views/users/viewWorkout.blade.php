@@ -5,7 +5,7 @@
             <h1 class="text-white m-3 text-uppercase ">{{ __('you don`t have a workout plan yet') }}</h1>
             <div class="justify-content-center d-flex my-5">
                 <a href="{{ route('workoutPlanner') }}" type="button" class="btn btn-primary m-3 w-50">
-                    {{__('Make a workout plan')}}
+                    {{ __('Make a workout plan') }}
                 </a>
             </div>
         </div>
@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-6">
                                 <p class="text-white"><strong>{{ __('Goal of the plan:') }}</strong> {{ __($workout->workout_goal) }}</p>
-                                <p class="text-white"><strong>{{ __('Days:') }}</strong> {{ $workout->workout_days }}</p>
+                                <p class="text-white"><strong>{{ __('Days:') }}</strong> {{ __($workout->workout_days) }}</p>
                                 <p class="text-white"><strong>{{ __('Recommended Gender:') }}</strong> {{ __($workout->workout_gender) }}</p>
                             </div>
                         </div>
@@ -51,11 +51,11 @@
                         <div class="workoutDays  p-3" id="dayDiv{{ $day->workout_day_id }}">
                             <div class="row d-flex justify-content-center align-items-center">
                                 <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
-                                    <img src="{{ asset($day->daysImagePath) }}" alt="Day Image" class="personalImg">
+                                    <img src="{{ asset($day->daysImagePath) }}" alt="{{ __('Day Image') }}" class="personalImg">
                                 </div>
                                 <div class="col-md-3 h-75">
                                     <p class="text-white"><strong>{{ __('Workout Days Name:') }}</strong> {{ __($day->workout_day_name) }}</p>
-                                    <p class="text-white"><strong>{{ __('Day:') }}</strong> {{ $day->workout_day }}</p>
+                                    <p class="text-white"><strong>{{ __('Day:') }}</strong> {{ __($day->workout_day) }}</p>
                                 </div>
                                 <div class="col-md-2 d-flex justify-content-center align-items-center">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateDayModal{{ $day->workout_day_id }}">{{ __('edit') }}</button>
@@ -71,19 +71,19 @@
                                 @foreach($day->exerciseWorkout->sortBy('order') as $exercise)
                                 <div class="row p-3 d-flex justify-content-center align-items-center workoutDayExercises">
                                     <div class="col-md-3 p-0 m-0 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset($exercise->exerciseImagePath) }}" alt="Exercise Image" class="personalImg ">
+                                        <img src="{{ asset($exercise->exerciseImagePath) }}" alt="{{ __('Exercise Image') }}" class="personalImg ">
                                     </div>
                                     <div class="col-md-5 p-0 h-75">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <p class="text-white"><strong>{{ __('Exercise Name:') }}</strong> {{ __($exercise->exerciseName) }}</p>
-                                                <p class="text-white"><strong>{{ __('Exercise Equipment type:') }}</strong> {{ $exercise->exerciseType }}</p>
-                                                <p class="text-white "><strong>{{ __('Exercise Difficulty:') }}</strong> {{ $exercise->exerciseDifficulty }}</p>
+                                                <p class="text-white"><strong>{{ __('Exercise Equipment type:') }}</strong> {{ __($exercise->exerciseType) }}</p>
+                                                <p class="text-white "><strong>{{ __('Exercise Difficulty:') }}</strong> {{ __($exercise->exerciseDifficulty) }}</p>
                                             </div>
                                             <div class="col-md-6">
-                                                <p class="text-white"><strong>{{ __('Order:') }}</strong> {{ $exercise->exercise_workout_order }}</p>
-                                                <p class="text-white"><strong>{{ __('Exercise Sets:') }}</strong> {{ $exercise->exercise_workout_sets }}</p>
-                                                <p class="text-white"><strong>{{ __('Exercise Reps:') }}</strong> {{ $exercise->exercise_workout_reps }}</p>
+                                                <p class="text-white"><strong>{{ __('Order:') }}</strong> {{ __($exercise->exercise_workout_order) }}</p>
+                                                <p class="text-white"><strong>{{ __('Exercise Sets:') }}</strong> {{ __($exercise->exercise_workout_sets) }}</p>
+                                                <p class="text-white"><strong>{{ __('Exercise Reps:') }}</strong> {{ __($exercise->exercise_workout_reps) }}</p>
                                             </div>
                                         </div>
                                         <div class="row">
