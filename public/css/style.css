@@ -522,6 +522,9 @@ div.col-md-4.my-5 {
     border-radius: 15px;
     transition: opacity 0.4s ease;
 }
+.exerciseCards img {
+    object-fit: fill;
+}
 
 .card .info {
     position: relative;

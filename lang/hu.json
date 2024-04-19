@@ -222,6 +222,10 @@
     "update Exercise": "Gyakorlat frissítése",
     "update User": "Felhasználó frissítése",
     "User Name": "Felhasználó név",
-    "Admin Status": "Admin státusz"
+    "Admin Status": "Admin státusz",
+    "User deleted successfully": "Felhasználó sikeresen törölve",
+    "You cannot delete yourself": "Nem törölheti magát",
+    "User could not be deleted": "A felhasználót nem sikerült törölni"
+
 
 }

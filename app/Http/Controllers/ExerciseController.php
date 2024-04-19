@@ -124,6 +124,7 @@ class ExerciseController extends Controller
             'exercise_goal' => 'required|in:' . implode(',', DatabaseSchemaService::getColumnEnums('exercise', 'exercise_goal')),
             'image' => 'image|mimes:' . implode(',', $extensions) . '',
         ]);
+        
 
         $exercise->muscle_group_id = $request->muscle_group_id;
         $exercise->exercise_name = $request->exercise_name;

@@ -103,7 +103,7 @@
                 <h2 class="text-white m-3 text-uppercase ">{{ __('available exercises') }}</h2>
                 <div class="wrapper-right bg-dark">
                     @foreach($items as $item)
-                    <div class="card" id="card-{{ $item->exercise_id }}" onclick="moveCard(this)">
+                    <div class="card exerciseCards" id="card-{{ $item->exercise_id }}" onclick="moveCard(this)">
                         <img src="{{ asset($item->imagePath) }}" alt="{{ __('Exercise Image') }}">
                         <div class="info">
                             <h4 class="text-white">{{ $item->exercise_name }}</h4>
